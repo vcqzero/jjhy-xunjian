@@ -235,8 +235,8 @@ return [
             Service\ShiftManager::class   => Service\Factory\ShiftManagerFactory::class,
             Service\ShiftTypeManager::class   => Service\Factory\ShiftTypeManagerFactory::class,
             Service\ShiftGuardManager::class   => Service\Factory\ShiftGuardManagerFactory::class,
-            Service\ShiftGuardTimeManager::class   => Service\Factory\ShiftGuardTimeManagerFactory::class,
-            Service\ShiftGuardTimePointManager::class   => Service\Factory\ShiftGuardTimePointManagerFactory::class,
+            Service\ShiftTimeManager::class   => Service\Factory\ShiftTimeManagerFactory::class,
+            Service\ShiftTimePointManager::class   => Service\Factory\ShiftTimePointManagerFactory::class,
         ],
         
         'shared' => [
@@ -254,6 +254,8 @@ return [
             View\Helper\PointHelper::class => View\Helper\Factory\PointHelperFactory::class,
             View\Helper\ShiftHelper::class => View\Helper\Factory\ShiftHelperFactory::class,
             View\Helper\ShiftTypeHelper::class => View\Helper\Factory\ShiftTypeHelperFactory::class,
+            View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
+            View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
         ],
         
         'aliases' => [
@@ -261,8 +263,10 @@ return [
             'Website'   => View\Helper\WebsiteHelper::class,
             'Workyard'  => View\Helper\WorkyardHelper::class,
             'Point'     => View\Helper\PointHelper::class,
-            'Shift'     => View\Helper\ShiftHelper::class,
-            'ShiftType' => View\Helper\ShiftTypeHelper::class,
+            'Shift'             => View\Helper\ShiftHelper::class,
+            'ShiftType'         => View\Helper\ShiftTypeHelper::class,
+            'ShiftTime'         => View\Helper\ShiftTimeHelper::class,
+            'ShiftTimePoint'    => View\Helper\ShiftTimePointHelper::class,
         ],
     ],
     

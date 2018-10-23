@@ -1,5 +1,4 @@
 <?php
-
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $UserEntity = $this->User()->getEntityByIdentity($identity);
@@ -13,56 +12,96 @@ $shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
 <?php if(count($shifts)):?>
 	<?php foreach ($shifts as $shift):?>
 		<?php
+		$shift_id = $shift->getId();
         $note = $shift->getNote();
-        $times = $shift->getTimes();
+        $times = (int)$shift->getTimes();
+        $times = (int)$times;
         $shift_type_name = $shift->getShift_type_name();
         $start_time = $shift->getStart_time();
         $end_time = $shift->getEnd_time();
         
-        $canGuard = $start_time < time() && $end_time > time();
+        //判断该巡检任务是否已完成
+        //当前时间在巡检时间内
+        $is_within_time = $start_time < time() && $end_time > time();
+        //已过巡检时间
+        $is_beyond_time = $end_time <= time();
+        //未到巡检时间
+        $is_before_time = $start_time >= time();
         
+        //当前shift已完成巡检次数
+        $max_count = $this->ShiftTime()->getMaxDoneCount($shift_id);
+        //是否完成巡检
+        $is_done = $max_count == $times;
+        //当前应该执行的巡检次数
+        $next_count = $is_done ? null : $max_count + 1;
+        //下一次巡检是否已开始
         ?>
 		<div class="weui-form-preview">
-		<div class="weui-form-preview__hd">
-			<label class="weui-form-preview__label">班次</label> <em
-				class="weui-form-preview__value"><?=$shift_type_name?></em>
+    		<div class="weui-form-preview__hd">
+    			<label class="weui-form-preview__label">班次</label> <em
+    				class="weui-form-preview__value"><?=$shift_type_name?></em>
+    		</div>
+    		<div class="weui-form-preview__bd">
+    			<div class="weui-form-preview__item">
+    				<label class="weui-form-preview__label">开始时间</label> <span
+    					class="weui-form-preview__value"><?=date('Y-m-d H:i', $start_time)?></span>
+    			</div>
+    			<div class="weui-form-preview__item">
+    				<label class="weui-form-preview__label">结束时间</label> <span
+    					class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
+    			</div>
+    			<div class="weui-form-preview__item">
+    				<label class="weui-form-preview__label">已巡检/总次数</label> <span
+    					class="weui-form-preview__value"><?=$max_count?>/<?=$times?></span>
+    			</div>
+    			<div class="weui-form-preview__item">
+    				<label class="weui-form-preview__label">任务描述</label> <span
+    					class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
+    			</div>
+    			<div class="weui-form-preview__item">
+    				<label class="weui-form-preview__label">状态</label> <span
+    					class="weui-form-preview__value"><?=$is_done ? '已完成' : '未完成'?></span>
+    			</div>
+    		</div>
+    		<!-- 正在巡检时间内 -->
+    		<?php if($is_within_time):?>
+    		<div class="weui-form-preview__ft">
+    			<a class="weui-form-preview__btn weui-form-preview__btn_default"
+    				href="javascript:">巡检记录</a>
+    			<button type="submit"
+    				class="weui-form-preview__btn weui-form-preview__btn_primary"
+    				href="javascript:">操作</button>
+    		</div>
+    		<?php endif;?>
+    		
+    		<!-- 已过巡检时间 -->
+    		<?php if($is_beyond_time):?>
+    		<div class="weui-form-preview__ft">
+    			<a class="weui-form-preview__btn weui-form-preview__btn_default"
+    				href="javascript:">巡检记录</a>
+    			<button type="button"
+    				class="weui-form-preview__btn weui-form-preview__btn_default weui-btn_disabled">已结束</button>
+    		</div>
+    		<?php endif;?>
+    		
+    		<!-- 巡检未开始 -->
+    		<?php if($is_before_time):?>
+    		<div class="weui-form-preview__ft">
+        		<a class="weui-form-preview__btn weui-form-preview__btn_default"
+        				href="javascript:">巡检点</a>
+    			<button type="button"
+    				class="weui-form-preview__btn weui-form-preview__btn_default weui-btn_disabled"><?=date('H:i', $start_time)?> 开始巡检</button>
+    		</div>
+    		<?php endif;?>
 		</div>
-		<div class="weui-form-preview__bd">
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">开始时间</label> <span
-					class="weui-form-preview__value"><?=date('Y-m-d H:i', $start_time)?></span>
-			</div>
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">结束时间</label> <span
-					class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
-			</div>
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">巡检次数</label> <span
-					class="weui-form-preview__value"><?=$times?></span>
-			</div>
-			<div class="weui-form-preview__item">
-				<label class="weui-form-preview__label">任务描述</label> <span
-					class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
-			</div>
-		</div>
-		<?php if($canGuard):?>
-		<div class="weui-form-preview__ft">
-			<a class="weui-form-preview__btn weui-form-preview__btn_default"
-				href="javascript:">辅助操作</a>
-			<button type="submit"
-				class="weui-form-preview__btn weui-form-preview__btn_primary"
-				href="javascript:">操作</button>
-		</div>
-		<?php endif;?>
-	</div>
-	<br>
+		<br>
 		<?php endforeach;?>
 		
-<?php else :?>
-<div class="weui-panel__bd">
-		<div class="weui-media-box weui-media-box_text">
-			<h4 class="weui-media-box__title">今日无值班安排！</h4>
-		</div>
-	</div>
-<?php endif;?>
+    <?php else :?>
+    <div class="weui-panel__bd">
+    		<div class="weui-media-box weui-media-box_text">
+    			<h4 class="weui-media-box__title">今日无值班安排！</h4>
+    		</div>
+    	</div>
+    <?php endif;?>
 </div>

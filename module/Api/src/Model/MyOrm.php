@@ -332,13 +332,17 @@ final class MyOrm
      * @param int||Where $id or Where 数据表名称 默认 null
      * @return the Instance of table
      */
-    public function findOne($id_or_where)
+    public function findOne($id_or_where, array $order=null)
     {
         //get where
         $where = $this->createWhere($id_or_where);
         $Select = new Select();
         $Select ->limit(1);
         $Select ->where($where);
+        if ($order)
+        {
+            $Select->order($order);
+        }
         $resultSet = $this->doQuery($Select);
         if ($resultSet === false || $resultSet->count() === 0)
         {
