@@ -1,0 +1,29 @@
+<?php
+$form_id    = $this->form_id;
+$action     = $this->action;
+$formContent= $this->formContent;
+
+/* <?=$this->partial('partial/admin/form/form/form.phtml', [
+    'action'        => '',
+    'form_id'       => '',
+    'formContent'   => '',
+	])?> */
+?>
+
+<form 
+    class="form-ajax-submit form-horizontal form-label-left"
+    id = "<?=$form_id?>"
+    action="<?=$action?>"
+    method="post"
+    >
+    <div class="weui-cells ">
+    <?=$formContent?>
+    </div>
+    
+    	<div class="form-group">
+    		<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+    			<button class="btn btn-primary" type="reset">重置</button>
+    			<button type="submit" class="btn btn-success">提交保存</button>
+    		</div>
+    	</div>
+</form>

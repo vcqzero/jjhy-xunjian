@@ -1,0 +1,32 @@
+<?php 
+$record = $this->Website()->getRecord();
+$title  = $this->Website()->getTitle();
+?>
+<?php $this->placeholder('formContent')->captureStart();?>
+
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '网站标题：',
+    'name'      => 'website_title',
+    'value'     => $title,
+    'placeholder' => '请输入网站标题',
+ ])?>
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '版权及备案：',
+    'name'      => 'website_record',
+    'value'     => $record,
+    'placeholder' => '请输入备案和版权信息',
+ ])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/form-page.phtml', 
+    [
+        'pageName' => 'WebsiteBasicPage',
+        'pageTitle' => '基本信息',
+        'form_id'=>'form-edit-website',
+        'action'=>'/api/website/editBasic',
+        'withBack' => false,
+        'formContent' => $this->placeholder('formContent')
+ ])?> 

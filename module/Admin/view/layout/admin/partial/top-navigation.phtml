@@ -1,0 +1,44 @@
+<?php 
+$username = $this->identity();
+?>
+<div class="top_nav">
+  <div class="nav_menu">
+    <nav>
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+        <!-- 头像信息 -->
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <?php ?>
+            <img src="/images/user_avatar.png" alt="Profile Image" />
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <!-- /头像信息 -->
+          
+          <!-- 下列菜单 -->
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+<!--             <li><a href="javascript:;">账户中心</a></li> -->
+            <li><a href="/api/auth/logout"><i class="fa fa-sign-out pull-right"></i> 安全退出</a></li>
+          </ul>
+        </li>
+        <!-- /下列菜单 -->
+		
+        <!-- 个人信箱 -->
+<!--         <li role="presentation" class="dropdown"> -->
+<!--             <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> -->
+<!--             	<i class="fa fa-envelope-o"></i> -->
+<!--             	<span class="badge bg-green">1</span> -->
+<!--             </a> -->
+<!--             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu"> -->
+<!--             	<li> -->
+<!-- 				</li> -->
+<!--             </ul> -->
+<!--         </li> -->
+        <!-- /个人信箱 -->
+      </ul>
+    </nav>
+  </div>
+</div>

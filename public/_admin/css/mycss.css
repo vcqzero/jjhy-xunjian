@@ -1,0 +1,251 @@
+.form-inline .form-group {
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+
+/*定义 表格内容超过边界时*/
+
+.no_overflow {
+	overflow: visible !important;
+}
+
+.form-control-feedback {
+	margin-top: 5px;
+}
+
+
+/*
+ * 操作反馈
+ * 固定在窗口中上部
+ */
+
+.notifications {
+	position: fixed;
+	z-index: 10000;
+	top: 50px;
+	left: 50%;
+	margin-left: -25px;
+}
+
+select.form-control+i.form-control-feedback {
+	margin-right: 15px;
+}
+
+.btn-group {
+	margin-bottom: 15px;
+}
+
+.nav-tabs li.bv-tab-error>a,
+.nav-tabs li.bv-tab-success>a {
+	color: #555 !important;
+}
+
+div.img-preview.mg-circle {
+	border-radius: 50%;
+}
+
+
+/*form.form-inline.bv-form small.help-block{
+	margin-left: 55px;
+}*/
+
+form.form-inline.bv-form.margin-left-80 small.help-block {
+	margin-left: 80px;
+}
+
+
+/* 定义登录表单样式 */
+
+#login_form div.form-group.has-feedback.has-error input {
+	margin-bottom: 0px !important;
+}
+
+#login_form div.form-group.has-feedback.has-error small {
+	text-align: left !important;
+}
+
+
+/* logo page*/
+
+.login_content {
+	padding: 0 !important;
+}
+
+.login_content .has-error {
+	text-align: left !important;
+}
+
+.login_content .has-error input {
+	margin: 0 !important;
+}
+
+div.form-group img.upload {
+	width: 100%;
+}
+
+.btn_title {
+	float: right;
+}
+
+.image-selected:hover {
+	cursor: pointer;
+}
+
+.image-selected {
+	opacity: 0;
+	/*background: #169F85 !important;*/
+	background-color: rgba(0, 0, 0, .5);
+	transition: all .4s ease-in-out;
+	position: absolute;
+	width: 100%;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+}
+
+.image-selected div {
+	/*background: #169F85 !important;*/
+	margin: 90px 0 0 !important;
+	transform: translateY(0px) !important;
+	opacity: 1 !important;
+}
+
+
+/**
+ * 表单中的img宽度以父级div决定
+ */
+
+form div img {
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
+
+
+/*控制导航栏中的图标*/
+
+ul .glyphicon {
+	width: 26px;
+}
+
+
+/*表格中的按钮样式*/
+
+table div.btn-group {
+	margin-bottom: 0;
+}
+
+.x_button_group {
+	padding: 0 5px 6px;
+	float: left;
+	clear: both;
+	margin-top: 5px;
+}
+
+
+/* 关于表单认证部分  start*/
+
+i.form-control-feedback {
+	margin-top: 4px !important;
+}
+
+
+/* 关于表单认证部分 end */
+
+
+/****关于表格table start*/
+
+table td {
+	vertical-align: middle !important;
+}
+
+
+/****关于表格table end*/
+
+
+/*关于alert start*/
+
+.my-alert {
+	margin: auto;
+	position: fixed;
+	top: 12%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	max-width: 200px;
+	z-index: 9999 !important;
+}
+
+
+/*关于alert end*/
+
+
+/*search table*/
+
+.qin-search-form label {
+	width: auto !important;
+	margin-top: 8px;
+	padding-right: 0px !important;
+}
+
+.qin-search-form div {
+	padding-left: 0px !important;
+}
+
+
+/*关于alert end*/
+
+
+/* 竖排tab */
+
+.my-nav-tab {
+	min-width: 50px;
+	overflow: auto;
+	max-height: 600px !important;
+}
+
+
+/* 竖排tab */
+
+
+/* .thumbnail .caption */
+
+.caption {
+	background: white !important;
+}
+
+.caption .edit {
+	margin-top: 10px;
+}
+
+.caption .edit a {
+	margin-right: 6px;
+}
+
+
+.input-card {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border-radius: .25rem;
+	width: 100px;
+	border-width: 0;
+	border-radius: 0.4rem;
+	box-shadow: 0 2px 6px 0 rgba(114, 124, 245, .5);
+	position: absolute;
+	/*top: -100px;*/
+	left: 80%;
+	bottom: 1rem;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	z-index: 400;
+	padding: 1.25rem 1.25rem;
+}
+
+/*404 500 no permission 页面*/
+body.error{
+	background-color: #F7F7F7;
+}

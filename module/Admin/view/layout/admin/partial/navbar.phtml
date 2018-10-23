@@ -1,0 +1,27 @@
+<?php 
+$identity = $this->identity();
+$Entity   = $this->User()->getEntityByIdentity($identity);
+
+$role     = $Entity->getRole();
+$narbars  = $this->Navbar()->getNavbar($role);
+?>
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+	<?php foreach ($narbars as $sectionName=>$sectionMenus):?>
+        <div class="menu_section">
+        	<h3><?=$sectionName?></h3>
+        	<?php foreach ($sectionMenus as $menuName=>$menus):?>
+        	<ul class="nav side-menu">
+              <li><a><i class="<?=$menus['icon']?>"></i><?=$menuName?> <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                	<?php foreach ($menus['menus'] as $key=>$menu):?>
+                	<?php if ($key > 0) :?>
+                		<li><a href="<?=$menu['url']?>"><?=$menu['title']?></a></li>
+            		<?php endif;?>
+                	<?php endforeach;?>
+                </ul>
+              </li>
+            </ul>
+            <?php endforeach;?>
+        </div>
+	<?php endforeach;?>
+</div>

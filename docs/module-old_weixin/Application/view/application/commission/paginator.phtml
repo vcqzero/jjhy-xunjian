@@ -1,0 +1,42 @@
+<!-- paginator -->
+<?php foreach ($this->paginator as $item){?>
+<div class="weui-form-preview">
+	<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">月度佣金</label> <em
+				class="weui-form-preview__value status"><?=$item['commission_this_time']?></em>
+		</div>
+	</div>
+	<div class="weui-form-preview__bd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">统计时间段</label> <span
+				class="weui-form-preview__value"><?=date('Y-m-d', $item['start_day'])?>~<?=date('Y-m-d', $item['end_day'])?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">业绩总金额</label> <span
+				class="weui-form-preview__value"><?=$item['manual_settle_order_amount'] + $item['auto_settle_order_amount']?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">佣金比例</label> <span
+				class="weui-form-preview__value"><?=$item['percent']?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">业绩总奖金</label> <span
+				class="weui-form-preview__value"><?=$item['commission_history_all_this_time']?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">已发奖金总额</label> <span
+				class="weui-form-preview__value"><?=$item['commisson_history_all_last_time']?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">本次应发奖金</label> <span
+				class="weui-form-preview__value"><?=$item['commission_this_time']?></span>
+		</div>
+	</div>
+</div>
+<br />
+<?php }?>
+<!-- 分页导航-->
+<?= $this->paginationControl($this->paginator);?>
+<!-- /分页导航 -->
+<!-- /paginator -->

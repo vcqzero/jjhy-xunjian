@@ -1,0 +1,88 @@
+<?php $this->headTitle('消费积分');?>
+<div class="page__head">
+	<!-- points all -->
+    <?=$this->partial('application/point/points-total.phtml', ['amount' => $this->user()->getAmountOfUser()])?>
+    <!-- /points all -->
+	<!-- sabvar -->
+    <?=$this->partial('application/partial/navbar-point-top.phtml')?>
+    <!-- /sabvar -->
+</div>
+
+<div class="page__bd">
+	<form action="" id="form_withdraw">
+		<div class="weui-cells__title">
+        	最低提现金额：<?=number_format($this->config['cash_withdraw']['the_lowest_cash'], 2)?>元
+    	</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">提现金额</label>
+				</div>
+				<div class="weui-cell__bd">
+				<?php if($this->button['status'] == \Application\Service\WithdrawManager::BUTTON_ENABLE) {?>
+					<input class="weui-input"  placeholder="请输入提现金额" type="text" name="cashback">
+				<?php }else {?>
+					<input class="weui-input"  placeholder="请输入提现金额" type="text" disabled="disabled" >
+				<?php }?>
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells__tips">
+			手续费：<span class="test_warn" id="span_rate">0.00</span>元
+		</div>
+
+		<!-- 银行卡信息 -->
+		<div class="weui-cells__title">选择银行卡</div>
+		<div class="weui-cells">
+			<a class="weui-cell weui-cell_access" href="/card">
+				<div class="weui-cell__bd">
+					<p>银行卡</p>
+				</div>
+				<div class="weui-cell__ft">
+                <?= empty($this->card['card_no']) ? '未绑定' : $this->card['card_bank_name']?>
+                </div>
+			</a>
+		</div>
+		<!-- /银行卡信息 -->
+
+		<!-- token -->
+		<input type="hidden" name="token" value="<?=$this->token?>">
+		<!-- /token -->
+		<!-- button -->
+		<div class="weui-btn-area">
+        	<?=$this->button['dom']?>
+   	 	</div>
+		<!-- /button -->
+	</form>
+	<!-- 提现说明 -->
+	<div class="weui-media-box weui-media-box_text">
+		<h6 class="weui-media-box__title">提现说明</h6>
+		<p class="weui-media-box__desc">1.每月<?=$this->config['date']['start_day']?>号~<?=$this->config['date']['end_day']?>号可申请提现；</p>
+		<p class="weui-media-box__desc">2.当月<?=$this->config['date']['remit_day_start']?>至月底，财务打款，请注意查收。</p>
+		<p class="weui-media-box__desc">3.提现收取<?=$this->config['service_charge']['rate'] * 100?>%的手续费。</p>
+		<p class="weui-media-box__desc">4.提现额超过<?=$this->config['bank']['the_highest_cash_need_bank_branch']?>元时，需提供银行卡开户行等具体信息。</p>
+	</div>
+	<!-- /提现说明 -->
+</div>
+
+<div class="myhidden config">
+	<input type="hidden" name="rate" value="<?=$this->config['service_charge']['rate']?>">
+	<input type="hidden" name="the_lowest_cash" value="<?=$this->config['cash_withdraw']['the_lowest_cash']?>">
+	<input type="hidden" name="the_highest_cash" value="<?=$this->config['cash_withdraw']['the_highest_cash']?>">
+	<input type="hidden" name="the_highest_cash_need_bank_branch" value="<?=$this->config['bank']['the_highest_cash_need_bank_branch']?>">
+	<input type="hidden" name="card_no" value="<?=$this->escapehtml($this->card['card_no'])?>">
+	<input type="hidden" name="card_bank_area" value="<?=$this->escapehtml($this->card['card_bank_area'])?>">
+	<input type="hidden" name="card_bank_branch_name" value="<?=$this->escapehtml($this->card['card_bank_branch_name'])?>">
+	<input type="hidden" name="menu" value="申请提现">
+</div>
+<!-- toast-->
+<?=$this->partial('partial/admin/feedback/toast.phtml')?>
+<!-- /toast-->
+<?=$this->partial('partial/admin/feedback/dialog.phtml')?>
+<?=$this->partial('application/withdraw/confirm.phtml', ['card'=>$this->card])?>
+<?=$this->partial('partial/admin/js/validate.phtml')?>
+<script type="text/javascript" src="/js/manager/withdraw.js"></script>
+<script type="text/javascript" src="/js/service/Toast.js"></script>

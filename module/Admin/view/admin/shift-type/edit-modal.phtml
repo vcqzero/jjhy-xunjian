@@ -1,0 +1,50 @@
+<?php 
+$typeID     = $this->typeID;
+$Entity     = $this->ShiftType()->getEntity($typeID);
+$name       = $Entity->getName();
+$start_time = $Entity->getStart_time();
+$end_time   = $Entity->getEnd_time();
+
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+?>
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '名称：',
+	    'name' => 'name',
+	    'value' => $name,
+	    'placeholder' => '请输入名称',
+	    'type' => 'text'
+	])?>
+	<input name="old_name" type="hidden" value="<?=$name?>">
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '开始时间：',
+	    'name' => 'start_time',
+	    'placeholder' => '请输入开始时间',
+	    'type' => 'text',
+	    'value'=>$start_time,
+	    'class' => 'timepicker',
+	])?>
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+    'name'  => 'workyard_id',
+    'value' => $workyard_id,
+	])?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '开始时间：',
+	    'name' => 'end_time',
+	    'placeholder' => '请输入开始时间',
+	    'type' => 'text',
+	    'value'=> $end_time,
+	    'class' => 'timepicker',
+	])?>
+    
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName' => 'ShiftTypeEditModal',
+    'pageTitle' => '编辑',
+    'modalSize'     => 'lg',
+    'form_id'=>'form-edit',
+    'action'=>'/api/shiftType/edit/' . $typeID,
+    'formContent' => $this->placeholder('formContent'),
+])?>

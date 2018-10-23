@@ -1,0 +1,25 @@
+<?php 
+use Api\Entity\UserEntity;
+use Api\Service\UserManager;
+
+$where = [
+    UserEntity::FILED_ROLE => UserManager::ROLE_WORKYARD_ADMIN
+];
+$userCount = $this->User()->count($where);
+
+$workyardCount = $this->Workyard()->count();
+?>
+<div class="row tile_count">
+	<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		<div class="count"><?=$userCount?></div>
+		<span class="count_bottom">
+		<a href="/workyard">工地管理员</a>
+		</span>
+	</div>
+	<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		<div class="count green"><?=$workyardCount?></div>
+		<span class="count_bottom">
+		<a href="/workyard">工地</a>
+		</span>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="pointsstore-total">
+	<h4>可提现金额</h4>
+	<h5 class="points-usable"><?=$this->cashTotal?><small>&nbsp;￥</small>
+	</h5>
+</div>
+<div class="myhidden config">
+	<input type="hidden" name="cashTotal" value="<?=$this->cashTotal?>">
+</div>
+
+<div class="weui-form-preview">
+	<div class="weui-form-preview__ft" id="my_menu">
+		<a class="weui-form-preview__btn weui-form-preview__btn_default"
+			href="/cashback">领取金额</a> <a
+			class="weui-form-preview__btn weui-form-preview__btn_default"
+			href="/withdraw/history">提现记录</a> <a
+			class="weui-form-preview__btn weui-form-preview__btn_default"
+			href="/withdraw">申请提现</a>
+	</div>
+</div>

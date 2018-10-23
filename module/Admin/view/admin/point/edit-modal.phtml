@@ -1,0 +1,51 @@
+<?php
+//获取point 信息
+$point_id = $this->pointID;
+$PointEntity = $this->Point()->getEntity($point_id);
+$name = $PointEntity->getName();
+$address= $PointEntity->getAddress();
+$note = $PointEntity->getNote();
+
+//获取wordyard 信息
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
+$workyard_address_path = $WorkyardEntity->getAddress_path();
+?>
+
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label' => '所属工地',
+	    'value' => $workyard_name,
+	])?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label' => '巡检点名称',
+	    'value' => $name,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '地址：',
+	    'name' => 'address',
+	    'placeholder' => '请输入地址',
+	    'type' => 'text',
+	    'value' => $address,
+	])?>
+	
+    <?=$this->partial('partial/admin/form/textarea.phtml', [
+        'id'    => '',
+        'label' => '具体信息：',
+        'name' => 'note',
+        'value' => $note,
+        'placeholder' => '选填：备注信息',
+	])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName'      => 'PointEditPage',
+    'pageTitle'     => '编辑巡检点',
+//     'modalSize'     => 'lg',
+    'form_id'       => 'form-edit-point',
+    'action'        => "/api/point/edit/$workyard_id/$point_id",
+    'formContent'   => $this->placeholder('formContent'),
+])?> 

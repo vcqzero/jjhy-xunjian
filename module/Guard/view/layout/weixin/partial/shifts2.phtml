@@ -1,0 +1,37 @@
+<?php
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$UserEntity  = $this->User()->getEntityByIdentity($identity);
+$userID = $UserEntity->getId();
+
+//今天巡检任务
+$shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
+
+?>
+<div class="weui-panel" style="margin-bottom: 60px">
+	<div class="weui-panel__hd">今日值班：<?=date('Y-m-d')?></div>
+	<?php if(count($shifts)):?>
+	<div class="weui-panel__bd">
+		<div class="weui-media-box weui-media-box_text">
+			<h4 class="weui-media-box__title">标题一</h4>
+			<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		</div>
+		<div class="weui-media-box weui-media-box_text">
+			<h4 class="weui-media-box__title">标题一</h4>
+			<p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		</div>
+	</div>
+	<div class="weui-panel__ft">
+		<a href="javascript:void(0);"
+			class="weui-cell weui-cell_link">
+			<div class="weui-cell__bd">巡检点</div> <span class="weui-cell__ft"></span>
+		</a>
+	</div>
+    <?php else :?>
+    <div class="weui-panel__bd">
+		<div class="weui-media-box weui-media-box_text">
+			<h4 class="weui-media-box__title">今日无值班安排！</h4>
+		</div>
+	</div>
+    <?php endif;?>
+</div>

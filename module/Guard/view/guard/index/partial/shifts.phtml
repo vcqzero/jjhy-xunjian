@@ -1,0 +1,69 @@
+<?php
+use Api\Service\ShiftTypeManager;
+
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$UserEntity = $this->User()->getEntityByIdentity($identity);
+$userID = $UserEntity->getId();
+
+// 今天巡检任务
+$shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
+
+?>
+<div style="margin-bottom: 60px; margin-top: 20px">
+<?php if(count($shifts)):?>
+	<?php foreach ($shifts as $shift):?>
+		<?php
+        $note = $shift->getNote();
+        $times = $shift->getTimes();
+        $shift_type_name = $shift->getShift_type_name();
+        $start_time = $shift->getStart_time();
+        $end_time = $shift->getEnd_time();
+        
+        $canGuard = $start_time < time() && $end_time > time();
+        
+        ?>
+		<div class="weui-form-preview">
+		<div class="weui-form-preview__hd">
+			<label class="weui-form-preview__label">班次</label> <em
+				class="weui-form-preview__value"><?=$shift_type_name?></em>
+		</div>
+		<div class="weui-form-preview__bd">
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">开始时间</label> <span
+					class="weui-form-preview__value"><?=date('Y-m-d H:i', $start_time)?></span>
+			</div>
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">结束时间</label> <span
+					class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
+			</div>
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">巡检次数</label> <span
+					class="weui-form-preview__value"><?=$times?></span>
+			</div>
+			<div class="weui-form-preview__item">
+				<label class="weui-form-preview__label">任务描述</label> <span
+					class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
+			</div>
+		</div>
+		<?php if($canGuard):?>
+		<div class="weui-form-preview__ft">
+			<a class="weui-form-preview__btn weui-form-preview__btn_default"
+				href="javascript:">辅助操作</a>
+			<button type="submit"
+				class="weui-form-preview__btn weui-form-preview__btn_primary"
+				href="javascript:">操作</button>
+		</div>
+		<?php endif;?>
+	</div>
+	<br>
+		<?php endforeach;?>
+		
+<?php else :?>
+<div class="weui-panel__bd">
+		<div class="weui-media-box weui-media-box_text">
+			<h4 class="weui-media-box__title">今日无值班安排！</h4>
+		</div>
+	</div>
+<?php endif;?>
+</div>

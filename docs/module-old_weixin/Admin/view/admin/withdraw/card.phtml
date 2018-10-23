@@ -1,0 +1,62 @@
+<?php $this->headTitle('设置银行卡');?>
+<div class="page js_show paginator">
+	<form action="" id="form_card">
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">银行卡号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" pattern="[0-9]*" placeholder="请输入您的银行卡号"
+						value="<?=$this->user['card_no']?>" type="number" name="card_no">
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">账号姓名</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" placeholder="请输入银行卡所输入真实姓名"
+						value="<?=$this->user['card_user_name']?>" type="text"
+						name="card_user_name">
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">手机号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" pattern="[0-9]*" placeholder="请输入您手机号"
+						value="<?=$this->user['card_user_tel']?>" type="number"
+						name="card_user_tel">
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="weui-btn-area">
+		<a class="weui-btn weui-btn_primary" href="javascript:"
+			id="form_submit">保存</a>
+	</div>
+</div>
+<!-- toast-->
+<div id="toast_success" style="opacity: 0; display: none;">
+	<div class="weui-mask_transparent"></div>
+	<div class="weui-toast">
+		<i class="weui-icon-success-no-circle weui-icon_toast"></i>
+		<p class="weui-toast__content">修改成功</p>
+	</div>
+</div>
+<!-- /toast-->
+<?=$this->partial('application/withdraw/dialog.phtml')?>
+<?=$this->partial('partial/admin/service/validate.phtml')?>
+<script type="text/javascript" src="/js/service/Toast.js"></script>
+<script type="text/javascript" src="/js/manager/card.js"></script>

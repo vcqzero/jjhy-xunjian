@@ -1,0 +1,43 @@
+<?php
+$label = $this->label;
+$name = $this->name;
+$value = $this->value;
+$placeholder = $this->placeholder;
+$type = $this->type;
+$id   = $this->id;
+$required = $this->required;
+$type = empty($type) ? 'text' : $type;
+$spanTitle = $this->spanTitle;
+
+/* <?=$this->partial('partial/admin/form/input/input-with-span.phtml', [
+  'label' => '',
+  'name' => '',
+  'value' => '',
+  'id'=>'',
+  'placeholder' => '',
+  'type' => 'text',
+  'spanTitle' => '',
+])?> */
+ 
+
+?>
+
+<div class="form-group">
+	<label class="control-label col-md-3 col-sm-3 col-xs-12"
+		for="first-name"><?=$label?> <?php if($required):?>*<?php endif;?>
+	</label>
+	<div class="col-md-6 col-sm-6 col-xs-12">
+		<div class="input-group">
+    		<input 
+    		type="<?=$type?>" 
+    		value="<?=$value?>"
+    		name="<?=$name?>"
+    		placeholder="<?=$placeholder?>"
+    		id = "<?=$id?>"
+    		class="form-control col-md-6 col-xs-12">
+    		<span class="input-group-btn">
+          		<button type="button" class="btn btn-default"><?=$spanTitle?></button>
+        	</span>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,118 @@
+<?php 
+use Api\Entity\ShiftEntity;
+
+$where     = $this->where;
+$page      = $this->page;
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$paginator = $this->Shift()->getPaginator($page, $where, $workyard_id);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?=$this->partial('partial/admin/button/single.phtml', [
+    'type'  => 'primary',
+    'title' => '新增班次',
+    'data_modal_open' => true,
+    'data_modal_url' => '/shift/addModal'
+])?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('searchContent')->captureStart();?>
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '日期：',
+	    'name' => 'date',
+	    'placeholder' => '全部',
+	    'type' => 'text',
+// 	    'value'=> date('Y-m-d'),
+	    'id' => 'select-date'
+	])?>
+	
+	<?=$this->partial('partial/admin/form/select/shift/select-whether_done.phtml', [
+    ])?>
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >所辖工地</th>
+          <th >日期</th>
+          <th >班次</th>
+          <th >值班时间</th>
+          <th >巡逻次数</th>
+          <th >值班人员</th>
+          <th >备注</th>
+          <th >状态</th>
+          <th >操作</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $Entity):?>
+      		<?php 
+      		$shiftID = $Entity->getId();
+      		$date_int    = $Entity->getDate();
+      		$date    = date('Y-m-d', $date_int);
+      		$workyard_id   = $Entity->getWorkyard_id();
+      		$workyard_name = $this->Workyard()->getName($workyard_id);
+      		
+      		//班次
+      		$shift_type_id = $Entity->getShift_type_id();
+      		$ShiftEntity   = $this->ShiftType()->getEntity($shift_type_id);
+      		$shift_type_name = $ShiftEntity->getName();
+      		$start_time    = $ShiftEntity->getStart_time();
+      		$end_time    = $ShiftEntity->getEnd_time();
+      		
+      		//巡逻圈数和注意事项
+      		$times = $Entity->getTimes();
+      		$note = $Entity->getNote();
+      		
+      		//获取值班人员
+      		$guardNames = $this->Shift()->getGuardsName($shiftID);
+      		
+      		//值班开始时间
+      		$start_date_time = strtotime($date . ' ' . $start_time);
+      		
+      		//是否完成
+      		//根据日期判断
+      		$whether_done = $date_int > time() ? '未完成' : '已完成';
+      		?>
+      		<tr>
+      		<td><?=$workyard_name?></td>
+      		<td><?=$date?></td>
+      		<td>
+      			<?=$shift_type_name?>
+      		</td>
+      		<td>
+      			<?=$start_time?> - <?=$end_time?>
+      		</td>
+      		<td><?=$times?>&nbsp;<small>次</small></td>
+      		<td><?=$guardNames?></td>
+      		<td><?=$note?></td>
+      		<td><?=$whether_done?></td>
+      		<td>
+      		<div class="btn-group  btn-group-sm">
+      		<?php if ($start_date_time > time()) :?>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '编辑',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/shift/editModal/'.$shiftID, //string
+            ])?>
+      		<?php endif;?>
+            </div>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'ShiftListPage',
+    'pageTitle'     => '值班安排',
+    'paginator'     => $paginator,
+    'search'        => $where,
+    'buttonGroup'   => $this->placeholder('buttonGroup'),
+    'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

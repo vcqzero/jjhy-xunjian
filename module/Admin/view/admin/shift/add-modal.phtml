@@ -1,0 +1,56 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+?>
+
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '日期：',
+	    'name' => 'date',
+	    'placeholder' => '请选择时间',
+	    'type' => 'text',
+	    'value'=> date('Y-m-d'),
+	    'id' => 'datetimepicker'
+	])?>
+	
+	<?=$this->partial('partial/admin/form/select/shift_types/select-shift_types.phtml', [
+        'selectedId'  => null,
+        'withDefualt' => true,
+        'defaultTitle'=> '',
+	    'workyard_id' => $workyard_id
+     ])?>
+     
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+        'name'  => 'workyard_id',
+	    'value' => $workyard_id,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '巡检圈数：',
+	    'name' => 'times',
+	    'placeholder' => '请输入巡检圈数',
+	    'type' => 'text'
+	])?>
+		
+    <?=$this->partial('partial/admin/form/textarea.phtml', [
+        'id'    => '',
+        'label' => '具体信息：',
+        'name' => 'note',
+        'value' => '',
+        'placeholder' => '选填：备注信息',
+	])?>
+	
+	<?=$this->partial('partial/admin/form/select/user/select-multiple-guards.phtml', [
+     'withDefualt' => true,
+     ])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName' => 'ShiftAddModal',
+    'pageTitle' => '新增值班安排',
+    'modalSize'     => 'lg',
+    'form_id'=>'form-add-shift',
+    'action'=>'/api/shift/add',
+    'formContent' => $this->placeholder('formContent'),
+])?>
+

@@ -1,0 +1,122 @@
+<?php 
+$workyard_desc = $this->workyard_desc;
+$identity = $this->identity();
+$UserEntity = $this->User()->getEntityByIdentity($identity);
+$realName   = $UserEntity->getRealName();
+$tel        = $UserEntity->getTel();
+$workyard_id= $UserEntity->getWorkyard_id();
+
+//获取最近9条未完成的值班任务
+$ShiftEntities   = $this->Shift()->getLastItems($workyard_id, 9);
+?>
+<div class="" role="tabpanel" data-example-id="togglable-tabs">
+	<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#tab_content1"
+			id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">最新值班安排</a></li>
+		<li role="presentation" class=""><a href="#tab_content2" role="tab"
+			id="profile-tab" data-toggle="tab" aria-expanded="false">管理员</a></li>
+		<li role="presentation" class=""><a href="#tab_content3" role="tab"
+			id="profile-tab2" data-toggle="tab" aria-expanded="false">工地详情</a></li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div role="tabpanel" class="tab-pane fade active in" id="tab_content1"
+			aria-labelledby="home-tab">
+			<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >日期</th>
+          <th >班次</th>
+          <th >值班时间</th>
+          <th >巡逻次数</th>
+          <th >值班人员</th>
+          <th >备注</th>
+          <th >状态</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($ShiftEntities)) :?>
+      		<?php foreach ($ShiftEntities as $Entity):?>
+      		<?php 
+      		$shiftID = $Entity->getId();
+      		$date_int    = $Entity->getDate();
+      		$date    = date('Y-m-d', $date_int);
+      		
+      		//班次
+      		$shift_type_id = $Entity->getShift_type_id();
+      		$ShiftEntity   = $this->ShiftType()->getEntity($shift_type_id);
+      		$shift_type_name = $ShiftEntity->getName();
+      		$start_time    = $ShiftEntity->getStart_time();
+      		$end_time    = $ShiftEntity->getEnd_time();
+      		
+      		//巡逻圈数和注意事项
+      		$times = $Entity->getTimes();
+      		$note = $Entity->getNote();
+      		
+      		//获取值班人员
+      		$guardNames = $this->Shift()->getGuardsName($shiftID);
+      		
+      		//值班开始时间
+      		$start_date_time = strtotime($date . ' ' . $start_time);
+      		
+      		//是否完成
+      		//根据日期判断
+      		$whether_done = $date_int > time() ? '未完成' : '已完成';
+      		?>
+      		<tr>
+      		<td><?=$date?></td>
+      		<td>
+      			<?=$shift_type_name?>
+      		</td>
+      		<td>
+      			<?=$start_time?> - <?=$end_time?>
+      		</td>
+      		<td><?=$times?>&nbsp;<small>次</small></td>
+      		<td><?=$guardNames?></td>
+      		<td><?=$note?></td>
+      		<td><?=$whether_done?></td>
+      		<td>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="tab_content2"
+			aria-labelledby="profile-tab">
+
+			<!-- start user projects -->
+			<table class="data table table-striped no-margin">
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th>Project Name</th> -->
+<!-- 						<th>Client Company</th> -->
+<!-- 						<th class="hidden-phone">Hours Spent</th> -->
+<!-- 						<th>Contribution</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
+				<tbody>
+					<tr>
+						<td>用户名</td>
+						<td><?=$identity?></td>
+					</tr>
+					<tr>
+						<td>真实姓名</td>
+						<td><?=$realName?></td>
+					</tr>
+					<tr>
+						<td>电话</td>
+						<td><?=$tel?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- end user projects -->
+
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="tab_content3"
+			aria-labelledby="profile-tab">
+			<p><?=$workyard_desc?></p>
+		</div>
+	</div>
+</div>

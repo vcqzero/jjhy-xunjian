@@ -1,0 +1,33 @@
+<?php 
+$type  = $this->type;
+$title = $this->title;
+$id = $this->id;
+$disabled = $this->disabled;
+$data_modal_open = $this->data_modal_open ===  true ;
+$data_modal_url = $this->data_modal_url;
+
+$type = empty($type) ? 'default' : $type;
+$title = empty($title) ? 'defualt' : $title;
+$classType = "btn-$type";
+
+/* <?=$this->partial('partial/admin/button/single.phtml', [
+    'id'=>'',
+    'type'  => 'primary',//default primary .... link
+    'title' => '新增用户',
+    'disabled'=> false,//bool
+    'data_modal_url' => 'remote-modal', //bool
+    'data_modal_url' => '/mobile/updateApkModal', //enable when clickAction = 'remote-modal'
+])?> */
+
+?>
+
+<button 
+type="button"
+class="btn <?=$classType?>"
+id="<?=$id?>"
+<?php if ($disabled):?>
+disabled ="disabled"
+<?php endif;?>
+data-modal-open="<?=$data_modal_open ? 'true' : ''?>"
+data-modal-url="<?=$data_modal_url?>"
+><?=$title?></button>

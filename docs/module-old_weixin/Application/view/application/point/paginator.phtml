@@ -1,0 +1,53 @@
+<!-- paginator -->
+<?php foreach ($this->paginator as $item){?>
+<?php  $points=$this->point()->queryPointsOfItem($item);?>
+<div class="weui-form-preview">
+	<div class="weui-form-preview__hd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">已返积分</label> 
+			<em class="weui-form-preview__value"><?=number_format($points['all'])?></em>
+		</div>
+	</div>
+	<div class="weui-form-preview__bd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">消费积分/返现积分(个)</label>
+			<span class="weui-form-preview__value">
+            <?=number_format($points['consume'])?> / <?=number_format($points['cash'])?>
+            </span>
+		</div>
+		
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">所属订单</label> <span
+				class="weui-form-preview__value"><?=$item['trade_id']?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">下单时间</label> <span
+				class="weui-form-preview__value"><?=date('Y-m-d', strtotime($item['created']))?></span>
+		</div>
+		
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">订单总金额(含退款)</label> <span
+				class="weui-form-preview__value">￥<?=number_format($points['payment'], 2)?></span>
+		</div>
+		
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">总积分</label> <span
+				class="weui-form-preview__value"><?=number_format($points['points_all'])?></span>
+		</div>
+		
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">可领取至</label> <span
+				class="weui-form-preview__value"><?=date('Y-m-t', $item['end_date'])?></span>
+		</div>
+	</div>
+	
+	<div class="weui-form-preview__ft">
+	<?=$this->point()->getStatusOfButton($item)?>
+	</div>
+</div>
+<br />
+<?php }?>
+<!-- 分页导航-->
+<?= $this->paginationControl($this->paginator);?>
+<!-- /分页导航 -->
+<!-- /paginator -->

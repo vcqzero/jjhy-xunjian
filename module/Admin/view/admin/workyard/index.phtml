@@ -1,0 +1,77 @@
+<?php 
+$where     = $this->where;
+$page      = $this->page;
+$paginator = $this->Workyard()->getPaginator($page, $where);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?=$this->partial('partial/admin/button/link.phtml', [
+    'type'  => 'primary',
+    'title' => '新增',
+    'href' => '/workyard/addPage'
+])?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('searchContent')->captureStart();?>
+
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'label' => '用户名：',
+    'name' => 'username',
+    'value' => '',
+    'placeholder' => '用户名搜索',
+    'type' => 'text'
+])?>
+
+<?=$this->partial('partial/admin/form/select/user/select-status.phtml', [
+    'selectedId'  => null,
+    'withDefualt' => true,
+ ])?>
+ 
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >名称</th>
+          <th >具体地址</th>
+          <th >详情</th>
+          <th >操作</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $Entity):?>
+      		<?php 
+      		$workyardID = $Entity->getId();
+      		$name       = $Entity->getName();
+      		$note       = $Entity->getNote();
+      		$address    = $Entity->getAddress();
+      		?>
+      		<tr>
+      		<td><?=$name?></td>
+      		<td><?=$address?></td>
+      		<td><?=$note?></td>
+      		<td>
+      		<div class="btn-group  btn-group-sm">
+      		<?=$this->partial('partial/admin/button/link.phtml', [
+                'title' => '编辑',
+      		    'href' => '/workyard/editPage/'.$workyardID, //string
+            ])?>
+            </div>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'WorkyardListPage',
+    'pageTitle'     => '工地管理',
+    'paginator'     => $paginator,
+    'search'        => $where,
+    'buttonGroup'   => $this->placeholder('buttonGroup'),
+//     'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

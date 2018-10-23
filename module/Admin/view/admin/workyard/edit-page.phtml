@@ -1,0 +1,64 @@
+<?php 
+$workyardID = $this->workyardID;
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyardID);
+$name       = $WorkyardEntity->getName();
+$note       = $WorkyardEntity->getNote();
+$address    = $WorkyardEntity->getAddress();
+$address_path = $WorkyardEntity->getAddress_path();
+
+?>
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '名称：',
+	    'name' => 'name',
+	    'placeholder' => '请输入工地名称',
+	    'type' => 'text',
+	    'value'=> $name,
+	])?>
+	
+	<div class="form-group">
+    	<label class="control-label col-md-3 col-sm-3 col-xs-12">具体地址：</label>
+    	<div class="col-md-6 col-sm-6 col-xs-12">
+    		<input 
+    		type="text" 
+    		name="address"
+    		placeholder="输入工地地址"
+    		value="<?=$address?>"
+    		id = "tipinput"
+    		class="form-control col-md-6 col-xs-12">
+		</div>
+    	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-12" id="">
+        	<div id="map_container" style="min-height: 500px; max-width: none;"></div>
+        	<div class="input-card">
+  	 			<button 
+  	 			type="button"
+  	 			class="btn btn-round btn-primary btn-xs" 
+  	 			id ="button-edit-open"
+  	 			>开始编辑</button> 
+   				<button 
+   				type="button"
+   				class="btn btn-round btn-primary btn-xs"
+   				id ="button-edit-close" 
+   				style="margin-top: 12px">关闭编辑</button> 
+			</div>
+			<input type="hidden" name="address_path" value=<?=$address_path?>>
+    	</div>
+    </div>
+    <?=$this->partial('partial/admin/form/textarea.phtml', [
+        'id'    => '',
+        'label' => '具体信息：',
+        'name' => 'note',
+        'value' => $note,
+        'placeholder' => '选填：工地详细信息',
+	])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?php $this->placeholder('formContent')->captureEnd() ?>
+<?=$this->partial('partial/admin/page/page/form-page.phtml', [
+    'pageName'      => 'WorkyardEditPage',
+    'pageTitle'     => '编辑工地',
+    'form_id'       => 'form-edit-workyard',
+    'action'        => '/api/workyard/edit/'.$workyardID,
+    'navbar'        => '/workyard/addPage',
+    'formContent'   => $this->placeholder('formContent'),
+])?> 

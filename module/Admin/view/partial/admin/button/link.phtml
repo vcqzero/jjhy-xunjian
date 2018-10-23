@@ -1,0 +1,25 @@
+<?php 
+$type   = $this->type;
+$title  = $this->title;
+$id     = $this->id;
+$href   = $this->href;
+
+$type   = empty($type) ? 'default' : $type;
+$title  = empty($title) ? 'defualt' : $title;
+$classType = "btn-$type";
+
+/* <?=$this->partial('partial/admin/button/link.phtml', [
+    'id'=>'',
+    'type'  => 'primary',//default primary .... link
+    'title' => '新增用户',
+    'href' => '',
+])?> */
+
+?>
+
+<a 
+href="<?=$href?>"
+type="button"
+class="btn <?=$classType?>"
+id="<?=$id?>"
+><?=$title?></a>

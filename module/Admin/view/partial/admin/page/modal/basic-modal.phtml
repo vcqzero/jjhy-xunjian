@@ -1,0 +1,44 @@
+<?php
+$pageName = $this->pageName;
+$pageTitle = $this->pageTitle;
+$modalBody= $this->modalBody;
+$modalSize  = $this->modalSize;
+
+switch ($modalSize)
+{
+    case 'sm':
+        $size_class = 'modal-sm';
+        break;
+    case 'lg':
+        $size_class = 'modal-lg';
+        break;
+    default:
+        $size_class = '';
+}
+
+?>
+<div 
+class="modal fade" 
+data-name="<?=$pageName?>" 
+tabindex="-1"
+role="dialog" 
+aria-labelledby="myModalLabel"
+>
+	<div class="modal-dialog <?=$size_class?>" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id=""><?=$pageTitle?></h4>
+			</div>
+			<div class="modal-body">
+    			<?=$modalBody?>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+<?php $this->headTitle('消费积分');?>
+
+<div class="page__head">
+	<!-- points all -->
+   	<?=$this->partial('application/point/points-total.phtml', ['amount' => $this->user()->getAmountOfUser()])?>
+    <!-- /points all -->
+	<!-- sabvar -->
+    <?=$this->partial('application/partial/navbar-point-top.phtml')?>
+    <!-- /sabvar -->
+</div>
+
+<div class="page__bd">
+
+	<!-- paginator list -->
+	<?php if (count($this->paginator)){?>
+		<div class="weui-cells__title"><a href="javascript:;" id="a_note_about_accure_points">领取规则</a></div>
+		<div class="mypaginator" id="mypaginator">
+    		<?=$this->partial('application/point/paginator.phtml', ['paginator' => $this->paginator,])?>
+    	</div>
+    	
+    <?php }else {?>
+    
+    	<?=$this->partial('application/partial/defualt/gotohall.phtml')?>
+    	
+    <?php }?>
+	<!-- /paginator list -->
+</div>
+
+<!-- load more -->
+<?=$this->partial('partial/admin/load/loadmore.phtml')?>
+<!-- /load more -->
+
+<!-- toast-->
+<?=$this->partial('application/partial/feedback/toast.phtml')?>
+<!-- /toast-->
+
+<!-- dialog-->
+<?=$this->partial('application/partial/feedback/dialog.phtml')?>
+<!-- /dialog-->
+
+<div class="myhidden config" id="div_my_config">
+	<input type="hidden" name="menu" value="领取积分">
+	<textarea rows="0" cols="0" name="note_about_accure_points">
+	1、下单次月开始返积分；
+	2、每月初自动返积分；
+	</textarea>
+</div>
+
+<!-- import js -->
+<script type="text/javascript" src="/js/service/Paginator.js"></script>
+<script type="text/javascript" src="/js/service/Toast.js"></script>
+<script type="text/javascript" src="/js/service/Dialog.js"></script>
+<script type="text/javascript" src="/js/manager/point.js"></script>
+<!-- /import js -->

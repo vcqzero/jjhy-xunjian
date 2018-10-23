@@ -1,0 +1,57 @@
+<?php
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name = $WorkyardEntity->getName();
+$address = $WorkyardEntity->getAddress();
+$desc = $WorkyardEntity->getNote();
+$address_path = $WorkyardEntity->getAddress_path();
+?>
+<div class="row page" data-name="WorkyardAdminHomePage">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>我的工地</h2>
+				<ul class="nav navbar-right panel_toolbox"
+					style="min-width: auto !important;">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="x_content">
+				<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+					<h3><?=$workyard_name?></h3>
+
+					<ul class="list-unstyled user_data">
+						<li>地址：<?=$address?></li>
+					</ul>
+					<br>
+					<?=$this->partial('admin/index/partial/workyard-admin/workyard_info.phtml', 
+					    ['workyard_id' => $workyard_id])?>
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+				<div id="map_container" style="min-height: 500px; max-width: none;"></div>
+				<input type="hidden" id="address_path" value=<?=$address_path?>>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>工地信息</h2>
+				<ul class="nav navbar-right panel_toolbox"
+					style="min-width: auto !important;">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="x_content">
+				<?=$this->partial('admin/index/partial/workyard-admin/workyard_work.phtml', 
+				    ['workyard_desc' => $desc])?>
+			</div>
+		</div>
+	</div>
+</div>

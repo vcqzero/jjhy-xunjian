@@ -1,0 +1,78 @@
+<?php 
+$where     = $this->where;
+$page      = $this->page;
+$identity  = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?=$this->partial('partial/admin/button/single.phtml', [
+    'type'  => 'primary',
+    'title' => '新增',
+    'data_modal_open' => true,
+    'data_modal_url' => '/point/addModal'
+])?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('searchContent')->captureStart();?>
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >工地名称</th>
+          <th >巡检点</th>
+          <th >巡检点地址</th>
+          <th >备注</th>
+          <th >添加人</th>
+          <th >操作</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $Entity):?>
+      		<?php 
+      		$poinID = $Entity->getId();
+      		$name   = $Entity->getName();
+      		$address= $Entity->getAddress();
+      		$note   = $Entity->getNote();
+      		$workyard_id   = $Entity->getWorkyard_id();
+      		$workyard_name = $this->Workyard()->getName($workyard_id);
+      		$created_by    = $Entity->getCreated_by();
+      		?>
+      		<tr>
+      		<td><?=$workyard_name?></td>
+      		<td><?=$name?></td>
+      		<td><?=$address?></td>
+      		<td><?=$note?></td>
+      		<td><?=$created_by?></td>
+      		<td>
+      		<div class="btn-group  btn-group-sm">
+            <?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '编辑',
+                'data_modal_open' => true,
+                'data_modal_url' => '/point/editModal/'.$workyard_id . '/' . $poinID, //string
+            ])?>
+            <?=$this->partial('partial/admin/button/link.phtml', [
+                'title' => '下载二维码',
+                'href' => '/api/point/download/' . $workyard_id . '/' . $poinID
+            ])?>
+            </div>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'PointListPage',
+    'pageTitle'     => '巡检点管理',
+    'paginator'     => $paginator,
+    'search'        => $where,
+    'buttonGroup'   => $this->placeholder('buttonGroup'),
+//     'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

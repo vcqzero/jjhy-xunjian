@@ -1,0 +1,37 @@
+<!--分页导航-->
+<div class="am-u-lg-12 am-cf">
+	<div class="am-fr">
+		<ul class="am-pagination tpl-pagination">
+			<!-- 上一页 -->
+            <?php if (isset($this->previous)): ?>
+                <li class=""><a
+				href="<?=$this->url($this->route, array('page' => $this->previous)); ?>">«</a>
+			</li> 
+            <?php else: ?>
+           	 	<li class="am-disabled"><a href="#">«</a></li>
+            <?php endif; ?>
+            <!-- 页码 -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+				<?php if ($page != $this->current): ?>
+                    <li class=""><a
+				href="<?= $this->url($this->route, array('page' => $page)); ?>">
+                    	<?= $page; ?>
+                    	</a></li>
+				<?php else: ?>
+				    <!-- 当前页面 -->
+			<li class="am-active"><a><?= $page; ?></a></li>
+				<?php endif; ?>
+			<?php endforeach; ?>
+            <!-- 下一页 -->
+			<?php if (isset($this->next)): ?>
+				<li class=""><a
+				href="<?= $this->url($this->route, array('page' => $this->next));  ?>">
+					<span>»</span>
+			</a></li>	
+			<?php else: ?>
+			<li class="am-disabled"><a href="#">»</a></li>
+			<?php endif; ?>
+        </ul>
+	</div>
+</div>
+<!-- end 分页导航 -->

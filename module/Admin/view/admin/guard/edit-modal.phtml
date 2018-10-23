@@ -1,0 +1,45 @@
+<?php 
+$userID     = $this->userID;
+$UserEntity = $this->User()->getEntity($userID);
+$status     = $UserEntity->getStatus();
+$realName   = $UserEntity->getRealName();
+$tel        = $UserEntity->getTel();
+// $email = $UserEntity->getEmail();
+$username   = $UserEntity->getUsername();
+$workyard_id   = $UserEntity->getWorkyard_id();
+?>
+
+<?php $this->placeholder('beforeForm')->captureStart();?>
+<?php $this->placeholder('beforeForm')->captureEnd() ?>
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label' => '用户名',
+        'value' => $username,
+	])?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '真实姓名',
+	    'name' => 'realname',
+	    'value'=> $realName,
+	    'placeholder' => '请输入真实姓名',
+	    'type' => 'text'
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '手机号',
+	    'name' => 'tel',
+	    'value'=> $tel,
+	    'placeholder' => '请输入手机号',
+	    'type' => 'text'
+	])?>
+    
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName' => 'GuardEditModal',
+    'pageTitle' => '编辑巡检员',
+    'modalSize'     => 'lg',
+    'form_id'=>'form-edit-user',
+    'action'=>'/api/user/edit/' . $userID,
+    'beforeForm' => $this->placeholder('beforeForm'),
+    'formContent' => $this->placeholder('formContent'),
+])?>

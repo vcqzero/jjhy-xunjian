@@ -1,0 +1,13 @@
+<?php 
+$title  = $this->title;
+$title  = empty($title) ? '登录' : $title;
+
+/* <?=$this->partial('partial/weixin/button/submit.phtml', [
+    'title' => '',
+])?> */
+
+?>
+
+<div class="weui-btn-area">
+	<button class="weui-btn weui-btn_primary" type="submit"><?=$title?></button>
+</div>

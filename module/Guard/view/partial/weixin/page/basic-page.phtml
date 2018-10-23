@@ -1,0 +1,27 @@
+<?php
+$pageTitle= $this->pageTitle;
+$pageName = $this->pageName;
+$narbar  = $this->narbar;
+$content = $this->content;
+
+$this->headTitle($pageTitle);
+/*
+ * <?=$this->partial('partial/weixin/page/basic-page.phtml', [
+ * 'pageName' => $pageName,
+ * 'pageTitle' => '',
+ * 'narbar' => $this->placeholder('narbar'),
+ * 'content' => $this->placeholder('content'),
+ * ])?>
+ */
+
+?>
+
+<div class="page" data-name="<?=$pageName?>">
+	<div class="weui-tab">
+    	<?=$narbar?>
+    	<div class="weui-tab__bd">
+    	<?=$content?>
+    	</div>
+    	<?=$this->partial('layout/weixin/partial/tabbar.phtml')?>
+	</div>
+</div>

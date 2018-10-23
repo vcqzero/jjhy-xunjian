@@ -1,0 +1,55 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
+$address_path = $WorkyardEntity->getAddress_path();
+?>
+
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label' => '所属工地',
+	    'value' => $workyard_name,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+        'name'  => 'created_by',
+	    'value' => $identity,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+        'name'  => 'workyard_id',
+	    'value' => $workyard_id,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '巡检点名称：',
+	    'name' => 'name',
+	    'placeholder' => '请输入巡检点名称',
+	    'type' => 'text'
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '地址：',
+	    'name' => 'address',
+	    'placeholder' => '请输入地址',
+	    'type' => 'text'
+	])?>
+	
+    <?=$this->partial('partial/admin/form/textarea.phtml', [
+        'id'    => '',
+        'label' => '具体信息：',
+        'name' => 'note',
+        'value' => '',
+        'placeholder' => '选填：备注信息',
+	])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName'      => 'PointAddPage',
+    'pageTitle'     => '新增巡检点',
+//     'modalSize'     => 'lg',
+    'form_id'       => 'form-add-point',
+    'action'        => '/api/point/add',
+    'formContent'   => $this->placeholder('formContent'),
+])?> 

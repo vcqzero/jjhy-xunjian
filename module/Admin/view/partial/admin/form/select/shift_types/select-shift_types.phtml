@@ -1,0 +1,49 @@
+<?php
+use Api\Entity\ShiftTypeEntity;
+
+$selectedId     = $this->selectedId;
+$withDefualt    = $this->withDefualt;
+$defaultTitle   = $this->defaultTitle ? $this->defaultTitle : '请选择...';
+$workyard_id    = $this->workyard_id;
+$where = [
+    ShiftTypeEntity::FILED_WORKYARD_ID => $workyard_id
+];
+
+$Entities = $this->ShiftType()->getEntities($where);
+
+/* <?=$this->partial('partial/admin/form/select/shift_types/select-shift_types.phtml', [
+     'selectedId'  => null,
+     'withDefualt' => true,
+     'defaultTitle'=> '',
+     'workyard_id'=> '',
+ ])?> */
+
+?>
+
+<div class="form-group">
+	<label class="control-label col-md-3 col-sm-3 col-xs-12"
+		for="first-name">班次：</label>
+	<div class="col-md-6 col-sm-6 col-xs-12">
+    	<select 
+    	name="shift_type_id" 
+    	class="form-control" 
+    	>
+			<?php if ($withDefualt) :?>
+		    	<option value=''><?=$defaultTitle?></option>
+		    <?php endif;?>
+			<?php if (count($Entities)) :?>
+				<?php foreach ($Entities as $Entity) :?>
+					<?php 
+					$id  = $Entity->getId();
+					$name= $Entity->getName();
+					?>
+					<?php if ($selectedId === $id) :?>
+					<option value=<?=$id?> selected="selected"><?=$name?></option>
+					<?php else :?>
+					<option value=<?=$id?>><?=$name?></option>
+					<?php endif;?>
+				<?php endforeach;?>
+			<?php endif;?>
+	</select>
+	</div>
+</div>

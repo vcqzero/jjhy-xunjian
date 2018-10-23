@@ -1,0 +1,109 @@
+<?php $this->headTitle('设置银行卡');?>
+<div class="page__bd">
+	<form action="" id="form_card">
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">银行卡号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" readonly="readonly"
+					 value="<?=$this->escapehtml($this->card['card_no'])?>" type="text" name="card_no">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">所属银行</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" readonly="readonly"
+					 value="<?=$this->escapehtml($this->card['card_bank_name'])?>" type="text" name="card_bank_name">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">持卡人姓名</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" readonly="readonly"
+						value="<?=$this->escapehtml($this->card['card_user_name'])?>" type="text"
+						name="card_user_name">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">手机号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input"readonly="readonly"
+						value="<?=$this->escapehtml($this->card['card_user_tel'])?>" type="text"
+						name="card_user_tel">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">卡片类型</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input"readonly="readonly"
+						value="<?=$this->escapehtml($this->card['card_type_name'])?>" type="text"
+						name="card_type_name">
+					<input type="hidden" value="<?=$this->escapehtml($this->card['card_type_code'])?>" name="card_type_code">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">开户地区</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input"
+						placeholder="选填：开户银行地区 如广东省-广州市"
+						value="<?=$this->escapehtml($this->card['card_bank_area'])?>"
+						type="text"
+						name="card_bank_area">
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">开户支行</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input"
+						placeholder="选填：开户支行"
+						type="text"
+						value="<?=$this->escapehtml($this->card['card_bank_branch_name'])?>"
+						name="card_bank_branch_name">
+				</div>
+				<div class="weui-cell__ft">
+					<i class="weui-icon-warn"></i>
+				</div>
+			</div>
+		</div>
+		<!-- token -->
+		<input type="hidden" value="<?=$this->token?>" name="token">
+		<!-- /token -->
+		<!-- id -->
+		<input type="hidden" value="<?=$this->card['id'] ?>" name="id">
+		<!-- /id -->
+	</form>
+	<div class="weui-btn-area">
+		<a class="weui-btn weui-btn_primary" href="javascript:"
+			id="form_submit">提交保存</a>
+		<a class="weui-btn weui-btn_default" href="javascript:history.back();"
+			id="">返回修改</a>
+	</div>
+</div>
+<!-- toast-->
+<?=$this->partial('partial/admin/feedback/toast.phtml')?>
+<!-- /toast-->
+
+<!-- dialog2 -->
+<?=$this->partial('partial/admin/feedback/dialog.phtml')?>
+<!-- /dialog2 -->
+
+<?=$this->partial('partial/admin/js/validate.phtml')?>
+<script type="text/javascript" src="/js/service/Toast.js"></script>
+<script type="text/javascript" src="/js/manager/card.js"></script>

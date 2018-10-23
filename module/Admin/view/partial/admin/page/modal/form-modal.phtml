@@ -1,0 +1,30 @@
+<?php
+$pageName = $this->pageName;
+$pageTitle = $this->pageTitle;
+$modalSize  = $this->modalSize;
+
+$beforeForm  = $this->beforeForm;
+$afterForm   = $this->afterForm;
+
+$formContent    = $this->formContent;
+$form_id        = $this->form_id;
+$action         = $this->action;
+
+
+?>
+
+<?php $this->placeholder('modalBody')->captureStart();?>
+	<?=$beforeForm?>
+    <?=$this->partial('partial/admin/form/form/form.phtml', [
+        'form_id'=>$form_id,
+        'action' => $action,
+        'formContent'   => $formContent,
+    ])?>
+	<?=$afterForm?>
+<?php $this->placeholder('modalBody')->captureEnd() ?>
+<?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
+    'pageName'         =>$pageName,
+    'pageTitle'        => $pageTitle,
+    'modalSize'         => $modalSize,
+    'modalBody'         => $this->placeholder('modalBody'),
+])?>

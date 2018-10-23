@@ -1,0 +1,43 @@
+<?php
+$label = $this->label;
+$name = $this->name;
+$value = $this->value;
+$placeholder = $this->placeholder;
+$type = $this->type;
+$id = $this->id;
+$pattern= $this->pattern;
+$type = empty($type) ? 'text' : $type;
+
+/*
+  <?=$this->partial('partial/admin/form/input/input.phtml', [
+    'id'=>'',
+    'lable'=>'',
+    'name'=>'',
+    'value'=>'',
+    'pattern'=>'',
+    'placeholder'=>'',
+    'type'=>'',
+  ]);?>
+ */
+
+?>
+
+<div class="weui-cell">
+	<?php if (isset($label)) :?>
+	<div class="weui-cell__hd">
+		<label class="weui-label">qq</label>
+	</div>
+	<?php endif;?>
+	<div class="weui-cell__bd">
+		<input 
+		class="weui-input" 
+		id="<?=$id?>"
+		value="<?=$value?>"
+		name="<?=$name?>"
+		<?php if (isset($pattern)) :?>
+		pattern="<?=$pattern?>" 
+		<?php endif;?>
+		placeholder="<?=$placeholder?>"
+		type="<?=$type?>">
+	</div>
+</div>

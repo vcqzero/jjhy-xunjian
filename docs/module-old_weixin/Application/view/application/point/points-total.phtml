@@ -1,0 +1,14 @@
+<!-- 显示个人总积分数 -->
+<div class="pointsstore-total">
+	<div class="history_withdraw">
+		<a class="weui-form-preview__btn weui-form-preview__btn_default"
+			href="/recordwithdraw">提现记录</a>
+	</div>
+	<span class="amount_cash">可提现余额</span>
+	<h5 class="points-usable"><span id="amount"><?=$this->amount?></span><small>&nbsp;￥</small>
+	</h5>
+</div>
+<div class="myhidden config">
+	<input type="hidden" name="cashTotal" value="<?=$this->amount?>">
+</div>
+<!-- /显示个人总积分数 -->

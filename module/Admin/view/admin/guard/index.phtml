@@ -1,0 +1,85 @@
+<?php 
+use Api\Entity\UserEntity;
+use Api\Service\UserManager;
+
+$page      = $this->page;
+$where     = $this->where;
+$identity  = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$where[UserEntity::FILED_WORKYARD_ID] = $workyard_id;
+$where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_GUARD;
+$paginator   = $this->User()->getPaginator($page, $where);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?=$this->partial('partial/admin/button/single.phtml', [
+    'type'  => 'primary',
+    'title' => '新增巡检员',
+    'data_modal_open' => true,
+    'data_modal_url' => '/guard/addModal'
+])?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >用户名</th>
+          <th >所属工地</th>
+          <th >电话</th>
+          <th >姓名</th>
+          <th >初始密码</th>
+          <th >状态</th>
+          <th >操作</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $UserEntity):?>
+      		<?php 
+      		$userID     = $UserEntity->getId();
+      		$username   = $UserEntity->getUsername();
+      		$workyard_id   = $UserEntity->getWorkyard_id();
+      		$workyard_name = $this->Workyard()->getName($workyard_id);
+      		$status     = $UserEntity->getStatus();
+      		$status     = $this->User()->renderStatusName($status);
+      		$tel        = $UserEntity->getTel();
+      		$realname   = $UserEntity->getRealName();
+      		$initial_password   = $UserEntity->getInitial_password();
+      		?>
+      		<tr>
+      		<td><?=$username?></td>
+      		<td><?=$workyard_name?></td>
+      		<td><?=$tel?></td>
+      		<td><?=$realname?></td>
+      		<td><?=$initial_password?></td>
+      		<td><?=$status?></td>
+      		<td>
+      		<div class="btn-group  btn-group-sm">
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '编辑',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/guard/editModal/'.$userID, //string
+            ])?>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '重置密码',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/guard/resetPasswordModal/'.$userID, //string
+            ])?>
+            </div>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'UserListPage',
+    'pageTitle'     => '工地巡检员',
+    'paginator'     => $paginator,
+    'search'        => $where,
+    'buttonGroup'   => $this->placeholder('buttonGroup'),
+//     'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

@@ -1,0 +1,79 @@
+<?php 
+$name = $this->Website()->getEmaileName();
+$host  = $this->Website()->getEmaileHost();
+$username= $this->Website()->getEmaileUsername();
+$password= $this->Website()->getEmailePassword();
+$port    = $this->Website()->getEmailePort();
+$test_address = $this->Website()->getEmaileTestAddress();
+?>
+
+<?php $this->placeholder('panelTitle')->captureStart();?>
+<?=$this->partial('partial/admin/button/single.phtml', [
+    'type'  => 'default',
+    'id' => 'button_test_email',
+    'title' => '发送测试邮件',
+])?>
+<?php $this->placeholder('panelTitle')->captureEnd();?>
+<?php $this->placeholder('formContent')->captureStart();?>
+
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '名称：',
+    'name'      => 'name',
+    'value'     => $name,
+    'placeholder' => '请输入邮箱名称',
+ ])?>
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '发件服务器：',
+    'name'      => 'host',
+    'value'     => $host,
+    'placeholder' => '请输入发件服务器主机地址',
+ ])?>
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '端口号：',
+    'name'      => 'port',
+    'value'     => $port,
+    'placeholder' => '请输入发件服务器端口号',
+ ])?>
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '邮箱账户：',
+    'name'      => 'username',
+    'value'     => $username,
+    'placeholder' => '请输入邮箱地址',
+ ])?>
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'password',
+    'label'     => '邮箱密码：',
+    'name'      => 'password',
+    'value'     => $password,
+    'placeholder' => '请输入邮箱密码',
+ ])?>
+ 
+ 
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'type'      => 'text',
+    'label'     => '测试地址：',
+    'name'      => 'test_address',
+    'value'     => $test_address,
+    'placeholder' => '请输入可接受邮件地址：仅测试使用',
+ ])?>
+ 
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/form-page.phtml', 
+    [
+        'pageName' => 'WebsiteEmailPage',
+        'pageTitle' => '邮箱设置',
+        'form_id'=>'form-edit-email',
+        'action'=>'/api/website/editEmail',
+        'withBack' => false,
+        'panelTitle' => $this->placeholder('panelTitle'),
+        'formContent' => $this->placeholder('formContent')
+ ])?> 

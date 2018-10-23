@@ -1,0 +1,45 @@
+<?php
+$this->headTitle($this->pageTitle);
+$pageName   = $this->pageName;
+$panelTitle = $this->panelTitle;
+$narbar     = $this->navbar;
+$x_content  = $this->x_content;
+$showPageTitle = $this->showPageTitle === false ? false : true ;
+
+/* <?=$this->partial('partial/admin/page/page/basic-page.phtml', [
+    'panelTitle'    => '',
+    'pageName'      => $pageName,
+    'pageTitle'     => $pageTitle,
+    'showPageTitle' => ,//bool
+    'narbar'        => '',//指定导航条的url
+    'x_content'     => $this->placeholder('x_content'),
+])?> */
+
+?>
+
+
+
+<div class="page" data-name="<?=$pageName?>" data-narbar="<?=$narbar?>">
+	<!-- page-title -->
+	<?php if($showPageTitle):?>
+	<?=$this->partial('layout/admin/partial/page-title.phtml')?>
+	<?php endif;?>
+	<!-- /page-title -->
+	<div class="clearfix"></div>
+	<br />
+	<div class="page-content row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2><?=$panelTitle?></h2>
+					<ul class="nav navbar-right panel_toolbox"
+						style="min-width: auto !important;">
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<?= $x_content?>
+			</div>
+		</div>
+	</div>
+</div>

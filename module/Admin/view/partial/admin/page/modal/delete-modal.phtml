@@ -1,0 +1,39 @@
+<?php
+$pageName  = $this->pageName;
+$pageTitle = $this->pageTitle;
+$modalSize      = $this->modalSize;
+
+$formContent    = $this->formContent;
+$form_id    = $this->form_id;
+$action     = $this->action;
+$canDelete  = $this->canDelete;
+?>
+
+<?php $this->placeholder('modalBody')->captureStart();?>
+    <form 
+	class="form-ajax-submit form-horizontal form-label-left"
+	id = "<?=$form_id?>"
+	action="<?=$action?>"
+	method="post"
+	>
+		<?=$formContent?>
+		<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+            'name' => '_',
+            'value' => time(),
+    	])?>
+    	<?php if($canDelete):?>
+		<div class="ln_solid"></div>
+    	<div class="form-group">
+    		<div class="col-md-6 col-sm-6 col-xs-12 ">
+    			<button type="submit" class="btn btn-success">确认</button>
+    		</div>
+    	</div>
+    	<?php endif;?>
+	</form>
+<?php $this->placeholder('modalBody')->captureEnd() ?>
+<?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
+    'pageName'         => $pageName,
+    'pageTitle'        => $pageTitle,
+    'modalSize'         => 'sm',
+    'modalBody'         => $this->placeholder('modalBody'),
+])?>

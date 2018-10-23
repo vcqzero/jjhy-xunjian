@@ -1,0 +1,20 @@
+<?php 
+use Api\Service\UserManager;
+
+$identity = $this->identity();
+$Entity   = $this->User()->getEntityByIdentity($identity);
+$role     = $Entity->getRole();
+switch ($role)
+{
+    case UserManager::ROLE_SUPER_ADMIN:
+        $template = 'admin/index/index-super-admin.phtml';
+        break;
+    case UserManager::ROLE_WORKYARD_ADMIN:
+        $template = 'admin/index/index-workyard-admin.phtml';
+        break;
+    default:
+//         $template = 'admin/index/index-workyard-admin.phtml';
+        exit(__FILE__);
+}
+?>
+<?=$this->partial($template)?>

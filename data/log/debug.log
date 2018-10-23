@@ -1,0 +1,23 @@
+2018-10-22T17:33:27+08:00 DEBUG (7): An error occurred 
+File:
+ D:\workspace\xunjian.com\admin.xunjina.com\module\Guard\view\layout\weixin\partial\shifts.phtml : on line 25 
+Message:
+syntax error, unexpected ';'
+Stack trace: 
+#0 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\Helper\Partial.php(61): Zend\View\Renderer\PhpRenderer->render(NULL, NULL)
+#1 [internal function]: Zend\View\Helper\Partial->__invoke('layout/weixin/p...')
+#2 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\Renderer\PhpRenderer.php(397): call_user_func_array(Object(Zend\View\Helper\Partial), Array)
+#3 D:\workspace\xunjian.com\admin.xunjina.com\module\Guard\view\guard\index\index.phtml(16): Zend\View\Renderer\PhpRenderer->__call('partial', Array)
+#4 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\Renderer\PhpRenderer.php(506): include('D:\\workspace\\xu...')
+#5 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\View.php(207): Zend\View\Renderer\PhpRenderer->render(NULL)
+#6 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\View.php(236): Zend\View\View->render(Object(Zend\View\Model\ViewModel))
+#7 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-view\src\View.php(200): Zend\View\View->renderChildren(Object(Zend\View\Model\ViewModel))
+#8 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-mvc\src\View\Http\DefaultRenderingStrategy.php(105): Zend\View\View->render(Object(Zend\View\Model\ViewModel))
+#9 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-eventmanager\src\EventManager.php(322): Zend\Mvc\View\Http\DefaultRenderingStrategy->render(Object(Zend\Mvc\MvcEvent))
+#10 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-eventmanager\src\EventManager.php(171): Zend\EventManager\EventManager->triggerListeners(Object(Zend\Mvc\MvcEvent))
+#11 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-mvc\src\Application.php(367): Zend\EventManager\EventManager->triggerEvent(Object(Zend\Mvc\MvcEvent))
+#12 D:\workspace\xunjian.com\admin.xunjina.com\vendor\zendframework\zend-mvc\src\Application.php(348): Zend\Mvc\Application->completeRequest(Object(Zend\Mvc\MvcEvent))
+#13 D:\workspace\xunjian.com\admin.xunjina.com\public\index.php(40): Zend\Mvc\Application->run()
+#14 {main}
+2018-10-22T17:33:27+08:00 DEBUG (7): -------end--------
+

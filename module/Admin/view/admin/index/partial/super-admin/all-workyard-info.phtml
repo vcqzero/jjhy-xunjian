@@ -1,0 +1,26 @@
+<?php
+$Entities = $this->Workyard()->getEntities();
+?>
+<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+	<ul 
+	id ="workyard_info"
+	class="list-unstyled user_data"
+	style="max-height: 430px; overflow: auto">
+		<?php foreach ($Entities as $Entity):?>
+    	<?php
+            $name = $Entity->getName();
+            $address = $Entity->getAddress();
+            $address_path = $Entity->getAddress_path();
+        ?>
+    	<li data-address-path=<?=$address_path?>>
+			<p>
+				<i class="fa fa-map-marker"></i>&nbsp;<strong><?=$name?></strong>
+			</p> <small class="text-muted"><?=$address?></small>
+		</li>
+    	<?php endforeach;?>
+	</ul>
+</div>
+
+<div class="col-md-9 col-sm-9 col-xs-12">
+	<div id="map_container" style="min-height: 500px; max-width: none;"></div>
+</div>
