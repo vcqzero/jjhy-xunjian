@@ -33,4 +33,16 @@ class ShiftTimeHelper extends AbstractHelper
         $count = $this->ShiftTimeManager->MyOrm->count($where);
         return $count;
     }
+    
+    public function getShiftTimeIdOnWorking($userID, $shift_id)
+    {
+        $where = [
+            ShiftTimeEntity::FILED_SHIFT_ID => $shift_id,
+            ShiftTimeEntity::FILED_GUARD_ID => $userID,
+            ShiftTimeEntity::FILED_STATUS   => ShiftTimeManager::STATUS_WORKING,
+        ];
+        
+        $shfit_time_id = $this->ShiftTimeManager->MyOrm->findOne($where);
+        return $shfit_time_id;
+    }
 }

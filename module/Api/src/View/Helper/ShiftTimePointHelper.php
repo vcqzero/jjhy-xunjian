@@ -3,6 +3,7 @@ namespace Api\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Api\Service\ShiftTimePointManager;
+use Api\Entity\ShiftTimePointEntity;
 
 /**
  * 用于分页的管理
@@ -17,5 +18,17 @@ class ShiftTimePointHelper extends AbstractHelper
         )
     {
         $this->ShiftTimePointManager = $ShiftTimePointManager;
+    }
+    
+    public function getEntity($shift_time_id, $point_id)
+    {
+        $where = [
+            ShiftTimePointEntity::FILED_SHIFT_TIME_ID => $shift_time_id,
+            ShiftTimePointEntity::FILED_POINT_ID => $point_id
+        ];
+        
+        $ShiftTimePointEntity = $this->ShiftTimePointManager->MyOrm->findOne($where);
+        
+        return $ShiftTimePointEntity;
     }
 }

@@ -62,6 +62,9 @@ div.weui-tab__bd{
 	overflow: auto !important;
 }
 
+.weui-msg__desc {
+	text-align: center;
+}
 /*div.weui-panel{
 	overflow: auto !important;
 }*/

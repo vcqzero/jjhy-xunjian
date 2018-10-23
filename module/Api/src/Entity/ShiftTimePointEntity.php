@@ -14,7 +14,7 @@ class ShiftTimePointEntity
     const FILED_SHIFT_TIME_ID           = 'shift_time_id';
     const FILED_POINT_ID                = 'point_id';
     const FILED_NOTE                    = 'note';
-    const FILED_TIME_QRCODE             = 'time_qrcode';
+    const FILED_TIME                    = 'time';
     const FILED_ADDRESS_PATH            = 'address_path';
     
     /**
@@ -24,8 +24,16 @@ class ShiftTimePointEntity
     private $shift_time_id;
     private $point_id;
     private $note;
-    private $time_qrcode;
+    private $time;
     private $address_path;
+    /**
+     * @return the $time
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
     /**
      * @return the $shift_time_id
      */
@@ -56,14 +64,6 @@ class ShiftTimePointEntity
     public function getNote()
     {
         return $this->note;
-    }
-
-    /**
-     * @return the $time_qrcode
-     */
-    public function getTime_qrcode()
-    {
-        return $this->time_qrcode;
     }
 
     /**

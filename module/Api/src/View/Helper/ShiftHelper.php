@@ -119,41 +119,24 @@ class ShiftHelper extends AbstractHelper
     */
     public function getGuardShift($userID, $workyardID)
     {
-        //获取今天凌晨的时间戳
-        $today = strtotime(date("Y-m-d"),time());
-        $end = $today + 60 * 60 * 24;
-        
         $Select = new Select();
         $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
         $on = 's.id=sg.shift_id';
         $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
         
         $Select ->where
-        //查询出昨天开始的今天结束的任务
         ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyardID)
         ->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $userID)
-        ->lessThan(ShiftEntity::FILED_START_TIME, $today)
-        ->greaterThan(ShiftEntity::FILED_END_TIME, $today)
-        
-        //或者今天开始今天结束的任务
-        ->or
-        ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyardID)
-        ->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $userID)
-        ->lessThan(ShiftEntity::FILED_END_TIME, $end)
-        ->greaterThan(ShiftEntity::FILED_START_TIME, $today)
-        
-        //或者今天开始明天结束的任务
-        ->or
-        ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyardID)
-        ->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $userID)
-        ->lessThan(ShiftEntity::FILED_START_TIME, $end)
-        ->greaterThan(ShiftEntity::FILED_END_TIME, $end);
+        ->lessThan(ShiftEntity::FILED_START_TIME, time())
+        ->greaterThan(ShiftEntity::FILED_END_TIME, time());
         
         //按照开始时间升序
         $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING]);
+        $Select->limit(1);
 //         $this->ShiftManager->MyOrm->startDebug();
         $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, new ShiftEntity());
 //         $this->ShiftManager->MyOrm->stopDebug();
-        return $ShiftEntities;
+        return $ShiftEntities->current();
     }
+    
 }

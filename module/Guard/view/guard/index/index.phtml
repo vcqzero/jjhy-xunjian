@@ -3,6 +3,12 @@ $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $UserEntity  = $this->User()->getEntityByIdentity($identity);
 $userID = $UserEntity->getId();
+
+// 当前巡检任务
+$ShiftEntity = $this->Shift()->getGuardShift($userID, $workyard_id);
+$shift_id = $ShiftEntity->getId();
+//当前巡检次数id
+$shift_time_id = $this->ShiftTime()->getShiftTimeIdOnWorking($userID, $shift_id);
 ?>
 
 <?php $this->placeholder('narbar')->captureStart();?>
@@ -14,17 +20,18 @@ $userID = $UserEntity->getId();
 <?=$this->partial('guard/index/partial/workyard.phtml', [
     'workyard_id' => $workyard_id
 ])?>
-<?=$this->partial('guard/index/partial/all-points-working.phtml', [
-    'workyard_id' => $workyard_id
-])?>
+
 <!-- 值班安排 -->
-<?=$this->partial('guard/index/partial/shifts.phtml', [
-    'workyard_id' => $workyard_id,
+<?=$this->partial('guard/index/partial/on-working-shift.phtml', [
+    'ShiftEntity' => $ShiftEntity,
     'userID' => $userID,
 ])?>
 
-
-
+<?=$this->partial('guard/index/partial/on-working-points.phtml', [
+    'workyard_id' => $workyard_id,
+    'shift_time_id' => $shift_time_id,
+])?>
+<br/>
 <!-- 显示所有巡检点popup -->
 <?=$this->partial('guard/index/partial/all-points.phtml', [
     'workyard_id' => $workyard_id

@@ -5,12 +5,7 @@ $workyard_name = $WorkyardEntity->getName();
 $address = $WorkyardEntity->getAddress();
 $desc = $WorkyardEntity->getNote();
 ?>
-<div class="weui-panel">
-    <div class="weui-panel__hd">工地信息</div>
-    <div class="weui-panel__bd">
-        <div class="weui-media-box weui-media-box_text">
-            <h4 class="weui-media-box__title">工地：<?=$workyard_name?></h4>
-            <p class="weui-media-box__desc">地址：<?=$address?></p>
-        </div>
-    </div>
-</div>
+<header class='demos-header'>
+	<h2 class="demos-title"><?=$workyard_name?></h2>
+	<p class="weui-msg__desc">地址：<?=$address?></p>
+</header>

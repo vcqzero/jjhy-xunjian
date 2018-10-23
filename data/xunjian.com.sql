@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : LOCALHOST
-Source Server Version : 50720
-Source Host           : localhost:3306
+Source Server         : localhost
+Source Server Version : 50717
+Source Host           : 127.0.0.1:3306
 Source Database       : xunjian.com
 
 Target Server Type    : MYSQL
-Target Server Version : 50720
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-10-23 17:42:29
+Date: 2018-10-23 23:35:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -117,9 +117,10 @@ CREATE TABLE `shift_time_point` (
   `shift_time_id` int(10) unsigned NOT NULL COMMENT '巡检班次的某一次数',
   `point_id` int(10) unsigned NOT NULL COMMENT '巡检点id',
   `note` varchar(255) NOT NULL DEFAULT '' COMMENT '本次巡检点记录',
-  `time_qrcode` int(10) unsigned NOT NULL COMMENT '扫描巡检点时间',
+  `time` int(10) unsigned NOT NULL COMMENT '扫描巡检点时间',
   `address_path` varchar(255) NOT NULL DEFAULT '' COMMENT '扫描巡检点时巡检员地理坐标',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`,`shift_time_id`,`point_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------

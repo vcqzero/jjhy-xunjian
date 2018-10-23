@@ -396,7 +396,7 @@ final class MyOrm
         }else
         {
             $this->count = 0;
-            return false;
+            return $Entity;
         }
     }
     /**
