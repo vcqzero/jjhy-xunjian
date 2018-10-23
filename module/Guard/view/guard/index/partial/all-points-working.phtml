@@ -1,0 +1,27 @@
+<?php
+use Api\Entity\PointEntity;
+
+$workyard_id = $this->workyard_id;
+$where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
+$PointEntities = $this->Point()->getEntities($where);
+
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name = $WorkyardEntity->getName();
+$address = $WorkyardEntity->getAddress();
+$desc = $WorkyardEntity->getNote();
+?>
+<div class="weui-cells">
+<?php foreach ($PointEntities as $PointEntity) :?>
+<?php
+$pointName = $PointEntity->getName();
+$address = $PointEntity->getAddress();
+?>
+  <a class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__bd">
+      <p><?=$pointName?></p>
+    </div>
+    <div class="weui-cell__ft"><i class="weui-icon-success-no-circle"></i></div>
+  </a>
+
+<?php endforeach;?>
+</div>
