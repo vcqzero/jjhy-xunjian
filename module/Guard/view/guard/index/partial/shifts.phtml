@@ -1,11 +1,13 @@
 <?php
-$identity = $this->identity();
-$workyard_id = $this->User()->getWorkyardId($identity);
-$UserEntity = $this->User()->getEntityByIdentity($identity);
-$userID = $UserEntity->getId();
+use Api\Entity\PointEntity;
+
+$workyard_id = $this->workyard_id;
+$userID = $this->userID;
 
 // 今天巡检任务
 $shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
+$where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
+$PointEntities = $this->Point()->getEntities($where);
 
 ?>
 <div style="margin-bottom: 60px; margin-top: 20px">
@@ -29,11 +31,11 @@ $shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
         $is_before_time = $start_time >= time();
         
         //当前shift已完成巡检次数
-        $max_count = $this->ShiftTime()->getMaxDoneCount($shift_id);
+        $done_count = $this->ShiftTime()->getDoneCount($userID, $shift_id);
         //是否完成巡检
-        $is_done = $max_count == $times;
+        $is_done = $done_count == $times;
         //当前应该执行的巡检次数
-        $next_count = $is_done ? null : $max_count + 1;
+        $next_count = $is_done ? null : $done_count + 1;
         //下一次巡检是否已开始
         ?>
 		<div class="weui-form-preview">
@@ -52,33 +54,53 @@ $shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
     			</div>
     			<div class="weui-form-preview__item">
     				<label class="weui-form-preview__label">已巡检/总次数</label> <span
-    					class="weui-form-preview__value"><?=$max_count?>/<?=$times?></span>
+    					class="weui-form-preview__value"><?=$done_count?>/<?=$times?></span>
     			</div>
     			<div class="weui-form-preview__item">
     				<label class="weui-form-preview__label">任务描述</label> <span
     					class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
     			</div>
     			<div class="weui-form-preview__item">
-    				<label class="weui-form-preview__label">状态</label> <span
-    					class="weui-form-preview__value"><?=$is_done ? '已完成' : '未完成'?></span>
+    				<label class="weui-form-preview__label">状态</label> 
+    				<span 
+    				class="weui-form-preview__value"
+    				>
+    				<?php if ($is_within_time) :?>
+    					<?php if($is_done):?>
+    					已完成
+    					<?php else :?>
+    					第<?=$next_count?>次巡检中...
+    					<?php endif;?>
+    				<?php else :?>
+    					<?=$is_done ? '已完成' : '未完成'?>
+    				<?php endif;?>
+    				</span>
     			</div>
     		</div>
     		<!-- 正在巡检时间内 -->
     		<?php if($is_within_time):?>
     		<div class="weui-form-preview__ft">
-    			<a class="weui-form-preview__btn weui-form-preview__btn_default"
+    			<a 
+    			class="weui-form-preview__btn weui-form-preview__btn_default log-shift"
+    			data-done-count = <?=$done_count?>
+    			data-shift-id="<?=$shift_id?>"
     				href="javascript:">巡检记录</a>
-    			<button type="submit"
+    			<a type="button"
     				class="weui-form-preview__btn weui-form-preview__btn_primary"
-    				href="javascript:">操作</button>
+    				data-next-count="<?=$next_count?>"
+    				data-shift-id="<?=$shift_id?>"
+    				href="javascript:">巡检点-扫描</a>
     		</div>
     		<?php endif;?>
     		
     		<!-- 已过巡检时间 -->
     		<?php if($is_beyond_time):?>
     		<div class="weui-form-preview__ft">
-    			<a class="weui-form-preview__btn weui-form-preview__btn_default"
-    				href="javascript:">巡检记录</a>
+    			<a 
+    			class="weui-form-preview__btn weui-form-preview__btn_default log-shift"
+    			data-done-count = <?=$done_count?>
+    			data-shift-id="<?=$shift_id?>"
+    			href="javascript:">巡检记录</a>
     			<button type="button"
     				class="weui-form-preview__btn weui-form-preview__btn_default weui-btn_disabled">已结束</button>
     		</div>
@@ -87,8 +109,9 @@ $shifts = $this->Shift()->getGuardShift($userID, $workyard_id);
     		<!-- 巡检未开始 -->
     		<?php if($is_before_time):?>
     		<div class="weui-form-preview__ft">
-        		<a class="weui-form-preview__btn weui-form-preview__btn_default"
-        				href="javascript:">巡检点</a>
+        		<a class="weui-form-preview__btn weui-form-preview__btn_default open-popup"
+        		 data-target="#all-points"
+        		 href="javascript:">巡检点</a>
     			<button type="button"
     				class="weui-form-preview__btn weui-form-preview__btn_default weui-btn_disabled"><?=date('H:i', $start_time)?> 开始巡检</button>
     		</div>

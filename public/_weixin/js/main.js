@@ -27,6 +27,9 @@ requirejs.config({
 		//pages
 		LoginPage : 'pages/Auth/LoginPage',
 		AuthChangePasswordPage : 'pages/Auth/AuthChangePasswordPage',
+		
+		//index
+		GuardShiftPage : 'pages/Index/GuardShiftPage',
 	},
 
 	//定义不同js的依赖关系

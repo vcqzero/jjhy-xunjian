@@ -39,9 +39,21 @@ return [
                     'auth' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/auth[:action]',
+                            'route'    => '/auth[/:action]',
                             'defaults' => [
                                 'controller' => Controller\AuthController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    
+                    //值班版块
+                    'shift' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/shift[/:action]',
+                            'defaults' => [
+                                'controller' => Controller\ShiftController::class,
                                 'action'     => 'index',
                             ],
                         ],
@@ -55,6 +67,7 @@ return [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
+            Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
         ],
         
     ],
@@ -69,6 +82,11 @@ return [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
                 UserManager::ROLE_GUEST,
+            ],
+        ],
+        Controller\ShiftController::class => [
+            'allow'=> [
+                UserManager::ROLE_WORKYARD_GUARD,
             ],
         ],
     ],
