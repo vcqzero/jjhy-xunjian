@@ -235,6 +235,8 @@ return [
             Service\ShiftManager::class   => Service\Factory\ShiftManagerFactory::class,
             Service\ShiftTypeManager::class   => Service\Factory\ShiftTypeManagerFactory::class,
             Service\ShiftGuardManager::class   => Service\Factory\ShiftGuardManagerFactory::class,
+            Service\ShiftGuardTimeManager::class   => Service\Factory\ShiftGuardTimeManagerFactory::class,
+            Service\ShiftGuardTimePointManager::class   => Service\Factory\ShiftGuardTimePointManagerFactory::class,
         ],
         
         'shared' => [
