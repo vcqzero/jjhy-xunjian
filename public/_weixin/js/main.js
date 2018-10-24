@@ -15,11 +15,11 @@ requirejs.config({
 		
 		//modules
 		myPage: 'modules/myPage',
-//		mySearch: 'modules/mySearch',
+		myWeiXinJs: 'modules/myWeiXinJs',
 		myForm: 'modules/myForm',
-		myValidator: 'modules/myValidator',
+//		myValidator: 'modules/myValidator',
 		myResult: 'modules/myResult',
-		myGaodemap: 'modules/myGaodemap',
+//		myGaodemap: 'modules/myGaodemap',
 		myScanQrcode: 'modules/myScanQrcode',
 		
 		//pages
@@ -27,7 +27,7 @@ requirejs.config({
 		AuthChangePasswordPage : 'pages/Auth/AuthChangePasswordPage',
 		
 		//index
-		GuardShiftPage : 'pages/Index/GuardShiftPage',
+		GuardIndexPage : 'pages/Index/GuardIndexPage',
 	},
 
 	//定义不同js的依赖关系

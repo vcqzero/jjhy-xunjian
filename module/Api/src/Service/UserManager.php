@@ -14,8 +14,7 @@ class UserManager
 {
     public  $MyOrm;
     public  $FormFilter;
-    
-    const PATH_SYS_CONFIG = 'module/Api/config/systerm.config.php';
+    private  $super_admin_config;
     
     const STATUS_ENABLED    = 'ENABLED';
     const STATUS_WAIT_CHANGE_PASSWORD   = 'WAIT_CHANGE_PASSWORD';
@@ -50,11 +49,13 @@ class UserManager
 
     public function __construct(
         MyOrm $MyOrm,
-        FormFilter $FormFilter
+        FormFilter $FormFilter,
+        $super_admin_config
         )
     {
         $this->FormFilter   = $FormFilter;
         $this->MyOrm        = $MyOrm;
+        $this->super_admin_config = $super_admin_config;
     }
     
     /**
@@ -165,7 +166,7 @@ class UserManager
     
     private function getSuperAdminName()
     {
-        $config = include self::PATH_SYS_CONFIG;
+        $config = $this->super_admin_config;
         if (isset($config['super_admin']))
         {
             $super_admin= $config['super_admin'];
@@ -178,7 +179,7 @@ class UserManager
     
     private function getSuperAdminPassword()
     {
-        $config = include self::PATH_SYS_CONFIG;
+        $config = $this->super_admin_config;
         if (isset($config['super_admin']))
         {
             $super_admin= $config['super_admin'];

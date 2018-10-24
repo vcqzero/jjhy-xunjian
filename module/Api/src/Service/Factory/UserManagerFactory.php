@@ -26,9 +26,13 @@ class UserManagerFactory implements FactoryInterface
         $FormFilter = $container->get(FormFilter::class);
         $FormFilter ->setRules(include 'module/Api/src/Filter/rules/User.php');
         
+        //super admin config
+        $config = $container->get('config');
+        $super_admin_config = $config['super_admin'];
         $UserManager = new UserManager(
             $MyOrm,
-            $FormFilter
+            $FormFilter,
+            $super_admin_config
             );
         
         return  $UserManager;

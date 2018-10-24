@@ -17,6 +17,6 @@ class WeixinerFactory implements FactoryInterface
         $cache      = $container->get('filesystem');
         $weixinConfig = $container->get('config')['weixin'];
         $Curler = new Curler();
-        return new Weixiner($cache, $weixinConfig, $Curler);
+        return new Weixiner($cache, $Curler, $weixinConfig);
     }
 }

@@ -16,18 +16,25 @@ class Weixiner
     const CACHE_KEY_WEIXIN_SIGNATURE = 'weixin-signature';
     const CACHE_KEY_WEIXIN_JSAPI_TICKET = 'weixin-jsapi-ticket';
     
+    const EXPIRES_IN = 7200;
+    
     private $Cache;
     private $Curler;
-    private $weixin_config;
+    
+    private $appid;
+    private $secret;
 
     public function __construct(
         Filesystem $Cache,
-        array $weixinTokenConfig= null, 
-        Curler $Curler)
+        Curler $Curler,
+        $weixinConfig
+        )
     {
         $this->Cache = $Cache;
-        $this->weixin_config= $weixinTokenConfig;
         $this->Curler  = $Curler;
+        
+        $this->appid = $weixinConfig['appid'];
+        $this->secret= $weixinConfig['secret'];
     }
     
     /**
@@ -39,26 +46,23 @@ class Weixiner
     public function getAccessToken()
     {
         $Cache = $this->Cache;
-        $weixin_config = $this->weixin_config;
-        
-        $expires_in = $weixin_config['expires_in'];
-        $Cache->getOptions()->setTtl($expires_in - 20);
+        $Cache->getOptions()->setTtl(self::EXPIRES_IN - 20);
         
         $access_token = $Cache->getItem(self::CACHE_KEY_WEIXIN_TOKEN);
         if (empty($access_token))
         {
             //需要重新获取token
-            $url = $weixin_config['url'];
+            $url = 'https://api.weixin.qq.com/cgi-bin/token';
             
             $data = [
-                'appid'     => $weixin_config['appid'],
-                'secret'    => $weixin_config['secret'],
-                'grant_type'=> $weixin_config['grant_type'],
+                'appid'     => $this->appid,
+                'secret'    => $this->secret,
+                'grant_type'=> 'client_credential',
             ];
             
             $res = $this->Curler->get($url, $data);
             
-            if (isset($res['errcode']))
+            if (!empty($res['errcode']))
             {
                 $errcode = $res['errcode'];
                 $errmsg  = $res['errmsg'];
@@ -70,9 +74,34 @@ class Weixiner
         return $access_token;
     }
     
-    public function getSignature()
+    public function getWxConfig($url)
     {
+        $str="abcdrrlljokoptldiektldlyuiopasdfghjklzxcvbnm";
+        str_shuffle($str);
+        $noncestr       =substr(str_shuffle($str),5,10);
+        $jsapi_ticket   =$this->getJsapiTicket();
+        $timestamp      =time();
         
+        $data=[
+            'jsapi_ticket'  =>$jsapi_ticket,
+            'noncestr'      =>$noncestr,
+            'timestamp'     =>$timestamp,
+            'url'           =>$url,
+        ];
+        $data_string=[];
+        foreach ($data as $key=>$val)
+        {
+            $data_string[]=$key . '=' . $val;
+        }
+        
+        $signature          =sha1(implode('&', $data_string));
+        $config = [
+            'appId' => $this->appid,
+            'timestamp' => $timestamp,
+            'nonceStr' => $noncestr,
+            'signature' => $signature,
+        ];
+        return $config;
     }
     
     /**
@@ -86,12 +115,9 @@ class Weixiner
     public function getJsapiTicket()
     {
         $Cache = $this->Cache;
-        $weixin_config = $this->weixin_config;
-        
-        $expires_in = $weixin_config['expires_in'];
-        $Cache->getOptions()->setTtl($expires_in - 20);
-        
+        $Cache->getOptions()->setTtl(self::EXPIRES_IN - 20);
         $jsapi_ticket = $Cache->getItem(self::CACHE_KEY_WEIXIN_JSAPI_TICKET);
+        
         if (empty($jsapi_ticket))
         {
             $access_token = $this->getAccessToken();
@@ -99,12 +125,13 @@ class Weixiner
             
             $res = $this->Curler->get($url);
             
-            if (isset($res['errcode']))
+            if (!empty($res['errcode']))
             {
                 $errcode = $res['errcode'];
                 $errmsg  = $res['errmsg'];
                 throw new \Exception("获取微信jspai_ticket 发生错误，错误代码为:$errcode, 错误信息：$errmsg");
             }
+            
             $jsapi_ticket= $res['ticket'];
             $Cache->setItem(self::CACHE_KEY_WEIXIN_JSAPI_TICKET, $jsapi_ticket);
         }

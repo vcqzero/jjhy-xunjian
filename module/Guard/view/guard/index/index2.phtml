@@ -1,0 +1,45 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$UserEntity  = $this->User()->getEntityByIdentity($identity);
+$userID = $UserEntity->getId();
+?>
+
+<?php $this->placeholder('narbar')->captureStart();?>
+<?=$this->partial('layout/weixin/partial/narbar-workyard.phtml')?>
+<?php $this->placeholder('narbar')->captureEnd();?>
+
+<?php $this->placeholder('content')->captureStart();?>
+<!-- 工地信息 -->
+<?=$this->partial('guard/index/partial/workyard.phtml', [
+    'workyard_id' => $workyard_id
+])?>
+<?=$this->partial('guard/index/partial/all-points-working.phtml', [
+    'workyard_id' => $workyard_id
+])?>
+<!-- 值班安排 -->
+<?=$this->partial('guard/index/partial/shifts.phtml', [
+    'workyard_id' => $workyard_id,
+    'userID' => $userID,
+])?>
+
+
+
+<!-- 显示所有巡检点popup -->
+<?=$this->partial('guard/index/partial/all-points.phtml', [
+    'workyard_id' => $workyard_id
+])?>
+
+<?=$this->partial('partial/weixin/popup/popup.phtml', [
+    'id' => 'log-shift-popup'
+])?>
+
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'GuardShiftPage',
+    'pageTitle'   => '巡检任务',
+    'narbar'      => '',//指定导航条的url
+    'narbar'     => $this->placeholder('narbar'),
+    'content'     => $this->placeholder('content'),
+])?>
