@@ -130,8 +130,9 @@ class ShiftHelper extends AbstractHelper
         //按照开始时间升序
         $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING]);
         $Select->limit(1);
+        $Entity = new ShiftEntity();
 //         $this->ShiftManager->MyOrm->startDebug();
-        $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, new ShiftEntity());
+        $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, $Entity);
 //         $this->ShiftManager->MyOrm->stopDebug();
         return $ShiftEntities->current();
     }

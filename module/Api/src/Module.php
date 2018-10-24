@@ -267,18 +267,38 @@ class Module
         
         switch ($subdomain.$route)
         {
+            //pc-需要重新设置密码
             case self::REQUET_FROM_ADMIN_PC.self::ROUTE_CHANGE_PASSWORD:
                 $controller = AuthController::class;
                 $action     = 'changePassword';
                 break;
+            //pc-没有权限
             case self::REQUET_FROM_ADMIN_PC.self::ROUTE_NO_PERMISSION:
                 $controller = AuthController::class;
                 $action     = 'noPermission';
                 break;
+            //pc-登录
             case self::REQUET_FROM_ADMIN_PC.self::ROUTE_NOT_LOGIN:
                 $controller = AuthController::class;
                 $action     = 'index';
                 break;
+            
+                //weixin-需要重新设置密码
+            case self::REQUET_FROM_GUARD_WEIXIN.self::ROUTE_CHANGE_PASSWORD:
+                $controller = \Guard\Controller\AuthController::class;
+                $action     = 'changePassword';
+                break;
+                //weixin-没有权限
+            case self::REQUET_FROM_GUARD_WEIXIN.self::ROUTE_NO_PERMISSION:
+                $controller = \Guard\Controller\AuthController::class;
+                $action     = 'noPermission';
+                break;
+                //weixin-登录
+            case self::REQUET_FROM_GUARD_WEIXIN.self::ROUTE_NOT_LOGIN:
+                $controller = \Guard\Controller\AuthController::class;
+                $action     = 'index';
+                break;
+                
             default:
                 exit("系统错误" . __FILE__);
         }

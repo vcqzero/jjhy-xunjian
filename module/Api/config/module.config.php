@@ -130,6 +130,18 @@ return [
                 ],
             ],
             
+            //值班班次
+            'api/shiftTime' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/shiftTime[/:action][/:shiftID]',
+                    'defaults' => [
+                        'controller' => Controller\ShiftTimeController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            
         ],
     ],
     
@@ -142,6 +154,7 @@ return [
             Controller\WorkyardController::class => Controller\Factory\WorkyardControllerFactory::class,
             Controller\ShiftTypeController::class => Controller\Factory\ShiftTypeControllerFactory::class,
             Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
+            Controller\ShiftTimeController::class => Controller\Factory\ShiftTimeControllerFactory::class,
         ],
     ],
     'permission' => [
@@ -187,6 +200,14 @@ return [
                 UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
+        
+        Controller\ShiftTimeController::class => [
+            'allow'=> [
+                UserManager::ROLE_SUPER_ADMIN,
+                UserManager::ROLE_WORKYARD_ADMIN,
+                UserManager::ROLE_WORKYARD_GUARD,
+            ],
+        ],
     ],
     
     'controller_plugins' => [
@@ -222,7 +243,7 @@ return [
 //             Mailer\MyMailer::class => Mailer\Factory\MyMailerFactory::class,
             
             //Service/Server
-            Service\Server\WeixinTokener::class   => Service\Server\Factory\WeixinTokenerFactory::class,
+            Service\Server\Weixiner::class   => Service\Server\Factory\WeixinerFactory::class,
             Service\Server\AclPermissioner::class => Service\Server\Factory\AclPermissionerFactory::class,
             
             
@@ -270,7 +291,7 @@ return [
         ],
     ],
     
-    'weixin_token' =>[
+    'weixin' =>[
         'url'       =>'https://api.weixin.qq.com/cgi-bin/token',
         'appid'     => 'wx8c36e3d3fba83dad',
         'secret'    => '24ecd9972b5490f043b0da21a571f605',

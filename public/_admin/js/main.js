@@ -29,11 +29,10 @@ requirejs.config({
 		myForm: 'modules/myForm',
 		myValidator: 'modules/myValidator',
 		myResult: 'modules/myResult',
-		mySelectArticleCate: 'modules/mySelectArticleCate',
 		myPnotify: 'modules/myPnotify',
-		myTable: 'modules/myTable',
-		myDropzone: 'modules/myDropzone',
-		myCheckbox: 'modules/myCheckbox',
+//		myTable: 'modules/myTable',
+//		myDropzone: 'modules/myDropzone',
+//		myCheckbox: 'modules/myCheckbox',
 		myGaodemap: 'modules/myGaodemap',
 		
 		//index

@@ -6,11 +6,10 @@ $userID = $UserEntity->getId();
 
 // 当前巡检任务
 $ShiftEntity = $this->Shift()->getGuardShift($userID, $workyard_id);
-$shift_id = $ShiftEntity->getId();
-//当前巡检次数id
-$shift_time_id = $this->ShiftTime()->getShiftTimeIdOnWorking($userID, $shift_id);
+
 ?>
 
+<!-- 顶部导航 -->
 <?php $this->placeholder('narbar')->captureStart();?>
 <?=$this->partial('layout/weixin/partial/narbar-workyard.phtml')?>
 <?php $this->placeholder('narbar')->captureEnd();?>
@@ -21,17 +20,30 @@ $shift_time_id = $this->ShiftTime()->getShiftTimeIdOnWorking($userID, $shift_id)
     'workyard_id' => $workyard_id
 ])?>
 
+<?php if(!empty($ShiftEntity)) :?>
 <!-- 值班安排 -->
 <?=$this->partial('guard/index/partial/on-working-shift.phtml', [
     'ShiftEntity' => $ShiftEntity,
     'userID' => $userID,
-])?>
-
-<?=$this->partial('guard/index/partial/on-working-points.phtml', [
     'workyard_id' => $workyard_id,
-    'shift_time_id' => $shift_time_id,
 ])?>
 <br/>
+<?php else :?>
+<!-- 显示排班情况 -->
+<div class="weui-panel__bd">
+	<div class="weui-media-box weui-media-box_text">
+		<h4 class="weui-media-box__title">今日无值班安排！</h4>
+	</div>
+</div>
+<?php endif;?>
+
+
+
+
+
+
+
+
 <!-- 显示所有巡检点popup -->
 <?=$this->partial('guard/index/partial/all-points.phtml', [
     'workyard_id' => $workyard_id

@@ -76,17 +76,20 @@ return [
         Controller\IndexController::class => [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
+                UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
         Controller\AuthController::class => [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
                 UserManager::ROLE_GUEST,
+                UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
         Controller\ShiftController::class => [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
+                UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
     ],

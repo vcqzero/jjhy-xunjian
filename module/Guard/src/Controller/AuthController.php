@@ -11,7 +11,8 @@ class AuthController extends AbstractActionController
     public function indexAction()
     {
         $View = new ViewModel();
-        $this->layout()->setTemplate('layout/blank.phtml');
+        $View ->setTerminal(true);
+//         $this->layout()->setTemplate('layout/blank.phtml');
 //         $tokenJson = $this->token()->token();
 //         $View->setVariables([
 //             'tokenJson' => $tokenJson,
@@ -22,11 +23,12 @@ class AuthController extends AbstractActionController
     public function changePasswordAction()
     {
         $View = new ViewModel();
-        $this->layout()->setTerminal(true);
-        $tokenJson = $this->token()->token();
-        $View->setVariables([
-            'tokenJson' => $tokenJson,
-        ]);
+        $View ->setTerminal(true);
+//         $this->layout()->setTerminal(true);
+//         $tokenJson = $this->token()->token();
+//         $View->setVariables([
+//             'tokenJson' => $tokenJson,
+//         ]);
         return $View;
     }
     

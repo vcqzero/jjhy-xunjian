@@ -11,6 +11,7 @@ requirejs.config({
 		jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min',
 		'jquery-weui': 'https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min',
 		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
+		jweixin: 'http://res.wx.qq.com/open/js/jweixin-1.4.0',
 		
 		//modules
 		myPage: 'modules/myPage',
@@ -18,11 +19,8 @@ requirejs.config({
 		myForm: 'modules/myForm',
 		myValidator: 'modules/myValidator',
 		myResult: 'modules/myResult',
-		mySelectArticleCate: 'modules/mySelectArticleCate',
-		myTable: 'modules/myTable',
-		myDropzone: 'modules/myDropzone',
-		myCheckbox: 'modules/myCheckbox',
 		myGaodemap: 'modules/myGaodemap',
+		myScanQrcode: 'modules/myScanQrcode',
 		
 		//pages
 		LoginPage : 'pages/Auth/LoginPage',
@@ -46,7 +44,8 @@ requirejs(
 	'fastclick', 
 	'jquery-weui', 
 	'myPage',
-	'myForm'
+	'myForm',
+	'myScanQrcode'
 	],
 	function($, FastClick) {
 		FastClick.attach(document.body);
