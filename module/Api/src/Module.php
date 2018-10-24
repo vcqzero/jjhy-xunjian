@@ -23,8 +23,11 @@ class Module
     const ROUTE_NO_PERMISSION   = 'NO_PERMISSION';
     const ROUTE_CHANGE_PASSWORD = 'CHANGE_PASSWORD';
     
-    const SUBDOMAI_ADMIN_PC = 'admin';
-    const SUBDOMAI_GUARD_MOBILE = 'guard';
+    //定义请求是那种类型
+    const REQUET_FROM_ADMIN_PC = 'admin';//来自pc端请求
+    const REQUET_FROM_GUARD_WEIXIN = 'guard';//来自微信端请求
+    const REQUET_FROM_API = 'api';//请求api
+    
     /**
      * @var ContainerInterface
      */
@@ -41,7 +44,13 @@ class Module
         return include __DIR__ . '/../config/module.config.php';
     }
     
-    /* 定义事件 */
+    /**
+    * 当系统启动时首先运行onBootstrap程序
+    * 在其他module中不要定义onBootstrap程序了。
+    * 
+    * @param  
+    * @return        
+    */
     public function onBootstrap(MvcEvent $e)
     {
         $app        = $e->getApplication();
@@ -61,9 +70,9 @@ class Module
         $evt->attach(MvcEvent::EVENT_DISPATCH, array($this, 'doInit'), 100);
         
         //判断用户是否登录，如果未登录则进入登录页面
-//         $evt->attach(MvcEvent::EVENT_DISPATCH,
-//             [$this, 'onDispatchIdentity'],
-//             100);
+        $evt->attach(MvcEvent::EVENT_DISPATCH,
+            [$this, 'onDispatchIdentity'],
+            100);
     }
     
     //将php原始的错误信息记录到debug中
@@ -110,54 +119,6 @@ class Module
         $initServer = $container->get(InitServer::class);
     }
     /**
-     * 根据routeName 判断是否来自web浏览器
-     * 分为两种，app和web
-     * 在app中routename是以App开头的
-     *
-     * @param
-     * @return
-     */
-//     public function isFromApi($routeName)
-//     {
-//         $res = strpos($routeName, 'api/') === 0;
-        
-//         return $res;
-//     }
-    
-    /**
-     * 判断当前控制器是否可不经登录访问
-     *
-     * @param
-     * @return bool
-     */
-//     private function isPubulic(\Zend\Router\Http\RouteMatch $routeMatch)
-//     {
-//         $controller = $routeMatch->getParam('controller');
-//         $action = $routeMatch->getParam('action');
-//         $public = [
-//             Controller\AuthController::class => '*',
-// //             Controller\MobileController::class => [
-// //                 'download'
-// //             ],
-//         ];
-//         //先判断控制器
-//         if (!key_exists($controller, $public))
-//         {
-//             return false;
-//         }
-        
-//         //在判断action
-//         $allowActions = $public[$controller];
-//         if ($allowActions == '*')
-//         {
-//             return true;
-//         }
-        
-//         $isPublic = in_array($action, $allowActions);
-        
-//         return $isPublic;
-//     }
-    /**
      *
      * @param
      * @return UserManager
@@ -198,34 +159,55 @@ class Module
     {
         $routeMatch = $e->getRouteMatch();
         
-        //获取用户角色，根据角色判读用户是否有权限
-        //如果没有权限，则根据角色进入相应页面
+        //获取请求来自何处
+        //通过二级域名判断，如果没有则默认为api
+        $request_from  = $routeMatch->getParam('subdomain', self::REQUET_FROM_API);
+        
+        //是否有权限
         $role       = $this->getRole();
         $controller = $routeMatch->getParam('controller');
+        $isAllow = $this->isAllow($role, $controller);
+        //是否登录
+        $hasIdentity = $this->hasIdentity();
+        
+        //如果请求来自api
+        //判断是否有权限，如无权限exit
+        if ($request_from == self::REQUET_FROM_API)
+        {
+            if (!$isAllow)
+            {
+                exit('deny');
+            }
+            return ;
+        }
+        
+        //下面判断请求来自非api的情况
+        
         
         //如果没有权限且没有登录直接进入登录页面
         //进入用户登录页面
-        if (!$this->isAllow($role, $controller) && !$this->hasIdentity())
+        if (!$isAllow && !$hasIdentity)
         {
             return $this->setRoutMatch($routeMatch, self::ROUTE_NOT_LOGIN);
         }
         
         //如果没有权限且登录了
         //进入权限限制页面
-        if (!$this->isAllow($role, $controller) && $this->hasIdentity())
+        if (!$isAllow && $hasIdentity)
         {
             return $this->setRoutMatch($routeMatch, self::ROUTE_NO_PERMISSION);
         }
         
         //如果有权限且未登录
-        if ($this->isAllow($role, $controller) && !$this->hasIdentity())
+        if ($isAllow && !$hasIdentity)
         {
             //进入guest可以进入的角色
             //不需操作
+            return ;
         }
         
         //如果有权限且登录
-        if ($this->isAllow($role, $controller) && $this->hasIdentity())
+        if ($isAllow && $hasIdentity)
         {
             //需要验证用户的status
             $UserEntity = $this->getUserEntity();
@@ -281,18 +263,19 @@ class Module
     private function setRoutMatch(RouteMatch $routeMatch, $route)
     {
         //比如pc端和手机端的subdomain不同
-        $subdomain  = $routeMatch->getParam('subdomain');
+        $subdomain  = $routeMatch->getParam('subdomain', 'api');
+        
         switch ($subdomain.$route)
         {
-            case self::SUBDOMAI_ADMIN_PC.self::ROUTE_CHANGE_PASSWORD:
+            case self::REQUET_FROM_ADMIN_PC.self::ROUTE_CHANGE_PASSWORD:
                 $controller = AuthController::class;
                 $action     = 'changePassword';
                 break;
-            case self::SUBDOMAI_ADMIN_PC.self::ROUTE_NO_PERMISSION:
+            case self::REQUET_FROM_ADMIN_PC.self::ROUTE_NO_PERMISSION:
                 $controller = AuthController::class;
                 $action     = 'noPermission';
                 break;
-            case self::SUBDOMAI_ADMIN_PC.self::ROUTE_NOT_LOGIN:
+            case self::REQUET_FROM_ADMIN_PC.self::ROUTE_NOT_LOGIN:
                 $controller = AuthController::class;
                 $action     = 'index';
                 break;

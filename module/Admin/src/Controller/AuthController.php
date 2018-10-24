@@ -16,17 +16,18 @@ class AuthController extends AbstractActionController
         $View->setVariables([
             'tokenJson' => $tokenJson,
         ]);
+        $View->setTerminal(true);
         return $View;
     }
     
     public function changePasswordAction()
     {
         $View = new ViewModel();
-        $this->layout()->setTerminal(true);
         $tokenJson = $this->token()->token();
         $View->setVariables([
             'tokenJson' => $tokenJson,
         ]);
+        $View->setTerminal(true);
         return $View;
     }
     

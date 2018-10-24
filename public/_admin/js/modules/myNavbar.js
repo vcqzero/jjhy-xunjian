@@ -137,10 +137,12 @@ define(['jquery', 'nprogress'], function($, NProgress) {
 		$(document).ready(function() {
 			NProgress.start();
 			NProgress.done();
+			
 		});
 
 		$(window).load(function() {
 			NProgress.start();
+			NProgress.done();
 		});
 	
 	return {

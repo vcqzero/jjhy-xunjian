@@ -8,14 +8,15 @@ requirejs.config({
 	//已baseUrl为基础定义不同js文件的路径
 	//文件路径不可包含后缀名 js
 	paths: {
-//		async: 'async',
 		jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min',
 		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
 		bootstrap: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min',
 		bootstrapvalidator: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min',
 		bootstrapvalidator_language: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.min',
 		nprogress: 'https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min',
-		pnotify: 'https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify',
+//		pnotify: 'https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify',
+		//mouse0270-bootstrap-notify
+		bootstrap_notify: 'https://cdn.bootcss.com/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min',
 		GaodeMap : 'https://webapi.amap.com/maps?v=1.4.10&key=bf7d1e214598b146869b101434b3210a',
 		GaodeMapUi : 'https://webapi.amap.com/ui/1.0/main.js?v=1.0.11',
 		datetimepicker : 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min',
@@ -53,9 +54,6 @@ requirejs.config({
 		//Guard
 		GuardAddModal : 'pages/Guard/GuardAddModal',
 		GuardEditModal : 'pages/Guard/GuardEditModal',
-//		UserAddModal : 'pages/User/UserAddModal',
-//		UserEditModal : 'pages/User/UserEditModal',
-//		UserResetPasswordModal : 'pages/User/UserResetPasswordModal',
 		
 		//Point
 		PointListPage : 'pages/Point/PointListPage',
@@ -89,6 +87,7 @@ requirejs.config({
 		"bootstrap": ["jquery"],
 		"bootstrapvalidator": ["bootstrap"],
 		"select2": ["bootstrap"],
+		"bootstrap_notify": ["bootstrap"],
 		"bootstrapvalidator_language": ["bootstrapvalidator"],
 		"datetimepicker": ['moment'],
 	}

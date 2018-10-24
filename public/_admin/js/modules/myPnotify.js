@@ -1,51 +1,41 @@
-define(['jquery', 'pnotify'], function($, PNotify) {
-	var stack_bar_top = {
-		"dir1": "down",
-		"dir2": "right",
-		"push": "top",
-		"spacing1": 0,
-		"spacing2": 0
-	}
-	var init = function(type, title, text) {
-		if(title === undefined || title.length < 1) {
-			return
-		}
-
-		var pnotify = new PNotify({
-			styling: 'fontawesome',
+define(['jquery', 'bootstrap_notify'], function($) {
+	var init = function(type, title, message) {
+		message = typeof message == 'undefined' ? '' : message;
+		$.notify({
+			// options
 			title: title,
-			text: text ? text : '',
-			addclass: "text-center",
-			hide: true,
-			icon: false,
-			delay: 800,
+			message: message
+		}, {
+			// settings
 			type: type,
-			cornerclass: "",
-			width: "100%",
-			stack: stack_bar_top
-		})
-		
-		var elem = pnotify.elem
-		elem.css('left', '35%')
-		elem.css('right', '35%')
-		elem.css('top', '0px')
-		elem.css('width', 'auto')
+			allow_dismiss: false,
+			newest_on_top: true,
+			offset : {
+				y : 1
+			},
+			
+			placement : {
+				from : 'top',//top bottom
+				align : 'center',
+			},
+			delay : 500
+		});
 	}
 	return {
-		success: function(title, text) {
-			init('success', title, text)
+		success: function(title, message) {
+			init('success', title, message)
 		},
 
-		error: function(title, text) {
-			init('error', title, text)
+		error: function(title, message) {
+			init('danger', title, message)
 		},
 
-		info: function(title, text) {
-			init('info', title, text)
+		info: function(title, message) {
+			init('info', title, message)
 		},
 
-		notice: function(title, text) {
-			init('notice', title, text)
+		warning: function(title, message) {
+			init('warning', title, message)
 		}
 	}
 })
