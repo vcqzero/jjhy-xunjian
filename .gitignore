@@ -1,0 +1,16 @@
+.buildpath
+.project
+.settings/
+.DS_Store
+.vagrant/
+phpunit.xml
+
+vendor/
+config/development.config.php
+config/autoload/local.php
+data/cache/*
+data/log/*
+!data/cache/.gitkeep
+
+
+
