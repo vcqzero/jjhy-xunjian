@@ -18,13 +18,11 @@ $workyard_id = $this->User()->getWorkyardId($identity);
 	    'class' => 'timepicker',
 	])?>
 	
-	<?=$this->partial('partial/admin/form/input/input.phtml', [
-	    'label' => '开始时间：',
-	    'name' => 'end_time',
-	    'placeholder' => '请输入开始时间',
-	    'type' => 'text',
-	    'class' => 'timepicker',
+	<?=$this->partial('admin/shift-type/partial/input-end-time.phtml', [
+	    'is_next_day' => '',
+	    'end_time' => '',
 	])?>
+	
     <?=$this->partial('partial/admin/form/input/input-hide.phtml', [
     'name'  => 'workyard_id',
     'value' => $workyard_id,

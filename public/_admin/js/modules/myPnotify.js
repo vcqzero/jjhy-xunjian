@@ -1,5 +1,6 @@
 define(['jquery', 'bootstrap_notify'], function($) {
 	var init = function(type, title, message) {
+		title = '<strong>' + title + '</strong>'
 		message = typeof message == 'undefined' ? '' : message;
 		$.notify({
 			// options
@@ -21,6 +22,8 @@ define(['jquery', 'bootstrap_notify'], function($) {
 			delay : 500
 		});
 	}
+	
+//	init('success', '测试')
 	return {
 		success: function(title, message) {
 			init('success', title, message)

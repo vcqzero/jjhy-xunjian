@@ -92,7 +92,7 @@ return [
     ],
     
     'is_next_day'=>[
-        'name' => 'end_time',
+        'name' => 'is_next_day',
         'required' => true,
         'validators' => [
             [

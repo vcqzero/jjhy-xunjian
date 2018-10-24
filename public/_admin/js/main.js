@@ -20,7 +20,9 @@ requirejs.config({
 		GaodeMap : 'https://webapi.amap.com/maps?v=1.4.10&key=bf7d1e214598b146869b101434b3210a',
 		GaodeMapUi : 'https://webapi.amap.com/ui/1.0/main.js?v=1.0.11',
 		datetimepicker : 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min',
-		moment : 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min',
+		daterangepicker : 'https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/daterangepicker.min',
+		datetimepicker_moment : 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min',
+		moment : 'https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/moment.min',
 		select2 : 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/select2.min',
 		
 		mySearch: 'modules/mySearch',
@@ -68,7 +70,7 @@ requirejs.config({
 		//Shift
 		ShiftListPage : 'pages/Shift/ShiftListPage',
 		ShiftAddModal : 'pages/Shift/ShiftAddModal',
-		ShiftEditModal : 'pages/Shift/ShiftEditModal',
+		ShiftDeleteModal : 'pages/Shift/ShiftDeleteModal',
 		
 		//WebsiteSettingPage
 		WebsiteBasicPage:'pages/Website/WebsiteBasicPage',
@@ -89,7 +91,8 @@ requirejs.config({
 		"select2": ["bootstrap"],
 		"bootstrap_notify": ["bootstrap"],
 		"bootstrapvalidator_language": ["bootstrapvalidator"],
-		"datetimepicker": ['moment'],
+		"datetimepicker": ['datetimepicker_moment'],
+//		"daterangepicker": ['moment'],
 	}
 });
 

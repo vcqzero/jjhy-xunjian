@@ -7,6 +7,7 @@ use Api\Controller\IndexController;
 use Api\Controller\ShiftController;
 use Api\Service\ShiftManager;
 use Api\Service\ShiftGuardManager;
+use Api\Service\ShiftTypeManager;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -18,7 +19,8 @@ class ShiftControllerFactory implements FactoryInterface
     {
         return new ShiftController(
             $container->get(ShiftManager::class),
-            $container->get(ShiftGuardManager::class)
+            $container->get(ShiftGuardManager::class),
+            $container->get(ShiftTypeManager::class)
            );
     }
 }

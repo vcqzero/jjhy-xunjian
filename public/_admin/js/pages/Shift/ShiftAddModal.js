@@ -2,17 +2,37 @@ define(
 	['jquery', 
 	'myResult', 
 	'myValidator', 
-	'datetimepicker', 
+	'moment', 
+	'daterangepicker',
 	'select2'
 	],
-	function($, myResult, myValidator) {
+	function(
+		$,
+		myResult, 
+		myValidator, 
+		moment, 
+		daterangepicker) {
 		var myTimePicker = function(page) {
 
 			var _input = page.find('#datetimepicker')
-			var timepicker = _input.datetimepicker({
-				format: "YYYY-MM-D",
-				locale : 'zh-cn',
-			})
+			var _config = {
+				singleDatePicker: true,
+				startDate: moment(),
+				endDate: moment(),
+				locale: {
+					applyLabel: '确认',
+					cancelLabel: '取消',
+					fromLabel: 'From',
+					toLabel: 'To',
+					customRangeLabel: '自定义',
+					daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+					monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+					firstDay: 1,
+					//						format: 'YYYY-MM-DD hh:mm:ss',
+					format: 'YYYY/MM/DD',
+				}
+			}
+			_input.daterangepicker(_config);
 		}
 		
 		var myGuardsSelect = function(page) {
@@ -56,16 +76,16 @@ define(
 									message: '请选择日期',
 								},
 								
-								remote: {
-									url: '/api/shift/validShiftType',
-									type: 'POST', //以post的方式发生信息
-									data: function(validator) {
-										return {
-											shift_type_id: validator.getFieldElements('shift_type_id').val()
-										};
-									},
-									message: '该日班次已安排',
-								},
+//								remote: {
+//									url: '/api/shift/validShiftType',
+//									type: 'POST', //以post的方式发生信息
+//									data: function(validator) {
+//										return {
+//											shift_type_id: validator.getFieldElements('shift_type_id').val()
+//										};
+//									},
+//									message: '该日班次已安排',
+//								},
 							}
 						},
 						
@@ -75,17 +95,17 @@ define(
 								notEmpty: {
 									message: '请选择班次',
 								},
-
-								remote: {
-									url: '/api/shift/validShiftType',
-									type: 'POST', //以post的方式发生信息
-									data: function(validator) {
-										return {
-											date: validator.getFieldElements('date').val()
-										};
-									},
-									message: '该日班次已安排',
-								},
+//
+//								remote: {
+//									url: '/api/shift/validShiftType',
+//									type: 'POST', //以post的方式发生信息
+//									data: function(validator) {
+//										return {
+//											date: validator.getFieldElements('date').val()
+//										};
+//									},
+//									message: '该日班次已安排',
+//								},
 							}
 						},
 						

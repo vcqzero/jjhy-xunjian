@@ -85,27 +85,24 @@ class ShiftHelper extends AbstractHelper
         return $guard_ids;
     }
     
-    public function getPaginator($page, $where = [], $workyard_id)
+    public function getPaginator($page, $workyard_id, $where = [])
     {
-        
-        $done = isset($where['done']) ? $where['done'] : '';
-        $date = isset($where['date']) ? $where['date'] : '';
-        unset($where['done']);
-        if ($done == 'done') {
-            $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_DATE, 0, time());
-            $order = [ShiftEntity::FILED_DATE=> Select::ORDER_DESCENDING];
-        }else {
-            $where[] = new \Zend\Db\Sql\Predicate\NotBetween(ShiftEntity::FILED_DATE, 0, time());
-            $order = [ShiftEntity::FILED_DATE=> Select::ORDER_ASCENDING];
-        }
-        
-        if ($date)
+        //默认显示今天~7天的值班安排
+        //只有开始时间在此范围内即可
+        $range = $where['range'];
+        unset($where['range']);
+        if (empty($range))
         {
-            $where['date'] = strtotime($date);
+            $start = strtotime(date('Y-m-d'));
+            $end   = $start + 7 * 24 * 60 * 60;
+        }else {
+            $range = explode('-', $range);
+            $start = strtotime($range[0]);
+            $end   = strtotime($range[1]) + 24 * 60 * 60;
         }
-        
         $where[ShiftEntity::FILED_WORKYARD_ID] =$workyard_id;
-        $paginator = $this->ShiftManager->MyOrm->paginator($page, $where, $order);
+        $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_START_TIME, $start, $end);
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $where);
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }

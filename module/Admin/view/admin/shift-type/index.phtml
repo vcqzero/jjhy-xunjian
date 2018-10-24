@@ -1,5 +1,7 @@
 <?php 
 
+use Api\Service\ShiftTypeManager;
+
 $identity = $this->identity();
 $where    = $this->where;
 $workyard_id = $this->User()->getWorkyardId($identity);
@@ -32,6 +34,11 @@ $paginator = $this->ShiftType()->getPaginator($this->page, $where, $workyard_id)
       		$name   = $Entity->getName();
       		$start_time = $Entity->getStart_time();
       		$end_time   = $Entity->getEnd_time();
+      		$is_next_day   = $Entity->getIs_next_day();
+      		if ($is_next_day == ShiftTypeManager::IS_NEXT_DAY_YES)
+      		{
+      		    $end_time .= '（次日+1）';
+      		}
       		?>
       		<tr>
       		<td><?=$name?></td>
@@ -54,7 +61,7 @@ $paginator = $this->ShiftType()->getPaginator($this->page, $where, $workyard_id)
 <?php $this->placeholder('table')->captureEnd() ?>
 
 <?=$this->partial('partial/admin/page/page/table-page.phtml', [
-    'pageName'      => 'UserListPage',
+    'pageName'      => 'ShiftTypeListPage',
     'pageTitle'     => '巡检班次设置',
     'paginator'     => $paginator,
     'search'        => $where,

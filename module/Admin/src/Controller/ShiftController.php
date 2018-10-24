@@ -27,7 +27,7 @@ class ShiftController extends AbstractActionController
     }
     
     //goto edit page
-    public function editModalAction()
+    public function deleteModalAction()
     {
         $this->layout()->setTemplate('layout/blank.phtml');
         return new ViewModel($this->params()->fromRoute());

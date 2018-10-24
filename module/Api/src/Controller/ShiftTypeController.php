@@ -35,14 +35,18 @@ class ShiftTypeController extends AbstractActionController
         $name    = $this->params()->fromPost('name');
         $old_name= $this->params()->fromPost('old_name');
         $workyard_id= $this->params()->fromPost('workyard_id');
+        
+        $name = trim($name);
+        
         if($old_name == $name) {
             $this->ajax()->valid(true);
         }
         $where = [
             ShiftTypeEntity::FILED_NAME => $name,
-            ShiftTypeEntity::FILED_START_TIME => $workyard_id,
+            ShiftTypeEntity::FILED_WORKYARD_ID => $workyard_id,
         ];
         $count = $this->ShiftTypeManager->MyOrm->count($where);
+        
         $this->ajax()->valid(empty($count));
     }
     

@@ -8,6 +8,14 @@ define(
 				format: 'LT',
 				format: 'HH : mm'
 			})
+			
+			$('ul.select-is-next-day').on('click', 'li a', function() {
+				var _this = $(this)
+				var value = _this.attr('data-value')
+				var _text = _this.text()
+				page.find('span.show-is-next-day').text(_text)
+				page.find('input[name="is_next_day"]').val(value)
+			})
 		}
 		
 		var myResultConfig = {

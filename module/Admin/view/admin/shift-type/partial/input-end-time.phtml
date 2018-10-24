@@ -1,0 +1,36 @@
+<?php 
+$end_time       =$this->end_time;
+$is_next_day    =$this->is_next_day;
+
+$is_next_day    = empty($is_next_day) ? 'NO' : $is_next_day;
+$text_next_day  = $is_next_day == 'NO' ? '当日' : '次日(+1)';
+
+?>
+<div class="form-group">
+	<label class="control-label col-md-3 col-sm-3 col-xs-12"
+		for="first-name">结束时间： </label>
+	<div class="col-md-6 col-sm-6 col-xs-12">
+		
+		<div class="input-group">
+          <div class="input-group-btn">
+            <button 
+            type="button" 
+            class="btn btn-default dropdown-toggle" 
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"><span class="show-is-next-day"><?=$text_next_day?></span> <span class="caret"></span></button>
+            <ul class="dropdown-menu select-is-next-day">
+              <li><a href="javascript:;" data-value="NO">当日</a></li>
+			  <li><a href="javascript:;" data-value="YES">次日(+1)</a></li>
+            </ul>
+          </div><!-- /btn-group -->
+          <input 
+			class="form-control timepicker"
+			name="end_time"
+			placeholder = "请输入结束时间"
+			value= "<?=$end_time?>"
+			type="text">
+			<input type="hidden" value="<?=$is_next_day?>" name="is_next_day">
+        </div>
+	</div>
+</div>

@@ -1,5 +1,6 @@
 <?php
 use Api\Entity\ShiftTypeEntity;
+use Api\Service\ShiftTypeManager;
 
 $selectedId     = $this->selectedId;
 $withDefualt    = $this->withDefualt;
@@ -36,6 +37,14 @@ $Entities = $this->ShiftType()->getEntities($where);
 					<?php 
 					$id  = $Entity->getId();
 					$name= $Entity->getName();
+					$start_time = $Entity->getStart_time();
+					$end_time   = $Entity->getEnd_time();
+					$is_next_day   = $Entity->getIs_next_day();
+					if ($is_next_day == ShiftTypeManager::IS_NEXT_DAY_YES)
+					{
+					    $end_time .= '（次日+1）';
+					}
+					$name = "$name | $start_time - $end_time";
 					?>
 					<?php if ($selectedId === $id) :?>
 					<option value=<?=$id?> selected="selected"><?=$name?></option>

@@ -1,8 +1,8 @@
 <?php 
 $shiftID     = $this->shiftID;
 $ShiftEntity = $this->Shift()->getEntity($shiftID);
-$date    = $ShiftEntity->getDate();
-$date    = date('Y-m-d', $date);
+$start_time    = $ShiftEntity->getStart_time();
+$start_time    = date('Y-m-d', $start_time);
 //巡逻圈数和注意事项
 $times = $ShiftEntity->getTimes();
 $note = $ShiftEntity->getNote();
@@ -12,17 +12,14 @@ $workyard_id = $ShiftEntity->getWorkyard_id();
 $shift_type_id = $ShiftEntity->getShift_type_id();
 ?>
 
-<?php $this->placeholder('beforeForm')->captureStart();?>
-<?php $this->placeholder('beforeForm')->captureEnd() ?>
 <?php $this->placeholder('formContent')->captureStart();?>
-
 	
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '日期：',
 	    'name' => 'date',
 	    'placeholder' => '请选择时间',
 	    'type' => 'text',
-	    'value'=> $date,
+	    'value'=> $start_time,
 	    'id' => 'datetimepicker'
 	])?>
 	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [

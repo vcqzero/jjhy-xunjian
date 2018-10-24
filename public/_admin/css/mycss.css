@@ -249,3 +249,11 @@ table td {
 body.error{
 	background-color: #F7F7F7;
 }
+
+.alert {
+	text-align: center;
+}
+
+.alert span{
+	font-size: medium;
+}
