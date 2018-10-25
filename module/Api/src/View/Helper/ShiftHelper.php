@@ -106,35 +106,4 @@ class ShiftHelper extends AbstractHelper
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }
-    
-    /**
-    * 获取某一巡检员，今天的巡检任务
-    * 
-    * @param int $userID  
-    * @param int $workyardID  
-    * @return        
-    */
-    public function getGuardShift($userID, $workyardID)
-    {
-        $Select = new Select();
-        $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
-        $on = 's.id=sg.shift_id';
-        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
-        
-        $Select ->where
-        ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyardID)
-        ->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $userID)
-        ->lessThan(ShiftEntity::FILED_START_TIME, time())
-        ->greaterThan(ShiftEntity::FILED_END_TIME, time());
-        
-        //按照开始时间升序
-        $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING]);
-        $Select->limit(1);
-        $Entity = new ShiftEntity();
-//         $this->ShiftManager->MyOrm->startDebug();
-        $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, $Entity);
-//         $this->ShiftManager->MyOrm->stopDebug();
-        return $ShiftEntities->current();
-    }
-    
 }

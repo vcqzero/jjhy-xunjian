@@ -20,7 +20,9 @@ $this->headTitle($pageTitle);
 	<div class="weui-tab">
     	<?=$narbar?>
     	<div class="weui-tab__bd">
-    	<?=$content?>
+    		<div class="my-weui-tab__bd" >
+    		<?=$content?>
+    		</div>
     	</div>
     	<?=$this->partial('layout/weixin/partial/tabbar.phtml')?>
 	</div>

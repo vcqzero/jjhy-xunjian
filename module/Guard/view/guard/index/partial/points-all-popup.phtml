@@ -1,0 +1,39 @@
+<?php
+use Api\Entity\PointEntity;
+
+$workyard_id = $this->workyard_id;
+$where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
+$PointEntities = $this->Point()->getEntities($where);
+
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name = $WorkyardEntity->getName();
+$address = $WorkyardEntity->getAddress();
+$desc = $WorkyardEntity->getNote();
+?>
+
+<div id="popup-show-all-points" class="weui-popup__container" style="z-index: 501;">
+	<div class="weui-popup__overlay" style="z-index: 502;"></div>
+	<div class="weui-popup__modal" style="z-index: 503;">
+		<div class="bd">
+			<div class="page__bd">
+				<div class="weui-cells__title">工地：<?=$workyard_name?></div>
+				<div class="weui-cells">
+					<?php foreach ($PointEntities as $PointEntity) :?>
+					<?php 
+					$pointName = $PointEntity->getName();
+					$address   = $PointEntity->getAddress();
+					?>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<p><?=$pointName?></p>
+						</div>
+						<div class="weui-cell__ft"><?=$address?></div>
+					</div>
+					<?php endforeach;?>
+				</div>
+			</div>
+		</div>
+		<br>
+		<a href="javascript:;" class="weui-btn weui-btn_primary close-popup">关闭</a>
+	</div>
+</div>

@@ -51,7 +51,7 @@ return [
                     'shift' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/shift[/:action]',
+                            'route'    => '/shift[/:action][/:type]',
                             'defaults' => [
                                 'controller' => Controller\ShiftController::class,
                                 'action'     => 'index',

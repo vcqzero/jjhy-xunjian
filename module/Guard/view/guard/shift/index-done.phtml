@@ -1,0 +1,57 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$UserEntity  = $this->User()->getEntityByIdentity($identity);
+$userID = $UserEntity->getId();
+//获取某一巡检员所有的值班安排
+$has_shifts_on_done = $this->ShiftGuard()->hasShiftsOnDone($userID, $workyard_id);
+
+//test
+$has_shifts_on_done = true;
+
+?>
+
+<!-- 顶部导航 -->
+<?php $this->placeholder('narbar')->captureStart();?>
+<?=$this->partial('guard/shift/partial/top-narbar.phtml')?>
+<?php $this->placeholder('narbar')->captureEnd();?>
+
+<?php $this->placeholder('content')->captureStart();?>
+
+<?php if($has_shifts_on_done) :?>
+<div 
+id="my-shifts-on-play" 
+class="my-infinite"
+>
+<!-- 显示值班安排 -->
+<?=$this->partial('guard/shift/paginator-done.phtml', [
+    'user_id' => $userID,
+    'workyard_id' => $workyard_id,
+])?>
+
+<?=$this->partial('partial/weixin/loading/loading.phtml')?>
+<?=$this->partial('partial/weixin/loading/loading-done.phtml')?>
+
+<!-- 显示所有巡检点popup -->
+<?=$this->partial('guard/index/partial/points-all-popup.phtml', [
+    'workyard_id' => $workyard_id
+])?>
+
+</div>
+<?php else :?>
+<!-- 无值班任务和安排 -->
+<?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
+    'title' => '没有记录',
+//     'desc' => '没有值班安排',
+])?>
+<?php endif;?>
+
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'ShiftPlanAndDonePage',
+    'pageTitle'   => '值班安排',
+    'narbar'      => '',//指定导航条的url
+    'narbar'     => $this->placeholder('narbar'),
+    'content'     => $this->placeholder('content'),
+])?>

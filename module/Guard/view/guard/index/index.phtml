@@ -2,56 +2,50 @@
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $UserEntity  = $this->User()->getEntityByIdentity($identity);
-$userID = $UserEntity->getId();
+$user_id = $UserEntity->getId();
 
-// 当前巡检任务
-$ShiftEntity = $this->Shift()->getGuardShift($userID, $workyard_id);
+//获取某一巡检员是否有当前值班任务
+$has_shifts_on_working= $this->ShiftGuard()->hasShiftsOnWorking($user_id, $workyard_id);
+//获取某一巡检员是否有值班安排
+$has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard_id);
 
+//test
+// $ShiftEntityOnWorking = '';
+// $has_shifts_on_working = false;
 ?>
 
-<!-- 顶部导航 -->
-<?php $this->placeholder('narbar')->captureStart();?>
-<?=$this->partial('layout/weixin/partial/narbar-workyard.phtml')?>
-<?php $this->placeholder('narbar')->captureEnd();?>
-
 <?php $this->placeholder('content')->captureStart();?>
+
 <!-- 工地信息 -->
 <?=$this->partial('guard/index/partial/workyard.phtml', [
     'workyard_id' => $workyard_id
 ])?>
 
-<?php if(!empty($ShiftEntity)) :?>
+<!-- 如果有值班任务 -->
+<?php if($has_shifts_on_working) :?>
+
 <!-- 值班安排 -->
-<?=$this->partial('guard/index/partial/on-working-shift.phtml', [
-    'ShiftEntity' => $ShiftEntity,
-    'userID' => $userID,
+<?=$this->partial('guard/index/partial/shift-on-working.phtml', [
+    'user_id' => $user_id,
     'workyard_id' => $workyard_id,
 ])?>
+
 <br/>
+
+<?php elseif ($has_shifts_on_plan):?>
+<!-- 显示几条值班安排 -->
+<?=$this->partial('guard/index/partial/shift-on-plan.phtml', [
+    'user_id' => $user_id,
+    'workyard_id' => $workyard_id,
+])?>
 <?php else :?>
-<!-- 显示排班情况 -->
-<div class="weui-panel__bd">
-	<div class="weui-media-box weui-media-box_text">
-		<h4 class="weui-media-box__title">今日无值班安排！</h4>
-	</div>
-</div>
+
+<!-- 无值班任务和安排 -->
+<?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
+    'title' => '无内容',
+    'desc' => '没有值班任务和值班安排',
+])?>
 <?php endif;?>
-
-
-
-
-
-
-
-
-<!-- 显示所有巡检点popup -->
-<?=$this->partial('guard/index/partial/all-points.phtml', [
-    'workyard_id' => $workyard_id
-])?>
-
-<?=$this->partial('partial/weixin/popup/popup.phtml', [
-    'id' => 'log-shift-popup'
-])?>
 
 <?php $this->placeholder('content')->captureEnd();?>
 
@@ -59,6 +53,6 @@ $ShiftEntity = $this->Shift()->getGuardShift($userID, $workyard_id);
     'pageName'    => 'GuardIndexPage',
     'pageTitle'   => '巡检任务',
     'narbar'      => '',//指定导航条的url
-    'narbar'     => $this->placeholder('narbar'),
+//     'narbar'     => $this->placeholder('narbar'),
     'content'     => $this->placeholder('content'),
 ])?>

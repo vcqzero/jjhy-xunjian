@@ -3,7 +3,7 @@ define(['jquery'], function($) {
 		$('body').on('click', '.scan-qrcode', function() {
 			var _this = $(this)
 			console.log('点击了扫码')
-			var shift    = $('#my-shift')
+			var shift    = $('#my-shift-on-working')
 			var has_done
 			var shift_id
 			var shift_time_id

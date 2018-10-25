@@ -124,5 +124,4 @@ class UserController extends AbstractActionController
         $res = $this->UserManager->MyOrm->update($userID, $values);
         $this->AjaxPlugin->success($res);
     }
-    
 }

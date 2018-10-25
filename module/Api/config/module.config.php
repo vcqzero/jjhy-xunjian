@@ -298,6 +298,7 @@ return [
             View\Helper\ShiftTypeHelper::class => View\Helper\Factory\ShiftTypeHelperFactory::class,
             View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
             View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
+            View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
         ],
         
         'aliases' => [
@@ -309,6 +310,7 @@ return [
             'ShiftType'         => View\Helper\ShiftTypeHelper::class,
             'ShiftTime'         => View\Helper\ShiftTimeHelper::class,
             'ShiftTimePoint'    => View\Helper\ShiftTimePointHelper::class,
+            'ShiftGuard'    => View\Helper\ShiftGuardHelper::class,
         ],
     ],
 ];

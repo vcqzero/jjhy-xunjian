@@ -286,7 +286,7 @@ final class MyOrm
      *  
      * @return Paginator $paginator
      */
-    public function paginator($page, $where_or_Select, $order=null)
+    public function paginator($page, $where_or_Select, $order=null, $Entity = null)
     {
         
         $where_or_Select = empty($where_or_Select) ? [] : $where_or_Select;
@@ -318,7 +318,7 @@ final class MyOrm
             }
         }
         //get paginator
-        $paginator  = $this->initPaginator($Select);
+        $paginator  = $this->initPaginator($Select, $Entity);
         $paginator  ->setCurrentPageNumber($page);
         $paginator  ->setDefaultItemCountPerPage(16);
         
@@ -502,12 +502,15 @@ final class MyOrm
      * @param  $Entity 默认为null
      * @return Paginator
      */
-    private function initPaginator(Select $Select)
+    private function initPaginator(Select $Select, $Entity = null)
     {
         $Sql = $this->Sql;
         $this->setSqlString($Sql->buildSqlString($Select));
         //get paginator
         $DbAdapter  = $this->DbAdapter;
+        if (empty($Entity)) {
+            $Entity = $this->getEntity();
+        }
         $Entity     = $this->getEntity();
         $resultSet  = $this->getResultSet($Entity);
         $dbSelect   = new DbSelect($Select, $DbAdapter, $resultSet);

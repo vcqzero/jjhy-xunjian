@@ -1,8 +1,9 @@
 <?php
 // 当前巡检任务
 $workyard_id = $this->workyard_id;
-$ShiftEntity = $this->ShiftEntity;
-$userID = $this->userID;
+$user_id = $this->user_id;
+$ShiftEntity = $this->ShiftGuard()->getShiftOnWorking($workyard_id, $user_id);
+
 $shift_id = $ShiftEntity->getId();
 $note = $ShiftEntity->getNote();
 $times = (int) $ShiftEntity->getTimes();
@@ -12,7 +13,7 @@ $start_time = $ShiftEntity->getStart_time();
 $end_time   = $ShiftEntity->getEnd_time();
 
 //当前shift已完成巡检次数
-$done_count = $this->ShiftTime()->getDoneCount($userID, $shift_id);
+$done_count = $this->ShiftTime()->getDoneCount($user_id, $shift_id);
 //是否完成巡检
 //是否完成规定的巡检次数
 $has_done = $done_count == $times;
@@ -20,23 +21,32 @@ $has_done = $done_count == $times;
 $next_count = $has_done ? null : $done_count + 1;
 
 //当前正在执行的巡检次数id
-$shift_time_id_on_working = $this->ShiftTime()->getShiftTimeIdOnWorking($userID, $shift_id, $has_done);
+$shift_time_id_on_working = $this->ShiftTime()->getShiftTimeIdOnWorking($user_id, $shift_id, $has_done);
 
 ?>
 <div 
 style="margin-top: 20px" 
-id="my-shift"
+id="my-shift-on-working"
 data-has-done="<?=$has_done ? 'done' : 'not_done'?>"
 data-shift-time-id="<?=$shift_time_id_on_working?>"
 data-shift-id="<?=$shift_id?>"
-data-guard-id="<?=$userID?>"
+data-guard-id="<?=$user_id?>"
 data-workyard-id="<?=$workyard_id?>"
 >
+	<div class="weui-cells">
+      <div class="weui-cell">
+<!--         <div class="weui-cell__hd"><i class="fa  fa-coffee icon-in-list"></i></div> -->
+        <div class="weui-cell__bd">
+          <p>当前值班</p>
+        </div>
+        <div class="weui-cell__ft"><?=$shift_type_name?></div>
+      </div>
+    </div>
     <div class="weui-form-preview">
-    	<div class="weui-form-preview__hd">
-    		<label class="weui-form-preview__label">班次</label> <em
-    			class="weui-form-preview__value"><?=$shift_type_name?></em>
-    	</div>
+<!--     	<div class="weui-form-preview__hd"> -->
+<!--     		<label class="weui-form-preview__label">班次</label> <em -->
+<!--     			class="weui-form-preview__value"></em> -->
+<!--     	</div> -->
     	<div class="weui-form-preview__bd">
     		<div class="weui-form-preview__item">
     			<label class="weui-form-preview__label">开始时间</label> <span
@@ -47,24 +57,30 @@ data-workyard-id="<?=$workyard_id?>"
     				class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
     		</div>
     		<div class="weui-form-preview__item">
-    			<label class="weui-form-preview__label">已巡检/总次数</label> <span
-    				class="weui-form-preview__value"><?=$done_count?>/<?=$times?></span>
-    		</div>
-    		<div class="weui-form-preview__item">
     			<label class="weui-form-preview__label">任务描述</label> <span
     				class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
     		</div>
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">已巡检/总次数</label> <span
+    				class="weui-form-preview__value"><?=$done_count?>/<?=$times?></span>
+    		</div>
+    		
     		<div class="weui-form-preview__item">
     			<label class="weui-form-preview__label">状态</label> <span
     				class="weui-form-preview__value"><?=$has_done ? '巡检完成' : '第' . $next_count . '次巡检中...'?></span>
     		</div>
     	</div>
+    	<div class="weui-form-preview__ft">
+            <a 
+            class="weui-form-preview__btn weui-form-preview__btn_primary scan-qrcode" 
+            href="javascript:">扫描巡检码</a>
+        </div>
     </div>
 </div>
 
 <?php if(!$has_done):?>
 <!-- 巡检点 -->
-<?=$this->partial('guard/index/partial/on-working-points.phtml', [
+<?=$this->partial('guard/index/partial/points-on-working.phtml', [
     'workyard_id' => $workyard_id,
     'shift_time_id' => $shift_time_id_on_working,
 ])?>

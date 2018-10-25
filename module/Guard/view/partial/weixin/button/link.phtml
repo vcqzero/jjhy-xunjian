@@ -1,25 +1,16 @@
 <?php 
-$type   = $this->type;
 $title  = $this->title;
-$id     = $this->id;
 $href   = $this->href;
+$title  = empty($title) ? '确认' : $title;
+$href   = empty($href) ? 'javascript:;' : $href;
 
-$type   = empty($type) ? 'default' : $type;
-$title  = empty($title) ? 'defualt' : $title;
-$classType = "btn-$type";
-
-/* <?=$this->partial('partial/admin/button/link.phtml', [
-    'id'=>'',
-    'type'  => 'primary',//default primary .... link
-    'title' => '新增用户',
+/* <?=$this->partial('partial/weixin/button/link.phtml', [
     'href' => '',
+    'title' => '',
 ])?> */
 
 ?>
 
-<a 
-href="<?=$href?>"
-type="button"
-class="btn <?=$classType?>"
-id="<?=$id?>"
-><?=$title?></a>
+<div class="weui-btn-area">
+	<a href="<?=$href?>" class="weui-btn weui-btn_default"><?=$title?></a>
+</div>

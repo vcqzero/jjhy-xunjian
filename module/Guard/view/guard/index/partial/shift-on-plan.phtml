@@ -1,0 +1,70 @@
+<?php
+// 当前巡检任务
+$workyard_id = $this->workyard_id;
+$user_id = $this->user_id;
+$ShiftEntity = $this->ShiftGuard()->getNextShiftOnPlan($workyard_id, $user_id);
+
+$shift_id = $ShiftEntity->getId();
+$note = $ShiftEntity->getNote();
+$times = (int) $ShiftEntity->getTimes();
+$times = (int) $times;
+$shift_type_name= $ShiftEntity->getShift_type_name();
+$start_time = $ShiftEntity->getStart_time();
+$end_time   = $ShiftEntity->getEnd_time();
+
+?>
+<!-- 标题 -->
+<div class="weui-cells">
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><i class="fa  fa-coffee icon-in-list"></i></div>
+    <div class="weui-cell__bd">
+      <p>下次值班：</p>
+    </div>
+    <div class="weui-cell__ft"><?=date('Y-m-d', $start_time)?></div>
+  </div>
+</div>
+
+<!-- 值班内容 -->
+<div 
+style="margin-top: 20px" 
+id="my-next-shift-on-plan"
+data-shift-id="<?=$shift_id?>"
+data-guard-id="<?=$user_id?>"
+data-workyard-id="<?=$workyard_id?>"
+>
+    <div class="weui-form-preview">
+    	<div class="weui-form-preview__hd">
+    		<label class="weui-form-preview__label">班次</label> <em
+    			class="weui-form-preview__value"><?=$shift_type_name?></em>
+    	</div>
+    	<div class="weui-form-preview__bd">
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">开始时间</label> <span
+    				class="weui-form-preview__value"><?=date('Y-m-d H:i', $start_time)?></span>
+    		</div>
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">结束时间</label> <span
+    				class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
+    		</div>
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">任务描述</label> <span
+    				class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
+    		</div>
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">巡检次数</label> <span
+    				class="weui-form-preview__value"><?=$times?></span>
+    		</div>
+    	</div>
+    	<div class="weui-form-preview__ft">
+            <a 
+            class="weui-form-preview__btn weui-form-preview__btn_primary open-popup" 
+            data-target="#popup-show-all-points"
+            href="javascript:">查看巡检点</a>
+        </div>
+    </div>
+</div>
+
+<!-- 显示所有巡检点popup -->
+<?=$this->partial('guard/index/partial/points-all-popup.phtml', [
+    'workyard_id' => $workyard_id
+])?>

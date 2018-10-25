@@ -17,11 +17,12 @@ return [
         'username' => '',
         'password' => '',
     ),
+    //设置超级用户
 	'super_admin'=>[
         'username' =>'',
         'password' => ''
     ],
-    
+    //设置绑定的微信信息
     'weixin' =>[
         'appid'     => '',
         'secret'    => '',

@@ -14,7 +14,7 @@ class UserManager
 {
     public  $MyOrm;
     public  $FormFilter;
-    private  $super_admin_config;
+    private $super_admin_config;
     
     const STATUS_ENABLED    = 'ENABLED';
     const STATUS_WAIT_CHANGE_PASSWORD   = 'WAIT_CHANGE_PASSWORD';
@@ -134,6 +134,7 @@ class UserManager
     {
         //如果用户不存在则创建
         $name = $this->getSuperAdminName();
+        
         if (empty($name))
         {
             return ;
@@ -148,6 +149,7 @@ class UserManager
         
         //进行新增
         $password = $this->getSuperAdminPassword();
+        
         if (empty($password))
         {
             return ;
@@ -167,26 +169,18 @@ class UserManager
     private function getSuperAdminName()
     {
         $config = $this->super_admin_config;
-        if (isset($config['super_admin']))
+        if(isset($config['username']))
         {
-            $super_admin= $config['super_admin'];
-            if(isset($super_admin['username']))
-            {
-                return $super_admin['username'];
-            }
+            return $config['username'];
         }
     }
     
     private function getSuperAdminPassword()
     {
         $config = $this->super_admin_config;
-        if (isset($config['super_admin']))
+        if(isset($config['password']))
         {
-            $super_admin= $config['super_admin'];
-            if(isset($super_admin['password']))
-            {
-                return $super_admin['password'];
-            }
+            return $config['password'];
         }
     }
     

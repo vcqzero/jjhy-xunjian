@@ -33,6 +33,11 @@ body, html {
 
 .demos-header {
   padding: 35px 0;
+  background-color: #2A3F54;
+}
+
+.demos-header p{
+	color: white;
 }
 
 .demos-content-padded {
@@ -68,3 +73,28 @@ div.weui-tab__bd{
 /*div.weui-panel{
 	overflow: auto !important;
 }*/
+div.my-weui-tab__bd{
+	margin-bottom: 50px;
+}
+
+i.icon-in-list {
+	width:20px;
+	margin-right:5px;
+	display:block"
+}
+div.weui-form-preview{
+	margin-bottom: 15px;
+}
+
+.weui-navbar__item.weui-bar__item--on{
+	color: #04BE02;
+}
+.my-infinite{
+	overflow:auto; 
+}
+.hidden {
+	height: 1;
+	width: 1;
+	visibility: hidden;
+	display: none;
+}
