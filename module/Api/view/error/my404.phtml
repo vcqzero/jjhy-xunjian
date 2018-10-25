@@ -1,0 +1,29 @@
+<?php 
+$is_mobile = $this->Client()->isMobile();
+echo "<pre>";
+var_dump($is_mobile);
+echo "</pre>";
+exit('debug information');
+?>
+<!DOCTYPE html>
+<html lang="en">
+  	<!-- include the head  -->
+	<?=$this->partial('layout/admin/partial/head.phtml')?>
+	<body class="nav-md error">
+    <div class="container body">
+      <div class="main_container">
+        <!-- page content -->
+        <div class="col-md-12">
+          <div class="col-middle">
+            <div class="text-center text-center">
+              <h1 class="">404</h1>
+              <h2>不好意思，页面飞走了</h2>
+              <a href="javascript:history.back();">返回上一页</a>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+      </div>
+    </div>
+</body>
+</html>

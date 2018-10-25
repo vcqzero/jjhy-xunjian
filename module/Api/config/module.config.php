@@ -299,9 +299,11 @@ return [
             View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
             View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
             View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
+            View\Helper\ClientHelper::class => View\Helper\Factory\ClientHelperFactory::class,
         ],
         
         'aliases' => [
+            'Client'      => View\Helper\ClientHelper::class,
             'User'      => View\Helper\UserHelper::class,
             'Website'   => View\Helper\WebsiteHelper::class,
             'Workyard'  => View\Helper\WorkyardHelper::class,
@@ -311,6 +313,17 @@ return [
             'ShiftTime'         => View\Helper\ShiftTimeHelper::class,
             'ShiftTimePoint'    => View\Helper\ShiftTimePointHelper::class,
             'ShiftGuard'    => View\Helper\ShiftGuardHelper::class,
+        ],
+    ],
+    
+    'view_manager' => [
+        'display_not_found_reason' => true,
+        'display_exceptions'       => true,
+        'not_found_template'       => 'error/404',
+        'exception_template'       => 'error/index',
+        'template_map' => [
+            'error/404'               => __DIR__ . '/../view/error/my404.phtml',
+            'error/index'             => __DIR__ . '/../view/error/my500.phtml',
         ],
     ],
 ];

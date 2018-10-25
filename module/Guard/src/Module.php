@@ -26,11 +26,11 @@ class Module
     {
         $config = $e->getApplication()->getServiceManager()->get('config');
         
-//         // DEBUG INFORMATION START
+        // DEBUG INFORMATION START
 //         echo '------debug start------<br/>';
 //         echo "<pre>";
 //         var_dump(__METHOD__ . ' on line: ' . __LINE__);
-//         var_dump($config['weixin']);
+//         var_dump($config['view_manager']);
 //         echo "</pre>";
 //         exit('------debug end------');
 //         // DEBUG INFORMATION END
