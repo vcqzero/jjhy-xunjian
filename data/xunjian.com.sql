@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-10-24 17:42:23
+Date: 2018-10-25 17:36:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -53,14 +53,20 @@ CREATE TABLE `shifts` (
   `start_time` int(10) unsigned NOT NULL,
   `end_time` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shifts
 -- ----------------------------
-INSERT INTO `shifts` VALUES ('8', '凌晨-测试', '1', 'dsfd ', '3', '1540346400', '1540432800');
-INSERT INTO `shifts` VALUES ('9', '全天', '1', '12', '2', '1540555200', '1540303200');
-INSERT INTO `shifts` VALUES ('13', '晚班', '1', '请仔细巡逻 共两个人', '10', '1540555200', '1540569600');
+INSERT INTO `shifts` VALUES ('8', '凌晨-测试', '1', 'dsfd ', '3', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('9', '全天', '1', '12', '2', '1540396800', '1540479600');
+INSERT INTO `shifts` VALUES ('13', '晚班', '1', '请仔细巡逻 共两个人', '10', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('14', '1', '1', '1', '1', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('15', '12', '1', '12', '12', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('16', '113', '1', '13', '13', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('17', '14', '1', '无5', '0', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('18', '1', '1', '1', '1', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('19', '1', '1', '1', '1', '1540483200', '1540566000');
 
 -- ----------------------------
 -- Table structure for shift_guard
@@ -76,17 +82,17 @@ CREATE TABLE `shift_guard` (
 -- ----------------------------
 -- Records of shift_guard
 -- ----------------------------
-INSERT INTO `shift_guard` VALUES ('1', '5', '79');
-INSERT INTO `shift_guard` VALUES ('2', '5', '79');
-INSERT INTO `shift_guard` VALUES ('3', '6', '79');
-INSERT INTO `shift_guard` VALUES ('4', '7', '79');
-INSERT INTO `shift_guard` VALUES ('7', '8', '79');
-INSERT INTO `shift_guard` VALUES ('8', '9', '79');
-INSERT INTO `shift_guard` VALUES ('9', '10', '79');
-INSERT INTO `shift_guard` VALUES ('10', '11', '79');
-INSERT INTO `shift_guard` VALUES ('11', '12', '81');
-INSERT INTO `shift_guard` VALUES ('12', '13', '80');
-INSERT INTO `shift_guard` VALUES ('13', '13', '81');
+INSERT INTO `shift_guard` VALUES ('1', '15', '79');
+INSERT INTO `shift_guard` VALUES ('2', '16', '79');
+INSERT INTO `shift_guard` VALUES ('3', '14', '79');
+INSERT INTO `shift_guard` VALUES ('4', '13', '79');
+INSERT INTO `shift_guard` VALUES ('7', '13', '79');
+INSERT INTO `shift_guard` VALUES ('8', '13', '79');
+INSERT INTO `shift_guard` VALUES ('9', '13', '79');
+INSERT INTO `shift_guard` VALUES ('10', '13', '79');
+INSERT INTO `shift_guard` VALUES ('11', '12', '79');
+INSERT INTO `shift_guard` VALUES ('12', '13', '79');
+INSERT INTO `shift_guard` VALUES ('13', '13', '79');
 
 -- ----------------------------
 -- Table structure for shift_time
@@ -100,7 +106,7 @@ CREATE TABLE `shift_time` (
   `status` varchar(255) NOT NULL,
   `guard_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Records of shift_time
@@ -108,6 +114,7 @@ CREATE TABLE `shift_time` (
 INSERT INTO `shift_time` VALUES ('1', '9', '1', '1540260000', 'DONE', '79');
 INSERT INTO `shift_time` VALUES ('2', '9', '2', '1540260000', 'WORKING', '0');
 INSERT INTO `shift_time` VALUES ('3', '8', '0', '0', 'WORKING', '79');
+INSERT INTO `shift_time` VALUES ('4', '9', '0', '0', 'WORKING', '79');
 
 -- ----------------------------
 -- Table structure for shift_time_point
