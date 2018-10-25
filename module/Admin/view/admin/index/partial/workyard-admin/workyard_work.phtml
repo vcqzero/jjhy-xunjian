@@ -6,8 +6,8 @@ $realName   = $UserEntity->getRealName();
 $tel        = $UserEntity->getTel();
 $workyard_id= $UserEntity->getWorkyard_id();
 
-//获取最近9条未完成的值班任务
-$ShiftEntities   = $this->Shift()->getLastItems($workyard_id, 9);
+//获取最近一周内未完成的值班任务
+$ShiftEntities   = $this->Shift()->getEntitiesOnPlayInWeek($workyard_id, 9);
 ?>
 <div class="" role="tabpanel" data-example-id="togglable-tabs">
 	<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">

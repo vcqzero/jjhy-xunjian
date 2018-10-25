@@ -29,5 +29,5 @@ define(['jquery', 'jweixin'], function($, wx) {
 		});
 	})
 
-	return {}
+	return wx
 })

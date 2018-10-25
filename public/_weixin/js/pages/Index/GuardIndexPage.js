@@ -1,5 +1,5 @@
 define(
-	['jquery'],
+	['jquery', 'myScanQrcode'],
 	function($) {
 		//巡检记录
 //		var myLogShift = {

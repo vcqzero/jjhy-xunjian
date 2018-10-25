@@ -10,6 +10,7 @@ use Zend\Db\Sql\Predicate\Predicate;
 use Api\Entity\ShiftEntity;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Predicate\Between;
 
 /**
  * 用于分页的管理
@@ -42,13 +43,15 @@ class ShiftHelper extends AbstractHelper
         return $this->ShiftManager->MyOrm->findAll($where);
     }
     
-    public function getLastItems($workyard_id, $count = null)
+    public function getEntitiesOnPlayInWeek($workyard_id)
     {
-        $where[] = new \Zend\Db\Sql\Predicate\NotBetween(ShiftEntity::FILED_DATE, 0, time());
+        $where[] = new Between(ShiftEntity::FILED_START_TIME, time(), strtotime('2099-12-31'));
         $where[ShiftEntity::FILED_WORKYARD_ID] = $workyard_id;
-        $order = [ShiftEntity::FILED_DATE=> Select::ORDER_ASCENDING];
-        return $this->ShiftManager->MyOrm->findAll($where, $order, $count);
+        $order = [ShiftEntity::FILED_START_TIME=> Select::ORDER_ASCENDING];
+        $limit = 7;
+        return $this->ShiftManager->MyOrm->findAll($where, $order, $limit);
     }
+    
     public function getGuardsName($shiftID) 
     {
         $guard_ids = $this->getGuardIds($shiftID);

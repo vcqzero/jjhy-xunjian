@@ -278,7 +278,7 @@ return [
             'error/index'             => __DIR__ . '/../view/error/my500.phtml',
         ],
         'template_path_stack' => [
-            'Admin' => __DIR__ . '/../view',
+            'admin' => __DIR__ . '/../view',
         ],
     ],
 ];

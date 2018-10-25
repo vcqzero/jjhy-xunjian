@@ -1,6 +1,6 @@
 define(
-	['jquery', 'myResult'],
-	function($, myResult) {
+	['jquery', 'myResult', 'myValidator'],
+	function($, myResult, myValidator) {
 
 		var myResultConfig = {
 			enabled: true,
@@ -25,64 +25,57 @@ define(
 			enabled: true,
 			forms: {
 				'form-account-password': {
-					fields: {
 
+					rules: {
 						password_old: {
-							validators: {
-
-								notEmpty: {
-									message: '请输入原密码',
-								},
-
-								remote: {
-									url: '/api/user/validPassword',
-									type: 'POST', //以post的方式发生信息
-									message: '原密码不正确',
-								},
+							required: true,
+							remote: {
+								url: "/api/user/validPassword?from=weixin",
+								type: "post",
 							}
 						},
 
 						password: {
-							validators: {
-
-								notEmpty: {
-									message: '请输入新密码',
-								},
-
-								stringLength: {
-									message: '至少6个字符，最长120字符',
-									min : 6,
-									max: 120,
-								},
-
-								regexp: {
-									regexp: /\w/,
-									message: "密码不可含中文字符"
-								},
-							}
+							required: true,
+							minlength:4,
+							checkPW : true,
+							
 						},
 
 						password_repeat: {
-							validators: {
-
-								notEmpty: {
-									message: '请再次输入新密码',
-								},
-
-								identical: {
-									field: 'password',
-									message: '两次输入密码不一致'
-								}
-							}
+							required: true,
+							equalTo: 'input[name="password"]'
 						},
 					},
+
+					messages: {
+						password_old: {
+							required: "请输入原密码",
+							remote: "原密码不正确",
+						},
+						password: {
+							required: "请输入新密码",
+							minlength:'密码至少4位',
+						},
+						password_repeat: {
+							required: "请再次输入新密码",
+							equalTo: "两次输入密码不一致",
+						},
+					}
 				},
 			},
+
+			addMethod: function() {
+				$.validator.addMethod("checkPW", function(value, element, params) {
+					var checkPW = /\w/;
+					return this.optional(element) || (checkPW.test(value));
+				}, "密码不可包含中文");
+			}
 		}
 		return {
 			init: function(pageName, page) {
-//				myResult.init(page, myResultConfig)
-//				myValidator.init(page, myValidatorConfig)
+				myResult.init(page, myResultConfig)
+				myValidator.init(page, myValidatorConfig)
 			}
 		}
 	})

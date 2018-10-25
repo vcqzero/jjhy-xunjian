@@ -32,12 +32,17 @@ class UserController extends AbstractActionController
     
     public function validPasswordAction()
     {
+        $from = $this->params()->fromQuery('from');
         $identity     = $this->identity();
         $password     = $this->params()->fromPost('password_old');
         $UserEntiyt   = $this->UserManager->findUserByIdentity($identity);
         $password_hash= $UserEntiyt->getPassword();
         $valid        = password_verify($password, $password_hash);
-        
+        if($from == 'weixin')
+        {
+            echo json_encode($valid);
+            exit();
+        }
         $this->AjaxPlugin->valid($valid);
     }
     

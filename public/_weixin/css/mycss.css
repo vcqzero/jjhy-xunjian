@@ -110,3 +110,8 @@ div.weui-form-preview{
 .weui-navbar-back .weui-navbar__item i{
 	margin-right: 0;
 }
+
+label.error{
+	font-size: small;
+	color: red;
+}

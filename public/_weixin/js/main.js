@@ -12,6 +12,7 @@ requirejs.config({
 		'jquery-weui': 'https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min',
 		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
 		jweixin: 'http://res.wx.qq.com/open/js/jweixin-1.4.0',
+		jquery_validate: 'http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min',
 		
 		//modules
 		myPage: 'modules/myPage',
@@ -20,6 +21,7 @@ requirejs.config({
 		myResult: 'modules/myResult',
 		myScanQrcode: 'modules/myScanQrcode',
 		myNavbar: 'modules/myNavbar',
+		myValidator: 'modules/myValidator',
 		
 		//pages
 		LoginPage : 'pages/Auth/LoginPage',
@@ -41,6 +43,7 @@ requirejs.config({
 	//在shim中定义是最简单的
 	shim: {
 		"jquery-weui": ["jquery"],
+		"jquery_validate": ["jquery"],
 	}
 });
 
@@ -51,8 +54,6 @@ requirejs(
 	'myNavbar',
 	'myPage',
 	'myForm',
-	'myForm',
-	'myScanQrcode'
 	],
 	function($) {
 		requirejs(['fastclick'], function(FastClick) {
