@@ -3,7 +3,7 @@ $pageTitle= $this->pageTitle;
 $pageName = $this->pageName;
 $narbar  = $this->narbar;
 $content = $this->content;
-
+$tarbar  = $this->tarbar;
 $this->headTitle($pageTitle);
 /*
  * <?=$this->partial('partial/weixin/page/basic-page.phtml', [
@@ -24,6 +24,8 @@ $this->headTitle($pageTitle);
     		<?=$content?>
     		</div>
     	</div>
+    	<?php if($tarbar !== false):?>
     	<?=$this->partial('layout/weixin/partial/tabbar.phtml')?>
+    	<?php endif;?>
 	</div>
 </div>

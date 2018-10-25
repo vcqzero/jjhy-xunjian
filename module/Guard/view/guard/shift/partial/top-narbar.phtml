@@ -1,7 +1,15 @@
-<div class="weui-navbar">
-  <a class="weui-navbar__item" href="/shift?type=plan">
-   值班安排
-  </a>
+<?php 
+$search= $this->search;
+?>
+
+<div 
+class="weui-navbar"
+data-search = "<?=$search?>"
+>
+
+	<a class="weui-navbar__item" href="/shift?type=plan">
+   	值班安排
+  	</a>
   
   <a class="weui-navbar__item " href="/shift?type=done">
    过往值班

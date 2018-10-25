@@ -30,6 +30,10 @@ requirejs.config({
 		
 		//Shift
 		ShiftPlanAndDonePage : 'pages/Shift/ShiftPlanAndDonePage',
+		
+		//Account
+		AccountIndexPage : 'pages/Account/AccountIndexPage',
+		ChangePasswordPage : 'pages/Account/ChangePasswordPage',
 	},
 
 	//定义不同js的依赖关系

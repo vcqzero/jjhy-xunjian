@@ -17,14 +17,14 @@ define(['jquery'], function($) {
 	var init_top_navbar = function() {
 		var search = location.search
 		var path = location.pathname
-		var path_search = path + search
+		var path_search 
+		var tarbar_div = $('div.weui-navbar')
 		var tarbars = $('div.weui-navbar').find('a')
 		var on_class = 'weui-bar__item--on'
 		if (search.length < 1) {
-			tarbars.first().addClass(on_class)
-			return
+			search = tarbar_div.attr('data-search')
 		}
-		
+		path_search = path + search
 		$.each(tarbars, function(k, tarbar) {
 			var _this = $(this)
 			var a_href = _this.attr('href')

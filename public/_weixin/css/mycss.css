@@ -98,3 +98,15 @@ div.weui-form-preview{
 	visibility: hidden;
 	display: none;
 }
+.weui-navbar-back{
+	background-color: #2A3F54 !important;
+}
+.weui-navbar-back .weui-navbar__item {
+	color: #FFFFFF;
+	margin-left: 10px;
+	text-align: left;
+}
+
+.weui-navbar-back .weui-navbar__item i{
+	margin-right: 0;
+}

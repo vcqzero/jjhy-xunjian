@@ -1,0 +1,78 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$UserEntity  = $this->User()->getEntityByIdentity($identity);
+$user_id = $UserEntity->getId();
+
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
+$address        = $WorkyardEntity->getAddress();
+$note           = $WorkyardEntity->getNote();
+?>
+
+<?php $this->placeholder('content')->captureStart();?>
+<header class="demos-header">
+	<h2 class="demos-title">个人中心</h2>
+</header>
+
+<div class="weui-panel">
+<div class="weui-panel__bd">
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title"><?=$workyard_name?></h4>
+    <p class="weui-media-box__desc">介绍：<?=$note?></p>
+    <ul class="weui-media-box__info">
+      <li class="weui-media-box__info__meta">地址：<?=$address?></li>
+    </ul>
+  </div>
+</div>
+</div>
+      
+<div class="weui-cells">
+
+  <div class="weui-cell">
+  	<div class="weui-cell__hd"><i class="fa fa-user-o icon-in-list"></i></div>
+    <div class="weui-cell__bd">
+      <p>用户名</p>
+    </div>
+    <div class="weui-cell__ft"><?=$identity?></div>
+  </div>
+  
+  <a class="weui-cell weui-cell_access change-password" href="/account/changePassword">
+  	<div class="weui-cell__hd"><i class="fa fa-edit  icon-in-list"></i></div>
+    <div class="weui-cell__bd">
+      <p>修改密码</p>
+    </div>
+    <div class="weui-cell__ft"></div>
+  </a>
+  
+</div>
+
+<div class="weui-cells">
+  <a class="weui-cell weui-cell_access open-popup" href="javascript:;" data-target="#popup-about">
+  	<div class="weui-cell__hd"><i class="fa fa-info-circle  icon-in-list"></i></div>
+    <div class="weui-cell__bd">
+      <p>关于</p>
+    </div>
+    <div class="weui-cell__ft"></div>
+  </a>
+  
+  <a class="weui-cell weui-cell_access sign-out" href="javascript:;">
+  	<div class="weui-cell__hd"><i class="fa fa-sign-out  icon-in-list"></i></div>
+    <div class="weui-cell__bd">
+      <p>退出登录</p>
+    </div>
+    <div class="weui-cell__ft"></div>
+  </a>
+  
+</div>
+
+<?=$this->partial('guard/account/partial/about.phtml')?>
+
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'AccountIndexPage',
+    'pageTitle'   => '个人中心',
+//     'narbar'     => $this->placeholder('narbar'),
+    'content'     => $this->placeholder('content'),
+])?>

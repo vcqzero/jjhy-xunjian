@@ -55,8 +55,7 @@ class AuthController extends AbstractActionController
     public function logoutAction()
     {
         $this->AuthPlugin->logout();
-        $hostname = $_SERVER['HTTP_HOST'];
-//         return $this->redirect()->toRoute("$hostname/auth");
-        return $this->redirect()->toRoute("admin.xunjina.com/auth");
+        echo "<script>location='/'</script>";
+        exit();
     }
 }

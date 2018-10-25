@@ -1,6 +1,5 @@
 <?php
 $title = $this->Website()->getTitle();
-$record = $this->Website()->getRecord();
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -44,9 +43,8 @@ $record = $this->Website()->getRecord();
             ])?>
     	</form>
     
-    	<div class="weui-footer weui-footer_fixed-bottom">
-    		<p class="weui-footer__text"><?=$record?></p>
-    	</div>
+    	<?=$this->partial('layout/weixin/partial/footer.phtml')?>
+    	
     	</div>
 	</div>
 	<?=$this->partial('layout/weixin/js/init.phtml')?>

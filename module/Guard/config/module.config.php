@@ -59,6 +59,18 @@ return [
                         ],
                     ],
                     
+                    //个人中心
+                    'account' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/account[/:action][/:userID]',
+                            'defaults' => [
+                                'controller' => Controller\AccountController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    
                 ],//child_routes end
             ],//admin route end
         ],
@@ -68,6 +80,7 @@ return [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
             Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
+            Controller\AccountController::class => Controller\Factory\AccountControllerFactory::class,
         ],
         
     ],
@@ -92,20 +105,15 @@ return [
                 UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
+        Controller\AccountController::class => [
+            'allow'=> [
+                UserManager::ROLE_WORKYARD_GUARD,
+                UserManager::ROLE_WORKYARD_ADMIN,
+            ],
+        ],
     ],
     
     'view_manager' => [
-//         'display_not_found_reason' => true,
-//         'display_exceptions'       => true,
-//         'doctype'                  => 'HTML5',
-//         'not_found_template'       => 'error/404',
-//         'exception_template'       => 'error/index',
-//         'template_map' => [
-//             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-//             //             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-//             'error/404'               => __DIR__ . '/../view/error/my404.phtml',
-//             'error/index'             => __DIR__ . '/../view/error/my500.phtml',
-//         ],
         'template_path_stack' => [
             'Guard' => __DIR__ . '/../view',
         ],
