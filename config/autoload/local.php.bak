@@ -18,12 +18,12 @@ return [
         'password' => '',
     ),
 	'super_admin'=>[
-        'username' =>'root',
-        'password' => 'root@2018'
+        'username' =>'',
+        'password' => ''
     ],
     
     'weixin' =>[
-        'appid'     => 'wx8c36e3d3fba83dad',
-        'secret'    => '24ecd9972b5490f043b0da21a571f605',
+        'appid'     => '',
+        'secret'    => '',
     ],
 ];
