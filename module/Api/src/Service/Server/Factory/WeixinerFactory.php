@@ -4,7 +4,6 @@ namespace Api\Service\Server\Factory;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Api\Service\Server\Weixiner;
-use Api\Service\Server\Curler;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -16,7 +15,6 @@ class WeixinerFactory implements FactoryInterface
     {
         $cache      = $container->get('filesystem');
         $weixinConfig = $container->get('config')['weixin'];
-        $Curler = new Curler();
-        return new Weixiner($cache, $Curler, $weixinConfig);
+        return new Weixiner($cache, $weixinConfig);
     }
 }

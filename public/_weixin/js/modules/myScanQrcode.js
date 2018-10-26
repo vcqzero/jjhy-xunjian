@@ -40,5 +40,6 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			}
 		});
 	})
+	
 	return {}
 })

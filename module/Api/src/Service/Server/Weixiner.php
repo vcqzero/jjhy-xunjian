@@ -13,26 +13,20 @@ use Zend\Cache\Storage\Adapter\Filesystem;
 class Weixiner
 {
     const CACHE_KEY_WEIXIN_TOKEN = 'weixin-token';
-    const CACHE_KEY_WEIXIN_SIGNATURE = 'weixin-signature';
     const CACHE_KEY_WEIXIN_JSAPI_TICKET = 'weixin-jsapi-ticket';
     
     const EXPIRES_IN = 7200;
     
     private $Cache;
-    private $Curler;
-    
     private $appid;
     private $secret;
 
     public function __construct(
         Filesystem $Cache,
-        Curler $Curler,
         $weixinConfig
         )
     {
         $this->Cache = $Cache;
-        $this->Curler  = $Curler;
-        
         $this->appid = $weixinConfig['appid'];
         $this->secret= $weixinConfig['secret'];
     }
@@ -60,7 +54,9 @@ class Weixiner
                 'grant_type'=> 'client_credential',
             ];
             
-            $res = $this->Curler->get($url, $data);
+            $res = \Zend\Http\ClientStatic::get($url, $data);
+            $res = $res->getContent();
+            $res = json_decode($res, true);
             
             if (!empty($res['errcode']))
             {
@@ -117,22 +113,25 @@ class Weixiner
         $Cache = $this->Cache;
         $Cache->getOptions()->setTtl(self::EXPIRES_IN - 20);
         $jsapi_ticket = $Cache->getItem(self::CACHE_KEY_WEIXIN_JSAPI_TICKET);
-        
-        if (empty($jsapi_ticket))
+        //先确保access_token存在
+        //防止access_token更新之后jsapi使用时出错
+        $has_access_token_cached = $Cache->hasItem(self::CACHE_KEY_WEIXIN_TOKEN);
+        if (empty($has_access_token_cached) || empty($jsapi_ticket))
         {
             $access_token = $this->getAccessToken();
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=$access_token&type=jsapi";
+            $res = \Zend\Http\ClientStatic::get($url);
+            $contet = $res->getContent();
+            $contet = json_decode($contet, true);
             
-            $res = $this->Curler->get($url);
-            
-            if (!empty($res['errcode']))
+            if (!empty($contet['errcode']))
             {
-                $errcode = $res['errcode'];
-                $errmsg  = $res['errmsg'];
+                $errcode = $contet['errcode'];
+                $errmsg  = $contet['errmsg'];
                 throw new \Exception("获取微信jspai_ticket 发生错误，错误代码为:$errcode, 错误信息：$errmsg");
             }
             
-            $jsapi_ticket= $res['ticket'];
+            $jsapi_ticket= $contet['ticket'];
             $Cache->setItem(self::CACHE_KEY_WEIXIN_JSAPI_TICKET, $jsapi_ticket);
         }
         return $jsapi_ticket;

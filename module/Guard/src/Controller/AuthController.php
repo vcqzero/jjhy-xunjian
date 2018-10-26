@@ -35,8 +35,12 @@ class AuthController extends AbstractActionController
     //goto not permission page
     public function noPermissionAction()
     {
-        $view = new ViewModel();
+        $view = new ViewModel([
+            'title'=> '无权访问！',
+            'desc'=> '您无权访问该资源!'
+        ]);
         $view ->setTerminal(true);
+        $view ->setTemplate('error/mobile/error');
         return $view;
     }
 }
