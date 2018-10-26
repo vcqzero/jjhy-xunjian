@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-10-25 17:36:16
+Date: 2018-10-26 17:40:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,10 +60,10 @@ CREATE TABLE `shifts` (
 -- ----------------------------
 INSERT INTO `shifts` VALUES ('8', '凌晨-测试', '1', 'dsfd ', '3', '1540483200', '1540566000');
 INSERT INTO `shifts` VALUES ('9', '全天', '1', '12', '2', '1540396800', '1540479600');
-INSERT INTO `shifts` VALUES ('13', '晚班', '1', '请仔细巡逻 共两个人', '10', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('13', '晚班', '1', '请仔细巡逻 共两个人', '10', '1540303200', '1540321200');
 INSERT INTO `shifts` VALUES ('14', '1', '1', '1', '1', '1540483200', '1540566000');
-INSERT INTO `shifts` VALUES ('15', '12', '1', '12', '12', '1540483200', '1540566000');
-INSERT INTO `shifts` VALUES ('16', '113', '1', '13', '13', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('15', '测试使用id=15', '1', '2018-10-26', '2', '1540483200', '1540566000');
+INSERT INTO `shifts` VALUES ('16', '113', '1', '13', '13', '1540328400', '1540407600');
 INSERT INTO `shifts` VALUES ('17', '14', '1', '无5', '0', '1540483200', '1540566000');
 INSERT INTO `shifts` VALUES ('18', '1', '1', '1', '1', '1540483200', '1540566000');
 INSERT INTO `shifts` VALUES ('19', '1', '1', '1', '1', '1540483200', '1540566000');
@@ -83,16 +83,9 @@ CREATE TABLE `shift_guard` (
 -- Records of shift_guard
 -- ----------------------------
 INSERT INTO `shift_guard` VALUES ('1', '15', '79');
-INSERT INTO `shift_guard` VALUES ('2', '16', '79');
 INSERT INTO `shift_guard` VALUES ('3', '14', '79');
-INSERT INTO `shift_guard` VALUES ('4', '13', '79');
-INSERT INTO `shift_guard` VALUES ('7', '13', '79');
-INSERT INTO `shift_guard` VALUES ('8', '13', '79');
-INSERT INTO `shift_guard` VALUES ('9', '13', '79');
-INSERT INTO `shift_guard` VALUES ('10', '13', '79');
-INSERT INTO `shift_guard` VALUES ('11', '12', '79');
+INSERT INTO `shift_guard` VALUES ('11', '16', '79');
 INSERT INTO `shift_guard` VALUES ('12', '13', '79');
-INSERT INTO `shift_guard` VALUES ('13', '13', '79');
 
 -- ----------------------------
 -- Table structure for shift_time
@@ -101,20 +94,18 @@ DROP TABLE IF EXISTS `shift_time`;
 CREATE TABLE `shift_time` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `shift_id` int(10) unsigned NOT NULL COMMENT '本次巡检归属人',
-  `start_time-bin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本次巡检开始时间',
-  `end_time-bin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本次巡检结束时间',
   `status` varchar(255) NOT NULL,
   `guard_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Records of shift_time
 -- ----------------------------
-INSERT INTO `shift_time` VALUES ('1', '9', '1', '1540260000', 'DONE', '79');
-INSERT INTO `shift_time` VALUES ('2', '9', '2', '1540260000', 'WORKING', '0');
-INSERT INTO `shift_time` VALUES ('3', '8', '0', '0', 'WORKING', '79');
-INSERT INTO `shift_time` VALUES ('4', '9', '0', '0', 'WORKING', '79');
+INSERT INTO `shift_time` VALUES ('1', '9', 'DONE', '79');
+INSERT INTO `shift_time` VALUES ('7', '13', 'DONE', '79');
+INSERT INTO `shift_time` VALUES ('9', '13', 'WORKING', '79');
+INSERT INTO `shift_time` VALUES ('10', '15', 'WORKING', '79');
 
 -- ----------------------------
 -- Table structure for shift_time_point
@@ -129,11 +120,21 @@ CREATE TABLE `shift_time_point` (
   `address_path` varchar(255) NOT NULL DEFAULT '' COMMENT '扫描巡检点时巡检员地理坐标',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`,`shift_time_id`,`point_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Records of shift_time_point
 -- ----------------------------
+INSERT INTO `shift_time_point` VALUES ('4', '7', '8', '是大V', '1540529981', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('5', '7', '11', '各个8', '1540530575', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('6', '7', '13', '', '1540532373', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('7', '7', '12', '', '1540535689', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('8', '7', '14', '', '1540535714', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('9', '7', '15', '', '1540535764', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('10', '8', '15', '', '1540535832', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('11', '8', '8', '', '1540535938', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('14', '8', '13', '', '1540536013', '[116.40717,39.90469]');
+INSERT INTO `shift_time_point` VALUES ('15', '8', '14', '', '1540536039', '[116.40717,39.90469]');
 
 -- ----------------------------
 -- Table structure for shift_type
@@ -176,15 +177,16 @@ CREATE TABLE `users` (
   `role` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('22', 'root', '$2y$10$c4anS.fBREG3/wkZMB.S9ecVkqxgaZheZMv8sLWNnx5d6Nw7S4kny', '1', '秦崇', '15313715524', 'ENABLED', '', 'ad', 'SUPER_ADMIN');
-INSERT INTO `users` VALUES ('79', 'qinchong', '$2y$10$v5WY8/ihvSlVTjyFr0SsUuPpkny8DbKnSV9XBV1pj2XbV2Yz9TKBS', '1', '秦崇', '13001030857', 'ENABLED', '', 'DnSmNx', 'WORKYARD_ADMIN');
+INSERT INTO `users` VALUES ('22', 'root1', '$2y$10$c4anS.fBREG3/wkZMB.S9ecVkqxgaZheZMv8sLWNnx5d6Nw7S4kny', '1', '秦崇', '15313715524', 'ENABLED', '', 'ad', 'SUPER_ADMIN');
+INSERT INTO `users` VALUES ('79', 'qinchong', '$2y$10$3T4LNzdVVc95SSnaj00TOOT8mWQxzNMO5xflGp6aQvkX1zaLir2V2', '1', '秦崇', '13001030857', 'WAIT_CHANGE_PASSWORD_NEW_CREATED', '', 'DnSmNx', 'WORKYARD_ADMIN');
 INSERT INTO `users` VALUES ('80', 'sfdsd', '$2y$10$kZml/IFZB81e1.BepBpF.ue9h.jS6c8u.SE/lUMbnJG3hxZF/Ix9O', '1', 'D', '13001030859', 'WAIT_CHANGE_PASSWORD', '', 'G0hagM', 'WORKYARD_GUARD');
 INSERT INTO `users` VALUES ('81', 'sdsd', '$2y$10$L56BdOnZtcRf8AtCJ17SDOg0uN3Pyj/9urY3DP6H6obeBSv8nXpCO', '1', 'sdf', '13001030857', 'WAIT_CHANGE_PASSWORD', '', 'VuKtdA', 'WORKYARD_GUARD');
+INSERT INTO `users` VALUES ('82', 'root', '$2y$10$ppSI1IiDKMBCwoBkpsfXG.0GKHQqZVD4rElKUCj4DNRV3hmY89ODW', '0', '', '', 'ENABLED', '', '', 'SUPER_ADMIN');
 
 -- ----------------------------
 -- Table structure for workyards
