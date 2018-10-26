@@ -1,21 +1,19 @@
 <?php
-namespace Api\View\Helper;
-
-use Zend\View\Helper\AbstractHelper;
+namespace Api\Tool;
 
 /**
  * 用于分页的管理
  * 注意不要和zend本身的paginator混淆了
  */
-class ClientHelper extends AbstractHelper
+class Client
 {
-
-    public function __construct()
-    {}
-
-    // 查看是否为手机端的方法
-    // 判断是手机登录还是电脑登录
-    public function isMobile()
+    /**
+    * 判断用户请求是不是来自手机端
+    * 
+    * @param  
+    * @return        
+    */
+    public static function isMobile()
     {
         // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
         if (isset($_SERVER['HTTP_X_WAP_PROFILE']))

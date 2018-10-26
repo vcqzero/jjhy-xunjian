@@ -1,0 +1,40 @@
+<?php
+$title = $this->title;
+$desc = $this->desc;
+
+$website_title = $this->Website()->getTitle();
+?>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <?=$this->headTitle("$title-$website_title") ?>
+
+    <?=$this->partial('layout/weixin/css/css.phtml')?>
+</head>
+<body ontouchstart="">
+	<div class="container">
+		<div class="page" data-name="">
+			<header class='demos-header'>
+        		<h2 class="demos-title"><?=$title?></h2>
+        	</header>
+        	<div class="weui-msg">
+                <div class="weui-msg__text-area">
+<!--                 	<h2 class="weui-msg__title">操作成功</h2> -->
+                	<p class="weui-msg__desc"><?=$desc?></p>
+                </div>
+                <div class="weui-msg__opr-area">
+                	<p class="weui-btn-area">
+                		<a href="javascript:history.back();" class="weui-btn weui-btn_default">返回上一页</a>
+                	</p>
+                </div>
+			</div>
+		<?=$this->partial('layout/weixin/partial/footer.phtml')?>
+		</div>
+	</div>
+</body>

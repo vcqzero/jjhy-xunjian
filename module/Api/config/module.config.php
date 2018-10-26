@@ -299,11 +299,9 @@ return [
             View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
             View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
             View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
-            View\Helper\ClientHelper::class => View\Helper\Factory\ClientHelperFactory::class,
         ],
         
         'aliases' => [
-            'Client'      => View\Helper\ClientHelper::class,
             'User'      => View\Helper\UserHelper::class,
             'Website'   => View\Helper\WebsiteHelper::class,
             'Workyard'  => View\Helper\WorkyardHelper::class,
