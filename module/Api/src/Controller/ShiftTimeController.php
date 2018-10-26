@@ -5,19 +5,27 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Api\Service\ShiftTimeManager;
 use Api\Service\ShiftTimePointManager;
+use Api\Entity\ShiftTimePointEntity;
+use Api\Service\PointManager;
+use Api\Entity\ShiftTimeEntity;
 
 class ShiftTimeController extends AbstractActionController
 {
     private $ShiftTimeManager;
     private $ShiftTimePointManager;
+    private $PointManager;
     
     public function __construct(
         ShiftTimeManager $ShiftTimeManager,
-        ShiftTimePointManager $ShiftTimePointManager
+        ShiftTimePointManager $ShiftTimePointManager,
+        PointManager $PointManager
         )
     {
         $this->ShiftTimeManager = $ShiftTimeManager;
         $this->ShiftTimePointManager= $ShiftTimePointManager;
+        $this->PointManager = $PointManager;
+        
+        $this->ShiftTimePointManager->setPointManager($PointManager);
     }
     /**
      * We override the parent class' onDispatch() method to
@@ -35,5 +43,49 @@ class ShiftTimeController extends AbstractActionController
         return $response;
     }
     
-    
+    public function addAction()
+    {
+        $MyOrm = $this->ShiftTimePointManager->MyOrm;
+        $shift_time_id  = $this->params()->fromPost('shift_time_id');
+        $point_id       = $this->params()->fromPost('point_id');
+        $workyard_id    = $this->params()->fromQuery('workyard_id');
+        $workyard_id    = $this->params()->fromQuery('workyard_id');
+        
+        //判断巡检点是否合法
+        $isValid = $this->ShiftTimePointManager->isValidPoint($workyard_id, $shift_time_id, $point_id);
+        if($isValid !== true) {
+            echo $isValid;
+            exit();
+        }
+        //下面进行数据插入和更新操作
+        $connection = $MyOrm->getConnection();
+        $connection ->beginTransaction();
+        try{
+            $values= $this->params()->fromPost();
+            $values[ShiftTimePointEntity::FILED_TIME] = time();
+            $res = $MyOrm->insert($values);
+            
+            if(empty($res)) {
+                throw new \Exception('数据插入错误');
+            }
+            
+            //如果此时已完成全部巡检点的巡检任务
+            //则将该次巡检标记为完成
+            if ($this->ShiftTimePointManager->hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_time_id)) {
+                $set= [
+                    ShiftTimeEntity::FILED_STATUS => ShiftTimeManager::STATUS_DONE
+                ];
+                $res = $this->ShiftTimeManager->MyOrm->update($shift_time_id, $set);
+                if (empty($res)) {
+                    throw new \Exception('数据更新错误');
+                }
+            }
+            $connection->commit();
+            $res = true;
+        }catch (\Exception $e ){
+            $connection->rollback();
+            $res = false;
+        }
+        $this->ajax()->success($res);
+    }
 }

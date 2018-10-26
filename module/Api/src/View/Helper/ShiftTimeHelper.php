@@ -66,14 +66,37 @@ class ShiftTimeHelper extends AbstractHelper
         //如果未找到，则需要重新插入一条
         if(empty($count))
         {
-            $values = [
-                ShiftTimeEntity::FILED_SHIFT_ID => $shift_id,
-                ShiftTimeEntity::FILED_GUARD_ID => $userID,
-                ShiftTimeEntity::FILED_STATUS   => ShiftTimeManager::STATUS_WORKING,
-            ];
+            $values = $where;
             $MyOrm->insert($values);
             $shfit_time_id = $MyOrm->getLastInsertId();
         }
         return $shfit_time_id;
+    }
+    
+    /**
+    * 获取某一值班记录 某一巡检员的所有巡检次数记录id的数组
+    * 
+    * @param  
+    * @return array       
+    */
+    public function getShfitTimeIDs($shift_id, $user_id)
+    {
+        //如果未完成，则在数据库中查找未完成的id
+        $where = [
+            ShiftTimeEntity::FILED_SHIFT_ID => $shift_id,
+            ShiftTimeEntity::FILED_GUARD_ID => $user_id,
+        ];
+        
+        $Entities = $this->ShiftTimeManager->MyOrm->findAll($where);
+        
+        $arr_ids = [];
+        if(count($Entities)) {
+            foreach ($Entities as $Entity) {
+                $shit_time_id = $Entity->getId();
+                $arr_ids[] = $shit_time_id;
+            }
+        }
+        
+        return $arr_ids;
     }
 }

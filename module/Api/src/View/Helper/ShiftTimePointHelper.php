@@ -31,4 +31,51 @@ class ShiftTimePointHelper extends AbstractHelper
         
         return $ShiftTimePointEntity;
     }
+    
+    /**
+    * 判断某一巡检次数中，某一巡检点是否已巡检
+    * 
+    * @param int $shift_time_id
+    * @param int $point_id
+    * @return bool      
+    */
+    public function hasDone($shift_time_id, $point_id)
+    {
+        $where = [
+            ShiftTimePointEntity::FILED_SHIFT_TIME_ID => $shift_time_id,
+            ShiftTimePointEntity::FILED_POINT_ID => $point_id
+        ];
+        
+        $count = $this->ShiftTimePointManager->MyOrm->count($where);
+        
+        return !empty($count);
+    }
+    
+    /**
+    * 获取某一次巡检任务中，已经完成的巡检点数量
+    * 
+    * @param  int $shift_time_id
+    * @return int        
+    */
+    public function getCountOnDone($shift_time_id)
+    {
+        return $this->ShiftTimePointManager->getCountOnDone($shift_time_id);
+    }
+    
+    /**
+    * 获取某一巡检次数的所有巡检记录
+    * 
+    * @param  int $shift_time_id
+    * @return        
+    */
+    public function getEntities($shift_time_id)
+    {
+        $where = [
+            ShiftTimePointEntity::FILED_SHIFT_TIME_ID => $shift_time_id,
+        ];
+        
+        $ShiftTimePointEntities= $this->ShiftTimePointManager->MyOrm->findAll($where);
+        
+        return $ShiftTimePointEntities;
+    }
 }

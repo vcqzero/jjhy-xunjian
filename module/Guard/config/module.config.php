@@ -12,10 +12,10 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "guard.xunjina.com" => [
+            "guard.tanhansi.com" => [
                 'type' => Hostname::class,
                 'options' => [
-                    'route' => ':subdomain.xunjina.com',
+                    'route' => ':subdomain.tanhansi.com',
                     'constraints' => [
                         'subdomain' => 'guard'
                     ],
@@ -51,7 +51,7 @@ return [
                     'shift' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/shift[/:action][/:type]',
+                            'route'    => '/shift[/:action][/:shiftID]',
                             'defaults' => [
                                 'controller' => Controller\ShiftController::class,
                                 'action'     => 'index',

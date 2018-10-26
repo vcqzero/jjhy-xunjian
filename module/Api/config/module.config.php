@@ -10,10 +10,10 @@ use Api\Service\UserManager;
 return [
     'router' => [
         'routes' => [
-//             'guard.xunjina.com' => [
+//             'guard.tanhansi.com' => [
 //                 'type' => Hostname::class,
 //                 'options' => [
-//                     'route' => ':subdomain.xunjina.com',
+//                     'route' => ':subdomain.tanhansi.com',
 //                     'constraints' => [
 //                         /**
 //                         * 声明子域名部分

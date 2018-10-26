@@ -2,31 +2,19 @@
 use Api\Entity\PointEntity;
 
 $shift_time_id =$this->shift_time_id;
-$workyard_id = $this->workyard_id;
-$where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
-$PointEntities = $this->Point()->getEntities($where);
+$ShiftTimePointEntities= $this->ShiftTimePoint()->getEntities($shift_time_id);
 
-$all_point_count = count($PointEntities);
-$all_done_point_count = $this->ShiftTimePoint()->getCountOnDone($shift_time_id);
 ?>
-
-<div 
-style="margin-top: 0px; 
-margin-bottom:60px"
-id="my-point-on-working"
-data-all-count="<?=$all_point_count?>"
-data-done-count="<?=$all_done_point_count?>"
->
-    <div class="weui-cells__title">共<?=$all_point_count?>个巡检点，已巡检<?=$all_done_point_count?>个 </div>
-    <div class="weui-cells" style="margin-top: 0px">
-        <?php foreach ($PointEntities as $PointEntity) :?>
+<div class="weui-cells">
+    <?php if(count($ShiftTimePointEntities)):?>
+    <?php foreach ($ShiftTimePointEntities as $ShiftTimePointEntity) :?>
         <?php
-        $point_id  = $PointEntity->getId();
+        $point_id  = $ShiftTimePointEntity->getPoint_id();
+        $PointEntity = $this->Point()->getEntity($point_id);
         $pointName = $PointEntity->getName();
         $address   = $PointEntity->getAddress();
         
         //该巡检点巡检信息
-        $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
         $has_done = $this->ShiftTimePoint()->hasDone($shift_time_id, $point_id);
         $time = $ShiftTimePointEntity->getTime();
         $note = $ShiftTimePointEntity->getNote();
@@ -47,11 +35,17 @@ data-done-count="<?=$all_done_point_count?>"
             <?php if($has_done):?>
             <i class="weui-icon-success-no-circle"></i>
             <?php else :?>
-           	 待巡检
+           	 未巡检
             <?php endif;?>
             </div>
           </a>
         
         <?php endforeach;?>
+    <?php else :?>
+    <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <p>无记录</p>
     </div>
-</div>
+  </div>
+    <?php endif;?>
+</div>        

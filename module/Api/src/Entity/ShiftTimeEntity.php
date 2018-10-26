@@ -13,10 +13,7 @@ class ShiftTimeEntity
     const FILED_ID                  = 'id';
     const FILED_SHIFT_ID            = 'shift_id';
     const FILED_GUARD_ID            = 'guard_id';
-    const FILED_COUNT               = 'count';
-    const FILED_START_TIME          = 'start_time';
-    const FILED_END_TIME            = 'end_time';
-    const FILED_STATUS          = 'status';
+    const FILED_STATUS              = 'status';
     
     /**
     * users表字段相匹配，字段不可错误
@@ -24,11 +21,24 @@ class ShiftTimeEntity
     private $id;
     private $shift_id;
     private $guard_id;
-    private $count;
-    private $start_time;
-    private $end_time;
     private $status;
     
+    /**
+     * @return the $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return the $shift_id
+     */
+    public function getShift_id()
+    {
+        return $this->shift_id;
+    }
+
     /**
      * @return the $guard_id
      */
@@ -45,43 +55,5 @@ class ShiftTimeEntity
         return $this->status;
     }
 
-    /**
-     * @return the $shift_id
-     */
-    public function getShift_id()
-    {
-        return $this->shift_id;
-    }
-
-    /**
-     * @return the $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return the $count
-     */
-    public function getCount()
-    {
-        return $this->count;
-    }
-
-    /**
-     * @return the $start_time
-     */
-    public function getStart_time()
-    {
-        return $this->start_time;
-    }
-
-    /**
-     * @return the $end_time
-     */
-    public function getEnd_time()
-    {
-        return $this->end_time;
-    }
+    
 }

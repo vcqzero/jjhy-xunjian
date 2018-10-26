@@ -19,8 +19,4 @@ return [
     'view_manager' => [
         'display_exceptions' => true,
     ],
-    //debug config
-    'debug'=>[
-        'isdebug'=> true,
-    ],
 ];

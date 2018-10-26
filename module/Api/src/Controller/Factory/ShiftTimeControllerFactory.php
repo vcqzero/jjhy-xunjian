@@ -7,6 +7,7 @@ use Api\Controller\IndexController;
 use Api\Controller\ShiftTimeController;
 use Api\Service\ShiftTimeManager;
 use Api\Service\ShiftTimePointManager;
+use Api\Service\PointManager;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -18,7 +19,8 @@ class ShiftTimeControllerFactory implements FactoryInterface
     {
         return new ShiftTimeController(
             $container->get(ShiftTimeManager::class),
-            $container->get(ShiftTimePointManager::class)
+            $container->get(ShiftTimePointManager::class),
+            $container->get(PointManager::class)
            );
     }
 }

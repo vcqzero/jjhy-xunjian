@@ -3,11 +3,12 @@ $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $UserEntity  = $this->User()->getEntityByIdentity($identity);
 $userID = $UserEntity->getId();
-//获取某一巡检员所有的值班安排
+
+//获取某一巡检员所有的已过时间值班记录
 $has_shifts_on_done = $this->ShiftGuard()->hasShiftsOnDone($userID, $workyard_id);
 
 //test
-$has_shifts_on_done = true;
+// $has_shifts_on_done = true;
 
 ?>
 

@@ -11,10 +11,10 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "admin.xunjina.com" => [
+            "admin.tanhansi.com" => [
                 'type' => Hostname::class,
                 'options' => [
-                    'route' => ':subdomain.xunjina.com',
+                    'route' => ':subdomain.tanhansi.com',
                     'constraints' => [
                         'subdomain' => 'admin'
                     ],

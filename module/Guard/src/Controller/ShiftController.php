@@ -28,12 +28,11 @@ class ShiftController extends AbstractActionController
         return $View;
     }
     
-//     public function logShiftPopupAction()
-//     {
-//         $view = new ViewModel($this->params()->fromPost());
-//         $view->setTerminal(true);
-//         return $view;
-//     }
+    public function logAction()
+    {
+        $view = new ViewModel($this->params()->fromRoute());
+        return $view;
+    }
     
     public function paginatorAction()
     {

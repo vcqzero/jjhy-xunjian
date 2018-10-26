@@ -18,6 +18,7 @@ define(
 			var last_list_cell = list.find('div.my-infinite-list-cell').last()
 			var workyard_id    = list.attr('data-workyard-id')
 			var user_id        = list.attr('data-user-id')
+			var type           = list.attr('data-type')
 			var page_current   = last_list_cell.attr('data-page-current')
 			var page_count     = last_list_cell.attr('data-page-count')
 			var page_next
@@ -39,7 +40,7 @@ define(
 			}
 			$.ajax({
 				type:"post",
-				url :"/shift/paginator",
+				url :"/shift/paginator?type=" + type,
 				async:true,
 				data : data,
 				beforeSend : function() {

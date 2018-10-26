@@ -1,7 +1,6 @@
 define(
-	['jquery', 'myScanQrcode'],
+	['jquery'],
 	function($) {
-
 		var myAlertPointInfo = function(page){
 			var a_points = page.find('a.alert-point-info')
 			a_points.on('click', function() {

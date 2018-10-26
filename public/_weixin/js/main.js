@@ -32,6 +32,7 @@ requirejs.config({
 		
 		//Shift
 		ShiftPlanAndDonePage : 'pages/Shift/ShiftPlanAndDonePage',
+		ShiftLogPage : 'pages/Shift/ShiftLogPage',
 		
 		//Account
 		AccountIndexPage : 'pages/Account/AccountIndexPage',

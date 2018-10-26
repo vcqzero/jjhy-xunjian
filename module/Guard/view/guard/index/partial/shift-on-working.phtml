@@ -27,7 +27,6 @@ $shift_time_id_on_working = $this->ShiftTime()->getShiftTimeIdOnWorking($user_id
 <div 
 style="margin-top: 20px" 
 id="my-shift-on-working"
-data-has-done="<?=$has_done ? 'done' : 'not_done'?>"
 data-shift-time-id="<?=$shift_time_id_on_working?>"
 data-shift-id="<?=$shift_id?>"
 data-guard-id="<?=$user_id?>"
@@ -71,9 +70,15 @@ data-workyard-id="<?=$workyard_id?>"
     		</div>
     	</div>
     	<div class="weui-form-preview__ft">
+    		<?php if($has_done):?>
+    		<button 
+            class="weui-form-preview__btn weui-form-preview__btn_default" 
+            >本次巡检已完成</button>
+    		<?php else :?>
             <a 
             class="weui-form-preview__btn weui-form-preview__btn_primary scan-qrcode" 
             href="javascript:">扫描巡检码</a>
+            <?php endif;?>
         </div>
     </div>
 </div>

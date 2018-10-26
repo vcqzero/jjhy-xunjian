@@ -7,7 +7,7 @@ use Api\View\Helper\ShiftGuardHelper;
 $workyard_id = $this->workyard_id;
 $user_id = $this->user_id;
 $page = $this->page;
-$type = ShiftGuardHelper::TYPE_PLAN;
+$type = ShiftGuardHelper::TYPE_DONE;
 $ShiftPaginator = $this->ShiftGuard()->getPaginator($workyard_id, $user_id, $type, $page);
 
 $page_current = $ShiftPaginator->getCurrentPageNumber();
@@ -20,6 +20,7 @@ $page_count   = $ShiftPaginator->count();
 class="my-infinite-list"
 data-workyard-id = "<?=$workyard_id?>"
 data-user-id = "<?=$user_id?>"
+data-type = "<?=$type?>"
 >
 <?php foreach ($ShiftPaginator as $ShiftEntity):?>
 <?php
@@ -70,9 +71,8 @@ data-page-count="<?=$page_count?>"
 	</div>
 	<div class="weui-form-preview__ft">
         <a 
-        class="weui-form-preview__btn weui-form-preview__btn_primary open-popup" 
-        data-target="#popup-show-all-points"
-        href="javascript:">查看记录（待完善）</a>
+        class="weui-form-preview__btn weui-form-preview__btn_primary" 
+        href="/shift/log/<?=$shift_id?>">巡检记录</a>
     </div>
  </div>
 <?php endforeach;?>
