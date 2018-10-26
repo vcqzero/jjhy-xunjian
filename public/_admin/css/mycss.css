@@ -259,11 +259,11 @@ body.error{
 }
 
 .login_content {
-	width: 350px;
-	margin-top: 100px;
+	/*width: 350px;
+	margin-top: 100px;*/
 }
-.my_login {
+/*.my_login {
 	width: 600px;
 	margin: auto;
 	/*background-color: bisque;*/
-}
+}*/
