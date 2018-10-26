@@ -66,7 +66,8 @@ define(
 		}
 		return {
 			init: function(pageName, page) {
-				alert('首次登陆或密码已被重置，需要重新设置密码')
+				var reason = page.find('form').attr('data-reason')
+				alert(reason)
 				myResult.init(page, myResultConfig)
 				myValidator.init(page, myValidatorConfig)
 			}

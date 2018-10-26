@@ -69,7 +69,8 @@ class UserHelper extends AbstractHelper
     {
         return [
             UserManager::STATUS_ENABLED => '正常',
-            UserManager::STATUS_WAIT_CHANGE_PASSWORD=> '需用户重置密码'
+            UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED    => '新增用户-待修改密码',
+            UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD => '重置密码-待修改密码'
         ];
     }
     

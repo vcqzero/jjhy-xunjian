@@ -17,7 +17,8 @@ class UserManager
     private $super_admin_config;
     
     const STATUS_ENABLED    = 'ENABLED';
-    const STATUS_WAIT_CHANGE_PASSWORD   = 'WAIT_CHANGE_PASSWORD';
+    const STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD   = 'WAIT_CHANGE_PASSWORD_RESET_PASSWORD';
+    const STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED   = 'WAIT_CHANGE_PASSWORD_NEW_CREATED';
     
     /**
     * @var 超级管理员 

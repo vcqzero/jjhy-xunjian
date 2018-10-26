@@ -57,6 +57,7 @@ class UserController extends AbstractActionController
         $password = $this->UserManager->buildNewPassword();
         $password_hash = $this->UserManager->password_hash($password);
         //设置基本数据
+        //根据添加人的角色设置被添加人的信息
         $identity   = $this->identity();
         $UserEntity = $this->UserManager->findUserByIdentity($identity);
         $role       = $UserEntity->getRole();
@@ -70,7 +71,7 @@ class UserController extends AbstractActionController
                 break;
         }
         $values[UserEntity::FILED_PASSWORD] = $password_hash;
-        $values[UserEntity::FILED_STATUS] = UserManager::STATUS_WAIT_CHANGE_PASSWORD;
+        $values[UserEntity::FILED_STATUS] = UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED;
         $values[UserEntity::FILED_INITIAL_PASSWORD] = $password;
         
         //过滤表单
@@ -94,7 +95,7 @@ class UserController extends AbstractActionController
         $this->AjaxPlugin->success($res);
     }
     
-    //do change password
+    //主动修改密码
     public function changePasswordAction()
     {
         $userID    = $this->params()->fromRoute('userID', 0);
@@ -113,7 +114,7 @@ class UserController extends AbstractActionController
         $this->AjaxPlugin->success($res);
     }
     
-    //do change password
+    //管理员重置密码
     public function resetPasswordAction()
     {
         $userID    = $this->params()->fromRoute('userID', 0);
@@ -123,7 +124,7 @@ class UserController extends AbstractActionController
         $values = [
             UserEntity::FILED_PASSWORD  => $password_hash,
             UserEntity::FILED_INITIAL_PASSWORD => $password,
-            UserEntity::FILED_STATUS    => UserManager::STATUS_WAIT_CHANGE_PASSWORD
+            UserEntity::FILED_STATUS    => UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD
         ];
         
         $res = $this->UserManager->MyOrm->update($userID, $values);

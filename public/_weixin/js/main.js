@@ -24,6 +24,7 @@ requirejs.config({
 		myValidator: 'modules/myValidator',
 		
 		//pages
+		//Auth
 		LoginPage : 'pages/Auth/LoginPage',
 		AuthChangePasswordPage : 'pages/Auth/AuthChangePasswordPage',
 		

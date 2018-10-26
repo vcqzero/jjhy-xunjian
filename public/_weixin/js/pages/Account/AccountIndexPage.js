@@ -11,28 +11,9 @@ define(
 				});
 			})
 		}
-
-//		var changePassword = function(page) {
-//			$('a.change-password').on('click', function() {
-//				$.login({
-//					title: '修改密码',
-////					text: '内容文案',
-//					password: '请输入新密码', // 默认用户名
-//					password: '请再次输入新密码', // 默认密码
-//					onOK: function(username, password) {
-//						//点击确认
-//					},
-//					onCancel: function() {
-//						//点击取消
-//					}
-//				});
-//			})
-//
-//		}
 		return {
 			init: function(pageName, page) {
 				signOut(page)
-//				changePassword(page)
 			}
 		}
 	})

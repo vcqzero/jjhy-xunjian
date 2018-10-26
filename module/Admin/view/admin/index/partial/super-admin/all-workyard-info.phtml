@@ -13,14 +13,14 @@ $Entities = $this->Workyard()->getEntities();
             $address_path = $Entity->getAddress_path();
         ?>
     	<li data-address-path=<?=$address_path?>>
-			<p>
-				<i class="fa fa-map-marker"></i>&nbsp;<strong><?=$name?></strong>
-			</p> <small class="text-muted"><?=$address?></small>
+			<h4>
+				<a href="javascript:;"><i class="fa fa-map-marker"></i>&nbsp;<strong><?=$name?></strong></a>
+			</h4> <span class="text-muted"><?=$address?></span>
 		</li>
     	<?php endforeach;?>
 	</ul>
 </div>
 
 <div class="col-md-9 col-sm-9 col-xs-12">
-	<div id="map_container" style="min-height: 500px; max-width: none;"></div>
+	<div id="map_container" style="min-height: 600px; max-width: none;"></div>
 </div>

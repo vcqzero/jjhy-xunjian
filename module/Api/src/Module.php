@@ -214,9 +214,14 @@ class Module
             $status = $UserEntity->getStatus();
             //如果用户状态异常，进入相应页面
             //进入重新修改页面
-            if ($status == UserManager::STATUS_WAIT_CHANGE_PASSWORD)
+            switch ($status)
             {
-                return $this->setRoutMatch($routeMatch, self::ROUTE_CHANGE_PASSWORD);
+                case UserManager::STATUS_ENABLED:
+                    break;
+                case UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED:
+                case UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD:
+                default:
+                    return $this->setRoutMatch($routeMatch, self::ROUTE_CHANGE_PASSWORD);
             }
         }
     }
