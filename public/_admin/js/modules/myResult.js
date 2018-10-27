@@ -32,7 +32,7 @@ define(['jquery', 'myPnotify'], function($, myPnotify) {
 		var callback = resultConfig['callback']
 		var toast = resultConfig['toast']
 		var route = resultConfig['route']
-
+		
 		//do callback 
 		if($.isFunction(callback)) {
 			callback(resObj)

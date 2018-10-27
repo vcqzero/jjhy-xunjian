@@ -4,6 +4,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 	var status_prompt;
 	var data;
 	var workyard_id
+	var token
 	var _url = '/api/shiftTime/add'
 
 	$('body').on('click', '.scan-qrcode', function() {
@@ -11,6 +12,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		var shift = $('#my-shift-on-working')
 		var shift_time_id = shift.attr('data-shift-time-id')
 		workyard_id = shift.attr('data-workyard-id')
+		token = shift.attr('data-token')
 		data = {
 			'shift_time_id': shift_time_id,
 		}
@@ -135,6 +137,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 	 */
 	var send = function() {
 		_url = _url + '?workyard_id=' + workyard_id
+		_url = _url + '&token=' + token
 		$.ajax({
 			type: "post",
 			url: _url,

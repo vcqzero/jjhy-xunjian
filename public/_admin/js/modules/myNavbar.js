@@ -80,7 +80,6 @@ define(['jquery', 'nprogress'], function($, NProgress) {
 				return CURRENT_URL === href
 			}
 		}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-			console.log('左侧菜单变化')
 			setContentHeight();
 		}).parent().addClass('active');
 
