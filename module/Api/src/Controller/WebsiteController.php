@@ -33,6 +33,11 @@ class WebsiteController extends AbstractActionController
     //edit the website infomation
     public function editBasicAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         //获取用户提交表单
         $values = $this->params()->fromPost();
         $writer = new \Zend\Config\Writer\PhpArray();

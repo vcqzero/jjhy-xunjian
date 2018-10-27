@@ -1,3 +1,7 @@
+<?php 
+$token = $this->Token()->getToken();
+
+?>
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '名称：',
@@ -47,6 +51,6 @@
     'pageName'      => 'WorkyardAddPage',
     'pageTitle'     => '新增工地',
     'form_id'       => 'form-add-workyard',
-    'action'        => '/api/workyard/add',
+    'action'        => "/api/workyard/add?token=$token",
     'formContent'   => $this->placeholder('formContent'),
 ])?> 

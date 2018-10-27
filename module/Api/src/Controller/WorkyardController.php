@@ -31,6 +31,11 @@ class WorkyardController extends AbstractActionController
     //edit the website infomation
     public function editAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         $workyardID = $this->params()->fromRoute('workyardID');
         //获取用户提交表单
         $values = $this->params()->fromPost();
@@ -43,6 +48,11 @@ class WorkyardController extends AbstractActionController
     
     public function addAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         //获取用户提交表单
         $values = $this->params()->fromPost();
         //do filter

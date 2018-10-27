@@ -5,6 +5,7 @@ $name       = $WorkyardEntity->getName();
 $note       = $WorkyardEntity->getNote();
 $address    = $WorkyardEntity->getAddress();
 $address_path = $WorkyardEntity->getAddress_path();
+$token = $this->Token()->getToken();
 
 ?>
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -58,7 +59,7 @@ $address_path = $WorkyardEntity->getAddress_path();
     'pageName'      => 'WorkyardEditPage',
     'pageTitle'     => '编辑工地',
     'form_id'       => 'form-edit-workyard',
-    'action'        => '/api/workyard/edit/'.$workyardID,
+    'action'        => "/api/workyard/edit/$workyardID?token=$token",
     'navbar'        => '/workyard/addPage',
     'formContent'   => $this->placeholder('formContent'),
 ])?> 

@@ -49,6 +49,11 @@ class UserController extends AbstractActionController
     //response add
     public function addAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         //获取用户提交表单
         $values = $this->params()->fromPost();
         
@@ -85,6 +90,11 @@ class UserController extends AbstractActionController
     //do edit 
     public function editAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         $userID = $this->params()->fromRoute('userID', 0);
         //获取用户提交表单
         $values = $this->params()->fromPost();
@@ -98,6 +108,11 @@ class UserController extends AbstractActionController
     //主动修改密码
     public function changePasswordAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         $userID    = $this->params()->fromRoute('userID', 0);
         $change_initial_password = $this->params()->fromQuery('change_initial_password');
         //获取用户提交表单
@@ -117,6 +132,11 @@ class UserController extends AbstractActionController
     //管理员重置密码
     public function resetPasswordAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         $userID    = $this->params()->fromRoute('userID', 0);
         //获取密码
         $password       = $this->UserManager->buildNewPassword();

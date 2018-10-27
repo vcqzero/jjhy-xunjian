@@ -1,6 +1,8 @@
 <?php 
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -50,7 +52,7 @@ $workyard_id = $this->User()->getWorkyardId($identity);
     'pageTitle' => '新增值班安排',
     'modalSize'     => 'lg',
     'form_id'=>'form-add-shift',
-    'action'=>'/api/shift/add',
+    'action'=>"/api/shift/add?token=$token",
     'formContent' => $this->placeholder('formContent'),
 ])?>
 

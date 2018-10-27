@@ -58,7 +58,6 @@ class Module
         $container  = $app->getServiceManager();
         $this->container = $container;
         $log_debug  = $container->get('MyLoggerDebug');
-        
         //关于错误信息处理
         //处理php原生错误信息
         $this->logPhpError($log_debug);
@@ -74,7 +73,10 @@ class Module
             [$this, 'onDispatchIdentity'],
             100);
     }
-    
+    public function test(MvcEvent $e)
+    {
+        
+    }
     //将php原始的错误信息记录到debug中
     public function logPhpError($log_debug)
     {

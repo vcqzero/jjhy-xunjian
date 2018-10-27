@@ -1,5 +1,7 @@
 <?php
 $title = $this->Website()->getTitle();
+$token = $this->Token()->getToken();
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -21,7 +23,7 @@ $title = $this->Website()->getTitle();
     		<h2 class="demos-title">巡检员登录</h2>
     	</header>
     	<form 
-    	action="/api/auth/login" 
+    	action="/api/auth/login?token=<?=$token?>" 
     	class="form-ajax-submit" 
     	id="form-login"
     	method="post"

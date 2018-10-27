@@ -37,11 +37,11 @@ class AuthController extends AbstractActionController
     //login
     public function loginAction()
     {
-//         $tokenJson  = $this->params()->fromPost('tokenJson');
-//         if (!$this->token()->isValid($tokenJson))
-//         {
-//             $this->AjaxPlugin->success(false);
-//         }
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         //进行登录验证
         $username = $this->params()->fromPost('username');
         $password = $this->params()->fromPost('password');

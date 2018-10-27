@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 class AjaxPlugin extends AbstractPlugin
 {
     const AJAX_RESULT_SUCCESS  = 'success';
+    const AJAX_RESULT_MESSAGE  = 'message';
     
     /**
     * 
@@ -14,9 +15,12 @@ class AjaxPlugin extends AbstractPlugin
     * @param array $message  
     * @return void     
     */
-    public function success($success, array $message = [])
+    public function success($success, $message = null)
     {
-        $responce[self::AJAX_RESULT_SUCCESS] = $success === true;
+        $responce = [
+            self::AJAX_RESULT_SUCCESS => $success === true,
+            self::AJAX_RESULT_MESSAGE => $message,
+        ];
         echo json_encode($responce);
         exit();
     }

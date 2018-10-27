@@ -10,6 +10,9 @@ $note = $ShiftEntity->getNote();
 $workyard_id = $ShiftEntity->getWorkyard_id();
 //班次
 $shift_type_id = $ShiftEntity->getShift_type_id();
+
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -58,7 +61,7 @@ $shift_type_id = $ShiftEntity->getShift_type_id();
     'pageTitle' => '编辑值班安排',
     'modalSize'     => 'lg',
     'form_id'=>'form-edit-shift',
-    'action'=>'/api/shift/edit/' . $shiftID,
+    'action'=>"/api/shift/edit/$shiftID?token=$token",
     'beforeForm' => $this->placeholder('beforeForm'),
     'formContent' => $this->placeholder('formContent'),
 ])?>

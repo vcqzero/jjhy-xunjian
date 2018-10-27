@@ -12,6 +12,9 @@ $workyard_id = $this->User()->getWorkyardId($identity);
 $WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
 $workyard_name  = $WorkyardEntity->getName();
 $workyard_address_path = $WorkyardEntity->getAddress_path();
+
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -46,6 +49,6 @@ $workyard_address_path = $WorkyardEntity->getAddress_path();
     'pageTitle'     => '编辑巡检点',
 //     'modalSize'     => 'lg',
     'form_id'       => 'form-edit-point',
-    'action'        => "/api/point/edit/$workyard_id/$point_id",
+    'action'        => "/api/point/edit/$workyard_id/$point_id?token=$token",
     'formContent'   => $this->placeholder('formContent'),
 ])?> 

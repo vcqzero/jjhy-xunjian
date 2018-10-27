@@ -1,6 +1,9 @@
 <?php 
 $record = $this->Website()->getRecord();
 $title  = $this->Website()->getTitle();
+
+$token = $this->Token()->getToken();
+
 ?>
 <?php $this->placeholder('formContent')->captureStart();?>
 
@@ -26,7 +29,7 @@ $title  = $this->Website()->getTitle();
         'pageName' => 'WebsiteBasicPage',
         'pageTitle' => '基本信息',
         'form_id'=>'form-edit-website',
-        'action'=>'/api/website/editBasic',
+        'action'=>"/api/website/editBasic?token=$token",
         'withBack' => false,
         'formContent' => $this->placeholder('formContent')
  ])?> 

@@ -240,7 +240,7 @@ return [
         ],
         
         'aliases' => [
-            'token'      => Controller\Plugin\TokenPlugin::class,
+            'Token'      => Controller\Plugin\TokenPlugin::class,
             'ajax'       => Controller\Plugin\AjaxPlugin::class,
             'Download'   => Controller\Plugin\DownloadPlugin::class,
         ],
@@ -252,6 +252,7 @@ return [
             Controller\Plugin\AjaxPlugin::class   => Controller\Plugin\Factory\AjaxPluginFactory::class,
             Controller\Plugin\AuthPlugin::class   => Controller\Plugin\Factory\AuthPluginFactory::class,
             Controller\Plugin\DownloadPlugin::class => Controller\Plugin\Factory\DownloadPluginFactory::class,
+            Controller\Plugin\TokenPlugin::class => Controller\Plugin\Factory\TokenPluginFactory::class,
             
             //Model\
             \Zend\Authentication\AuthenticationService::class => InvokableFactory::class,
@@ -299,6 +300,7 @@ return [
             View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
             View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
             View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
+            View\Helper\TokenHelper::class => View\Helper\Factory\TokenHelperFactory::class,
         ],
         
         'aliases' => [
@@ -311,6 +313,7 @@ return [
             'ShiftTime'         => View\Helper\ShiftTimeHelper::class,
             'ShiftTimePoint'    => View\Helper\ShiftTimePointHelper::class,
             'ShiftGuard'    => View\Helper\ShiftGuardHelper::class,
+            'Token'    => View\Helper\TokenHelper::class,
         ],
     ],
     
@@ -322,6 +325,10 @@ return [
         'template_map' => [
             'error/404'               => __DIR__ . '/../view/error/my404.phtml',
             'error/index'             => __DIR__ . '/../view/error/my500.phtml',
+        ],
+        
+        'template_path_stack' => [
+            'api' => __DIR__ . '/../view',
         ],
     ],
 ];

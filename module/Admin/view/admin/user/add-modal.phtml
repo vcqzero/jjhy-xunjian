@@ -1,3 +1,7 @@
+<?php 
+$token = $this->Token()->getToken();
+
+?>
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '用户名：',
@@ -32,7 +36,7 @@
     'pageTitle' => '新增用户',
     'modalSize'     => 'lg',
     'form_id'=>'form-add-user',
-    'action'=>'/api/user/add',
+    'action'=>"/api/user/add?token=$token",
 //     'beforeForm' => $this->placeholder('beforeForm'),
     'formContent' => $this->placeholder('formContent'),
 ])?>

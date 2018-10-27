@@ -8,6 +8,9 @@ $is_next_day   = $Entity->getIs_next_day();
 
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
+
+$token = $this->Token()->getToken();
+
 ?>
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
@@ -44,6 +47,6 @@ $workyard_id = $this->User()->getWorkyardId($identity);
     'pageTitle' => '编辑',
     'modalSize'     => 'lg',
     'form_id'=>'form-edit',
-    'action'=>'/api/shiftType/edit/' . $typeID,
+    'action'=>"/api/shiftType/edit/$typeID?token=$token",
     'formContent' => $this->placeholder('formContent'),
 ])?>

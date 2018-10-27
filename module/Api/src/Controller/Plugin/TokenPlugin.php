@@ -6,9 +6,8 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 class TokenPlugin extends AbstractPlugin
 {
     private $mySession;
-    private $seperator = '|';
-    private $session_token_name  = 'name';
-    private $session_token_value = 'value';
+    
+    const TOKEN_SEPERATE = '_this_is_my_token_';
     public function __construct(
         $mySession
         )
@@ -24,22 +23,18 @@ class TokenPlugin extends AbstractPlugin
      * @param  string $tokenName token名称
      * @return string json 字符串
      */
-    public function token($tokenName = null)
+    public function token()
     {
         //获取session key 和 token
-        $tokenName  = empty($tokenName) ? time() : $tokenName;
-        $sessionkey = $this->generateTokenKey($tokenName);
-        $token      = $this->generateTokenString();
+        $tokenName  = $this->getTokenName();
+        $tokenString= $this->getTokenString();
+        
+        $token      = $tokenName . self::TOKEN_SEPERATE . $tokenString;
         //将tokenName拼接到token中
-        $array = [
-            $this->session_token_name  => $sessionkey,
-            $this->session_token_value => $token,
-        ];
-        
         //保存session
-        $this-> mySession->$sessionkey = $token;
+        $this->mySession->$tokenName = $tokenString;
         
-        return  json_encode($array);
+        return  $token;
     }
     
     /**
@@ -48,13 +43,12 @@ class TokenPlugin extends AbstractPlugin
      * @param  string $tokenName
      * @return string key
      */
-    private function generateTokenKey($tokenName)
+    private function getTokenName()
     {
-        $tokenName = __CLASS__ . $tokenName;
-        $tokenName = str_shuffle(md5($tokenName));
-        $tokenName = substr($tokenName, 1, 9);
-        $tokenName = str_replace($this->seperator, '', $tokenName);
-        return $tokenName;
+        $unid = uniqid('FOR_TOKEN_SESSION');
+        $unid = md5($unid);
+        $name = \Zend\Math\Rand::getString(16, $unid);
+        return trim($name);
     }
     /**
      * create token
@@ -62,7 +56,7 @@ class TokenPlugin extends AbstractPlugin
      * @param  void
      * @return string (Md5)
      */
-    private function generateTokenString():string
+    private function getTokenString():string
     {
         $numbers    = range(10, 90); // 将10~50的数字排成数组
         shuffle($numbers); // shuffle 将数组顺序随即打乱
@@ -79,19 +73,16 @@ class TokenPlugin extends AbstractPlugin
      */
     public function isValid($token)
     {
-        if (empty($token))
-        {
-            return false;
+        $res = false;
+        try{
+            $tokenArray  = explode(self::TOKEN_SEPERATE, $token);
+            $tokenName   = $tokenArray[0];
+            $tokenString = $tokenArray[1];
+            $tokenInSession = $this->mySession->$tokenName;
+            $res = $tokenString == $tokenInSession;
+        }catch (\Exception $e ){
+            $res = false;
         }
-        $tokenArray         = json_decode($token, true);
-        $session_token_name = $tokenArray[$this->session_token_name];
-        $session_token_value= $tokenArray[$this->session_token_value];
-        
-        //获取并重置token
-        $tokenInSession = $this->mySession->$session_token_name;
-        $this->mySession->$session_token_name = null;
-        
-        //返回验证结果
-        return $session_token_value === $tokenInSession;
+        return $res;
     }
 }

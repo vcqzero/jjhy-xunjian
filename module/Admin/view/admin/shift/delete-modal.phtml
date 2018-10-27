@@ -2,6 +2,9 @@
 $shiftID     = $this->shiftID;
 $ShiftEntity = $this->Shift()->getEntity($shiftID);
 $shift_type_name = $ShiftEntity->getShift_type_name();
+
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -12,7 +15,7 @@ $shift_type_name = $ShiftEntity->getShift_type_name();
     'pageName' => 'ShiftDeleteModal',
     'pageTitle' => '删除值班安排',
     'form_id'=>'form-delete-shift',
-    'action'=>'/api/shift/delete/' . $shiftID,
+    'action'=>"/api/shift/delete/$shiftID?token=$token",
     'canDelete'=>true,
     'formContent' => $this->placeholder('formContent'),
 ])?>

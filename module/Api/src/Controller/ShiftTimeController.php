@@ -45,6 +45,12 @@ class ShiftTimeController extends AbstractActionController
     
     public function addAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
+        
         $MyOrm = $this->ShiftTimePointManager->MyOrm;
         $shift_time_id  = $this->params()->fromPost('shift_time_id');
         $point_id       = $this->params()->fromPost('point_id');

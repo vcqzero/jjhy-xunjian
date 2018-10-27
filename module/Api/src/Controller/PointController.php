@@ -51,6 +51,11 @@ class PointController extends AbstractActionController
     //edit the website infomation
     public function editAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
         $pointID = $this->params()->fromRoute('pointID');
         //获取用户提交表单
         $values = $this->params()->fromPost();
@@ -63,6 +68,12 @@ class PointController extends AbstractActionController
     
     public function addAction()
     {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
+        
         //获取用户提交表单
         $values = $this->params()->fromPost();
         

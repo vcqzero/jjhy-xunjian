@@ -1,6 +1,8 @@
 <?php 
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
+$token = $this->Token()->getToken();
+
 ?>
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
@@ -36,6 +38,6 @@ $workyard_id = $this->User()->getWorkyardId($identity);
     'pageTitle' => '新增巡检员',
     'modalSize'     => 'lg',
     'form_id'=>'form-add-user',
-    'action'=>'/api/user/add',
+    'action'=>"/api/user/add?token=$token",
     'formContent' => $this->placeholder('formContent'),
 ])?>

@@ -23,6 +23,8 @@ $next_count = $has_done ? null : $done_count + 1;
 //当前正在执行的巡检次数id
 $shift_time_id_on_working = $this->ShiftTime()->getShiftTimeIdOnWorking($user_id, $shift_id, $has_done);
 
+$token = $this->Token()->getToken();
+
 ?>
 <div 
 style="margin-top: 20px" 
@@ -31,6 +33,7 @@ data-shift-time-id="<?=$shift_time_id_on_working?>"
 data-shift-id="<?=$shift_id?>"
 data-guard-id="<?=$user_id?>"
 data-workyard-id="<?=$workyard_id?>"
+data-token="<?=$token?>"
 >
 	<div class="weui-cells">
       <div class="weui-cell">

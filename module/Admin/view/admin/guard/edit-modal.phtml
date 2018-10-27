@@ -7,6 +7,9 @@ $tel        = $UserEntity->getTel();
 // $email = $UserEntity->getEmail();
 $username   = $UserEntity->getUsername();
 $workyard_id   = $UserEntity->getWorkyard_id();
+
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('beforeForm')->captureStart();?>
@@ -39,7 +42,7 @@ $workyard_id   = $UserEntity->getWorkyard_id();
     'pageTitle' => '编辑巡检员',
     'modalSize'     => 'lg',
     'form_id'=>'form-edit-user',
-    'action'=>'/api/user/edit/' . $userID,
+    'action'=>"/api/user/edit/$userID?token=$token",
     'beforeForm' => $this->placeholder('beforeForm'),
     'formContent' => $this->placeholder('formContent'),
 ])?>

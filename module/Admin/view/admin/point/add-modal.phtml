@@ -4,6 +4,9 @@ $workyard_id = $this->User()->getWorkyardId($identity);
 $WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
 $workyard_name  = $WorkyardEntity->getName();
 $address_path = $WorkyardEntity->getAddress_path();
+
+$token = $this->Token()->getToken();
+
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
@@ -50,6 +53,6 @@ $address_path = $WorkyardEntity->getAddress_path();
     'pageTitle'     => '新增巡检点',
 //     'modalSize'     => 'lg',
     'form_id'       => 'form-add-point',
-    'action'        => '/api/point/add',
+    'action'        => "/api/point/add?token=$token",
     'formContent'   => $this->placeholder('formContent'),
 ])?> 
