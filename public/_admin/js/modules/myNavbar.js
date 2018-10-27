@@ -23,10 +23,8 @@ define(['jquery', 'nprogress'], function($, NProgress) {
 				footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
 				leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
 				contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
 			// normalize content
-			contentHeight -= $NAV_MENU.height() + footerHeight;
-
+//			contentHeight -= $NAV_MENU.height() + footerHeight;
 			$RIGHT_COL.css('min-height', contentHeight);
 		};
 
@@ -68,14 +66,8 @@ define(['jquery', 'nprogress'], function($, NProgress) {
 				$SIDEBAR_MENU.find('li.active-sm ul').show();
 				$SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
 			}
-
 			$BODY.toggleClass('nav-md nav-sm');
-
 			setContentHeight();
-
-			$('.dataTable').each(function() {
-				$(this).dataTable().fnDraw();
-			});
 		});
 
 		// check active menu
@@ -88,12 +80,13 @@ define(['jquery', 'nprogress'], function($, NProgress) {
 				return CURRENT_URL === href
 			}
 		}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+			console.log('左侧菜单变化')
 			setContentHeight();
 		}).parent().addClass('active');
 
 		// recompute content when resizing
 
-		setContentHeight();
+//		setContentHeight();
 
 		// fixed sidebar
 		if($.fn.mCustomScrollbar) {

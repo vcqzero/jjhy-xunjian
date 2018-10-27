@@ -77,13 +77,13 @@ class TokenPlugin extends AbstractPlugin
      * @param string $token
      * @return boolean true or false
      */
-    public function isValid($tokenJson)
+    public function isValid($token)
     {
-        if (empty($tokenJson))
+        if (empty($token))
         {
             return false;
         }
-        $tokenArray         = json_decode($tokenJson, true);
+        $tokenArray         = json_decode($token, true);
         $session_token_name = $tokenArray[$this->session_token_name];
         $session_token_value= $tokenArray[$this->session_token_value];
         

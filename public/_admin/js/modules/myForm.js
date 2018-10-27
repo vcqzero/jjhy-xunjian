@@ -34,6 +34,7 @@ define(['jquery'], function($) {
 					console.log('form is empty do not need submit')
 					return false;
 				} else {
+					console.log('The form is submitting on ajax')
 					form.trigger(EVENT_BEFORE)
 					disabledSubmitButton(form, true)
 				}
@@ -50,16 +51,15 @@ define(['jquery'], function($) {
 				'resObj': resObj
 			})
 		});
-		console.log('The form is submitting on ajax')
 	}
 
 	var disabledSubmitButton = function(form, disabled) {
 		var submitButton = form.find('button[type="submit"]')
-		submitButton.attr('disabled', disabled === true)
 		submitButton.text('处理中...')
+		form.find('button').attr('disabled', disabled === true)
 	}
 
-	$('body').on('submit', 'form.' + CLASS_AJAX_FORM, function(e) {
+	$('body').on('submit', 'form', function(e) {
 		var form = $(this)
 		if(form.hasClass(CLASS_AJAX_FORM) == false) {
 			return false;

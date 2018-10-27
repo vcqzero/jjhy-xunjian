@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="php" deleted="false" description="put file content" enabled="true" name="4 debug file">$$path="data/log/error.log";&#13;
-$$mess=date('Y-m-d H:i:s') . __FILE__ . $$e-&gt;getMessage();&#13;
-file_put_contents($$path, $$mess."\r\n", FILE_APPEND);</template></templates>

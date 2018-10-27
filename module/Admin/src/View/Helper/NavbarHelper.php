@@ -120,11 +120,11 @@ class NavbarHelper extends AbstractHelper
                             'url' => '/website/basic',
                             'allow' => [UserManager::ROLE_SUPER_ADMIN],
                         ],
-                        2=>[
-                            'title'=> '邮箱设置',
-                            'url' => '/website/email',
-                            'allow' => [UserManager::ROLE_SUPER_ADMIN],
-                        ],
+//                         2=>[
+//                             'title'=> '邮箱设置',
+//                             'url' => '/website/email',
+//                             'allow' => [UserManager::ROLE_SUPER_ADMIN],
+//                         ],
                     ]
                 ],
             ],

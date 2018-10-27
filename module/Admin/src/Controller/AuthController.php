@@ -11,7 +11,6 @@ class AuthController extends AbstractActionController
     public function indexAction()
     {
         $View = new ViewModel();
-        $this->layout()->setTemplate('layout/blank.phtml');
         $tokenJson = $this->token()->token();
         $View->setVariables([
             'tokenJson' => $tokenJson,

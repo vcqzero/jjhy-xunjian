@@ -48,13 +48,13 @@ $note           = $WorkyardEntity->getNote();
 </div>
 
 <div class="weui-cells">
-  <a class="weui-cell weui-cell_access open-popup" href="javascript:;" data-target="#popup-about">
-  	<div class="weui-cell__hd"><i class="fa fa-info-circle  icon-in-list"></i></div>
-    <div class="weui-cell__bd">
-      <p>关于</p>
-    </div>
-    <div class="weui-cell__ft"></div>
-  </a>
+<!--   <a class="weui-cell weui-cell_access open-popup" href="javascript:;" data-target="#popup-about"> -->
+<!--   	<div class="weui-cell__hd"><i class="fa fa-info-circle  icon-in-list"></i></div> -->
+<!--     <div class="weui-cell__bd"> -->
+<!--       <p>关于</p> -->
+<!--     </div> -->
+<!--     <div class="weui-cell__ft"></div> -->
+<!--   </a> -->
   
   <a class="weui-cell weui-cell_access sign-out" href="javascript:;">
   	<div class="weui-cell__hd"><i class="fa fa-sign-out  icon-in-list"></i></div>
@@ -65,8 +65,6 @@ $note           = $WorkyardEntity->getNote();
   </a>
   
 </div>
-
-<?=$this->partial('guard/account/partial/about.phtml')?>
 <br>
 <?php $this->placeholder('content')->captureEnd();?>
 

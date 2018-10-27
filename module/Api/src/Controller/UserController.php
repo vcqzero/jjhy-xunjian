@@ -24,7 +24,7 @@ class UserController extends AbstractActionController
     {
         $username     = $this->params()->fromPost('username');
         $where        = [
-            'username'=> $username
+            UserEntity::FILED_USERNAME => $username,
         ];
         $count      = $this->UserManager->MyOrm->count($where);
         $this->AjaxPlugin->valid(empty($count));
