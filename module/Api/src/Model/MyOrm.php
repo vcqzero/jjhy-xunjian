@@ -320,7 +320,7 @@ final class MyOrm
         //get paginator
         $paginator  = $this->initPaginator($Select, $Entity);
         $paginator  ->setCurrentPageNumber($page);
-        $paginator  ->setDefaultItemCountPerPage(16);
+        $paginator  ->setDefaultItemCountPerPage(8);
         
         return $paginator;
     }

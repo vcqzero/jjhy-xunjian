@@ -55,7 +55,7 @@ $batchEditButtons = $this->batchEditButtons;
         <!-- /navigation -->
     	<?=$this->partial('partial/admin/paginator/navigation.phtml', [
             'paginator' => $paginator,
-            'search'    => $this->search,
+    	    'where'     => $this->search,
         ])?>
 </div>
 <?php $this->placeholder('x_content')->captureEnd() ?>

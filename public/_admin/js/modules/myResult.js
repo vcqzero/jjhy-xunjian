@@ -1,4 +1,4 @@
-define(['jquery', 'myPnotify'], function($, myPnotify) {
+define(['jquery', 'myFramework'], function($, myFramework) {
 	var init = function(page, config) {
 		$('body').on('form-ajax-submit:complete', 'form', function(e) {
 			var resObj = arguments[1]['resObj']
@@ -41,9 +41,9 @@ define(['jquery', 'myPnotify'], function($, myPnotify) {
 
 		//show toast
 		if(isSuccess) {
-			myPnotify.success(toast)
+			myFramework.pnotify('success', toast)
 		} else {
-			myPnotify.error(toast)
+			myFramework.pnotify('error', toast)
 		}
 		setTimeout(
 			function() {

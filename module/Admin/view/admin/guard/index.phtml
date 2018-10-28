@@ -4,11 +4,14 @@ use Api\Service\UserManager;
 
 $page      = $this->page;
 $where     = $this->where;
+$search    = $where;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
+
 $where[UserEntity::FILED_WORKYARD_ID] = $workyard_id;
 $where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_GUARD;
-$paginator   = $this->User()->getPaginator($page, $where);
+
+$paginator = $this->User()->getPaginator($page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -24,11 +27,8 @@ $paginator   = $this->User()->getPaginator($page, $where);
     <thead>
         <tr>
           <th >用户名</th>
-          <th >所属工地</th>
           <th >电话</th>
           <th >姓名</th>
-          <th >初始密码</th>
-          <th >状态</th>
           <th >操作</th>
     	</tr>
     </thead>
@@ -38,21 +38,15 @@ $paginator   = $this->User()->getPaginator($page, $where);
       		<?php 
       		$userID     = $UserEntity->getId();
       		$username   = $UserEntity->getUsername();
-      		$workyard_id   = $UserEntity->getWorkyard_id();
-      		$workyard_name = $this->Workyard()->getName($workyard_id);
-      		$status     = $UserEntity->getStatus();
-      		$status     = $this->User()->renderStatusName($status);
+//       		$status     = $UserEntity->getStatus();
+//       		$status     = $this->User()->renderStatusName($status);
       		$tel        = $UserEntity->getTel();
       		$realname   = $UserEntity->getRealName();
-      		$initial_password   = $UserEntity->getInitial_password();
       		?>
       		<tr>
       		<td><?=$username?></td>
-      		<td><?=$workyard_name?></td>
       		<td><?=$tel?></td>
       		<td><?=$realname?></td>
-      		<td><?=$initial_password?></td>
-      		<td><?=$status?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">
       		<?=$this->partial('partial/admin/button/single.phtml', [
@@ -78,7 +72,7 @@ $paginator   = $this->User()->getPaginator($page, $where);
     'pageName'      => 'UserListPage',
     'pageTitle'     => '工地巡检员',
     'paginator'     => $paginator,
-    'search'        => $where,
+    'search'        => $search,
     'buttonGroup'   => $this->placeholder('buttonGroup'),
 //     'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),

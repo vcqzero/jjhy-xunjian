@@ -16,7 +16,7 @@ define(
 
 			var _input = page.find('#datetimepicker')
 			var _config = {
-				singleDatePicker: true,
+				singleDatePicker: false,
 				startDate: moment(),
 				endDate: moment(),
 				locale: {
@@ -94,6 +94,11 @@ define(
 
 								notEmpty: {
 									message: '请选择班次',
+								},
+								
+								stringLength: {
+									message: '请选择班次',
+									min: 1,
 								},
 //
 //								remote: {

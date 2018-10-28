@@ -25,34 +25,36 @@ $Entities = $this->ShiftType()->getEntities($where);
 	<label class="control-label col-md-3 col-sm-3 col-xs-12"
 		for="first-name">班次：</label>
 	<div class="col-md-6 col-sm-6 col-xs-12">
-    	<select 
+	<select 
     	name="shift_type_id" 
     	class="form-control" 
     	>
 			<?php if ($withDefualt) :?>
 		    	<option value=''><?=$defaultTitle?></option>
 		    <?php endif;?>
-			<?php if (count($Entities)) :?>
-				<?php foreach ($Entities as $Entity) :?>
-					<?php 
-					$id  = $Entity->getId();
-					$name= $Entity->getName();
-					$start_time = $Entity->getStart_time();
-					$end_time   = $Entity->getEnd_time();
-					$is_next_day   = $Entity->getIs_next_day();
-					if ($is_next_day == ShiftTypeManager::IS_NEXT_DAY_YES)
-					{
-					    $end_time .= '（次日+1）';
-					}
-					$name = "$name | $start_time - $end_time";
-					?>
-					<?php if ($selectedId === $id) :?>
-					<option value=<?=$id?> selected="selected"><?=$name?></option>
-					<?php else :?>
-					<option value=<?=$id?>><?=$name?></option>
-					<?php endif;?>
-				<?php endforeach;?>
-			<?php endif;?>
+			<?php foreach ($Entities as $Entity) :?>
+				<?php 
+				$id  = $Entity->getId();
+				$name= $Entity->getName();
+				$start_time = $Entity->getStart_time();
+				$end_time   = $Entity->getEnd_time();
+				$is_next_day   = $Entity->getIs_next_day();
+				if ($is_next_day == ShiftTypeManager::IS_NEXT_DAY_YES)
+				{
+				    $end_time .= '（次日+1）';
+				}
+				$name = "$name | $start_time - $end_time";
+				?>
+				<?php if ($selectedId === $id) :?>
+				<option value=<?=$id?> selected="selected"><?=$name?></option>
+				<?php else :?>
+				<option value=<?=$id?>><?=$name?></option>
+				<?php endif;?>
+			<?php endforeach;?>
 	</select>
+	<?php if (empty(count($Entities))) :?>
+	<a href="/shiftType">
+    <i class="glyphicon glyphicon-plus"></i>请先增加值班班次</a>
+    <?php endif;?>
 	</div>
 </div>

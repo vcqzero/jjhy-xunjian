@@ -91,10 +91,7 @@ class FormFilter
     */
     public function isValid($values)
     {
-        if (empty($this->excuted))
-        {
-            $this->excute($values);
-        }
+        $this->excute($values);
         return $this->isValid === true;
     }
     
@@ -106,11 +103,7 @@ class FormFilter
     */
     public function getFilterValues($values)
     {
-        if (empty($this->excuted))
-        {
-            $this->excute($values);
-        }
-        
+        $this->excute($values);
         return $this->filteredValues;
     }
     

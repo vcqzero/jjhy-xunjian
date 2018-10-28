@@ -14,8 +14,10 @@ class UserManager
 {
     public  $MyOrm;
     public  $FormFilter;
+    
     private $super_admin_config;
     
+    const DEFUALT_PASSWORD = 'xunjian2018';
     const STATUS_ENABLED    = 'ENABLED';
     const STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD   = 'WAIT_CHANGE_PASSWORD_RESET_PASSWORD';
     const STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED   = 'WAIT_CHANGE_PASSWORD_NEW_CREATED';
@@ -93,7 +95,12 @@ class UserManager
     * @param  int $length 密码长度
     * @return string       
     */
-    public function buildNewPassword($length = 6) 
+    public function buildNewPassword() 
+    {
+        return self::DEFUALT_PASSWORD;
+    }
+    
+    private function getPasswordRand($length = 6)
     {
         // 密码字符集，可任意添加你需要的字符
         $chars = [

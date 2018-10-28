@@ -151,33 +151,4 @@ return [
         ],
     ],
     
-    'note'=>[
-        'name' => 'note',
-        'required' => true,
-        'validators' => [
-            [
-                'name' => NotEmpty::class,
-            ],
-            [
-                'name' => StringLength::class,
-                'options' => [
-                    'min' => 1,
-                    'max' => 512,
-                ],
-            ],
-        ],
-        'filters' => [
-            [
-                'name' => StringTrim::class,//去掉首位空格
-            ],
-            
-            [
-                'name' => HtmlEntities::class,//html安全过滤
-                'options' =>[
-                    'quotestyle' => ENT_NOQUOTES,//保留单引号和双引号
-                ],
-            ],
-        ],
-    ],
-    
 ];

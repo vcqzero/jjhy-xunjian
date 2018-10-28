@@ -1,10 +1,9 @@
 <?php 
-
 $where     = $this->where;
 $page      = $this->page;
-$identity = $this->identity();
+$identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
-$paginator = $this->Shift()->getPaginator($page, $workyard_id, $where);
+$paginator   = $this->Shift()->getPaginator($page, $workyard_id, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -19,9 +18,9 @@ $paginator = $this->Shift()->getPaginator($page, $workyard_id, $where);
 <?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '选择时间段：',
 	    'name' => 'range',
-	    'placeholder' => '全部',
+	    'placeholder' => '请选择时间',
 	    'type' => 'text',
-// 	    'value'=> date('Y-m-d'),
+	    'value'=> "",
 	    'id' => 'select-range-date'
 	])?>
 
@@ -31,7 +30,6 @@ $paginator = $this->Shift()->getPaginator($page, $workyard_id, $where);
 <table class="table table-striped jambo_table">
     <thead>
         <tr>
-          <th >所辖工地</th>
           <th >日期</th>
           <th >班次</th>
           <th >值班时间</th>
@@ -46,8 +44,7 @@ $paginator = $this->Shift()->getPaginator($page, $workyard_id, $where);
       		<?php foreach ($paginator as $Entity):?>
       		<?php 
       		$shiftID = $Entity->getId();
-      		$workyard_id   = $Entity->getWorkyard_id();
-      		$workyard_name = $this->Workyard()->getName($workyard_id);
+//       		$workyard_id   = $Entity->getWorkyard_id();
       		$shift_type_name = $Entity->getShift_type_name();
       		$start_time      = $Entity->getStart_time();
       		$end_time        = $Entity->getEnd_time();
@@ -63,10 +60,9 @@ $paginator = $this->Shift()->getPaginator($page, $workyard_id, $where);
       		
       		$format_end_time  = $is_next_day ? $format_end_time . "（次日+1）" : $format_end_time;
       		//获取值班人员
-      		$guardNames = $this->Shift()->getGuardsName($shiftID);
+      		$guardNames = $this->ShiftGuard()->getGuardNamesByShiftId($shiftID);
       		?>
       		<tr>
-      		<td><?=$workyard_name?></td>
       		<td><?=$start_day?></td>
       		<td>
       			<?=$shift_type_name?>

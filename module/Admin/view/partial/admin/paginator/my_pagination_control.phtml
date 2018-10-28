@@ -1,10 +1,10 @@
 <?php 
-$search = $this->search;
+$where  = $this->where;
 $route  = $this->route;
 $action = $this->action;
 
 ?>
-<div class="row" data-search = "<?=count($this->search)?>">
+<div class="row">
 	<div class="col-sm-5">
 		<div 
 		class="dataTables_info" 
@@ -20,7 +20,7 @@ $action = $this->action;
             <?php if (isset($this->previous)): ?>
             		<?php 
             		$page = $this->previous;
-					$query = $this->search;
+					$query = $this->where;
 					$query['page'] = $page;
 					?>
                 <li class="">
@@ -37,7 +37,7 @@ $action = $this->action;
             <?php foreach ($this->pagesInRange as $page): ?>
 				<?php if ($page != $this->current): ?>
 					<?php 
-					$query = $this->search;
+					$query = $this->where;
 					$query['page'] = $page;
 					?>
                     <li class="">
@@ -58,7 +58,7 @@ $action = $this->action;
             <!-- 下一页 -->
 			<?php if (isset($this->next)): ?>
 					<?php 
-					$query = $this->search;
+					$query = $this->where;
 					$query['page'] = $this->next;
 					?>
 				<li class="">

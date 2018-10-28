@@ -82,9 +82,10 @@ class UserHelper extends AbstractHelper
         ];
     }
     
-    public function getPaginator($page, $where)
+    public function getPaginator($page = 1, $where = [])
     {
         $paginator = $this->UserManager->MyOrm->paginator($page, $where);
+//         $paginator  ->setDefaultItemCountPerPage(2);
         return $paginator;
     }
     

@@ -1,9 +1,7 @@
 define(
 	['jquery', 
-	'myForm',
-	'bootstrapvalidator', 
-	'bootstrapvalidator_language', 
-	], function($, myForm) {
+	'bootstrapvalidator',
+	], function($) {
 	var getFilds = function(form_id, config) {
 		var formsConfig = config['forms']
 		if(formsConfig === undefined) {
@@ -66,7 +64,8 @@ define(
 				}
 				bootStrap.disableSubmitButtons(isValid)
 				if(isValid) {
-					myForm.doSubmit(form)
+					form.trigger('myValidator:valid.success')
+//					myForm.doSubmit(form)
 				}
 				return false;
 			})
@@ -99,6 +98,12 @@ define(
 				}
 				setBootstrapValidator(form, filds, callback)
 			}
+			
+			//设置点击reset form 按钮
+			var resetButton = form.find('button[type="reset"]')
+			resetButton.on('click', function() {
+				form.data('bootstrapValidator').resetForm();
+			})
 		})
 	}
 

@@ -13,10 +13,10 @@ $where = [
 ];
 
 $GuardEntities = $this->User()->getEntities($where);
-$guards = [];
+$select2_config = [];
 
 //选择当前所需的guard_ids
-$getGuardIds = $shiftID ? $this->Shift()->getGuardIds($shiftID) : [];
+$getGuardIds = $this->ShiftGuard()->getGuardIdsByShiftId($shiftID);
     
 foreach ($GuardEntities as $key=>$GuardEntity)
 {
@@ -28,7 +28,7 @@ foreach ($GuardEntities as $key=>$GuardEntity)
         'text'=> $username,
         "selected" => $selected,
     ];
-    $guards[] = $guard;
+    $select2_config[] = $guard;
 }
 /* <?=$this->partial('partial/admin/form/select/user/select-multiple-guards.phtml', [
  'shiftID' => ''
@@ -44,10 +44,14 @@ foreach ($GuardEntities as $key=>$GuardEntity)
     	id ="guard_select"
     	name="guard_ids[]" 
     	class="form-control" 
-    	data-json = <?=json_encode($guards)?>
     	multiple="multiple"
     	style="width:100%"
+    	data-json = <?=json_encode($select2_config)?>
     	>
-	</select>
+		</select>
+		<?php if (empty(count($GuardEntities))) :?>
+    	<a href="/guard">
+        <i class="glyphicon glyphicon-plus"></i>请先增加巡检员</a>
+        <?php endif;?>
 	</div>
 </div>

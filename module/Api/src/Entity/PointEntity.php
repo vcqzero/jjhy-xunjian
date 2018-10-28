@@ -13,7 +13,6 @@ class PointEntity
     const FILED_QRCODE_FILENAME = 'qrcode_filename';
     const FILED_CREATED_BY  = 'created_by';
     const FILED_ADDRESS     = 'address';
-    const FILED_NOTE        = 'note';
     
     /**
     * users表字段相匹配，字段不可错误
@@ -24,8 +23,7 @@ class PointEntity
     private $qrcode_filename;
     private $created_by;
     private $address;
-    private $address_position;
-    private $note;
+    
     /**
      * @return the $id
      */
@@ -74,11 +72,5 @@ class PointEntity
         return $this->address;
     }
 
-    /**
-     * @return the $note
-     */
-    public function getNote()
-    {
-        return $this->note;
-    }
+    
 }

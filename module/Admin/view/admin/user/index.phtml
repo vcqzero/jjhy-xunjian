@@ -2,9 +2,13 @@
 use Api\Entity\UserEntity;
 use Api\Service\UserManager;
 
-$where     = $this->where;
+$where = $this->where;
+$page  = $this->page;
+
+$search= $where;
+$role  = UserManager::ROLE_WORKYARD_ADMIN;
 $where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_ADMIN;
-$paginator = $this->User()->getPaginator($this->page, $where);
+$paginator = $this->User()->getPaginator($page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -15,6 +19,15 @@ $paginator = $this->User()->getPaginator($this->page, $where);
 ])?>
 <?php $this->placeholder('buttonGroup')->captureEnd() ?>
 
+<?php $this->placeholder('searchContent')->captureStart();?>
+<?=$this->partial('partial/admin/form/select/workyard/select-workyards.phtml', [
+    'selectedId'  => null,
+    'withDefualt' => true,
+    'defaultTitle'=> '全部工地',
+    ])?>
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+
 <?php $this->placeholder('table')->captureStart();?>
 <table class="table table-striped jambo_table">
     <thead>
@@ -24,8 +37,7 @@ $paginator = $this->User()->getPaginator($this->page, $where);
           <th >电话</th>
 <!--           <th >邮箱</th> -->
           <th >姓名</th>
-          <th >初始密码</th>
-          <th >状态</th>
+          <!-- <th >状态</th> -->
           <th >操作</th>
     	</tr>
     </thead>
@@ -37,20 +49,17 @@ $paginator = $this->User()->getPaginator($this->page, $where);
       		$username   = $UserEntity->getUsername();
       		$workyard_id   = $UserEntity->getWorkyard_id();
       		$workyard_name = $this->Workyard()->getName($workyard_id);
-      		$status     = $UserEntity->getStatus();
-      		$status     = $this->User()->renderStatusName($status);
+//       		$status     = $UserEntity->getStatus();
+//       		$status     = $this->User()->renderStatusName($status);
       		$tel        = $UserEntity->getTel();
 //       		$email      = $UserEntity->getEmail();
       		$realname   = $UserEntity->getRealName();
-      		$initial_password   = $UserEntity->getInitial_password();
       		?>
       		<tr>
       		<td><?=$username?></td>
       		<td><?=$workyard_name?></td>
       		<td><?=$tel?></td>
       		<td><?=$realname?></td>
-      		<td><?=$initial_password?></td>
-      		<td><?=$status?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">
       		<?=$this->partial('partial/admin/button/single.phtml', [
@@ -76,8 +85,8 @@ $paginator = $this->User()->getPaginator($this->page, $where);
     'pageName'      => 'UserListPage',
     'pageTitle'     => '工地管理员',
     'paginator'     => $paginator,
-    'search'        => $where,
+    'search'         => $search,
     'buttonGroup'   => $this->placeholder('buttonGroup'),
-//     'searchContent' => $this->placeholder('searchContent'),
+    'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),
 ])?>

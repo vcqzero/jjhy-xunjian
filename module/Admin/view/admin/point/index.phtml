@@ -24,7 +24,6 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
           <th >工地名称</th>
           <th >巡检点</th>
           <th >巡检点地址</th>
-          <th >备注</th>
           <th >添加人</th>
           <th >操作</th>
     	</tr>
@@ -36,7 +35,6 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
       		$poinID = $Entity->getId();
       		$name   = $Entity->getName();
       		$address= $Entity->getAddress();
-      		$note   = $Entity->getNote();
       		$workyard_id   = $Entity->getWorkyard_id();
       		$workyard_name = $this->Workyard()->getName($workyard_id);
       		$created_by    = $Entity->getCreated_by();
@@ -45,7 +43,6 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
       		<td><?=$workyard_name?></td>
       		<td><?=$name?></td>
       		<td><?=$address?></td>
-      		<td><?=$note?></td>
       		<td><?=$created_by?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">

@@ -194,4 +194,44 @@ class ShiftGuardHelper extends AbstractHelper
         return !empty($MyOrm->getCount());
     }
     
+    public function getGuardNamesByShiftId($shift_id)
+    {
+        $guard_ids = $this->getGuardIdsByShiftId($shift_id);
+        $guardName = '';
+        foreach ($guard_ids as $guard_id)
+        {
+            if (!empty($guardName)) {
+                $guardName.= ' | ';
+            }
+            $guard    = $this->UserManager->MyOrm->findOne($guard_id);
+            $name     = $guard->getUserName();
+            $guardName.=  $guard->getUserName();
+        }
+        
+        return $guardName;
+    }
+    
+    /**
+    * 获取某一值班安排所有的值班人员
+    * 
+    * @param  
+    * @return        
+    */
+    public function getGuardIdsByShiftId($shift_id=null)
+    {
+        //获取值班安排
+        $where = [
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
+        ];
+        $shift_guards = $this->ShiftGuardManager->MyOrm->findAll($where);
+        
+        $guard_ids =[];
+        
+        foreach ($shift_guards as $shift_guard)
+        {
+            $guard_id = $shift_guard->getGuard_id();
+            $guard_ids[] = $guard_id;
+        }
+        return $guard_ids;
+    }
 }

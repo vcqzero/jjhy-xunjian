@@ -1,11 +1,22 @@
 define(
-	['jquery', 'moment', 'daterangepicker'],
-	function($, moment, daterangepicker) {
+	['jquery', 'moment', 'daterangepicker', 'myFramework'],
+	function($, moment, daterangepicker, myFramework) {
 		var myTimePicker = function(page) {
 			var _input = page.find('#select-range-date')
 			var _config = {
-				startDate: moment(),
-				endDate: moment().add('6', 'days'),
+//				singleDatePicker: true,
+				startDate: false,
+				endDate: false,
+				minDate : moment(),
+				ranges: {
+					'今天': [moment(), moment()],
+//					'昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+					'最近7天': [moment(), moment().add(6, 'days')],
+//					'最近30天': [moment().add(29, 'days'), moment()],
+					'本月': [moment(), moment().endOf('month')],
+//					'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+				},
+				alwaysShowCalendars: true,
 				locale: {
 					applyLabel: '确认',
 					cancelLabel: '取消',
@@ -20,23 +31,25 @@ define(
 				}
 			}
 			_input.daterangepicker(_config);
+			var _range = myFramework.route.getSearchParam('range')
+			if (_range) {
+				_range = _range.replace('+-+', ' - ')
+				_input.val(_range)
+			}else {
+				_input.val('')
+				$('form button').attr('disabled', 'disabled')
+			}
+			
 		}
-//		var myTimePicker = function(page) {
-//
-//			var _input = page.find('#select-date')
-//			var timepicker = _input.datetimepicker({
-//				format: "YYYY-MM-D",
-//				locale : 'zh-cn',
-//			})
-//			
-//			var form = page.find('form.form-search-submit')
-//			timepicker.on('dp.change', function() {
-//				form.trigger('mySearch.search')
-//			})
-//		}
+		
 		return {
 			init: function(pageName, page) {
 				myTimePicker(page)
+
+				//预加载
+				requirejs(
+					['select2'],
+					function() {})
 			}
 		}
 	})

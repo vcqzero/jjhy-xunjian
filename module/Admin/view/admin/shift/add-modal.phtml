@@ -7,11 +7,11 @@ $token = $this->Token()->getToken();
 
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
-	    'label' => '日期：',
-	    'name' => 'date',
+	    'label' => '选择日期：',
+	    'name' => 'date-range',
 	    'placeholder' => '请选择时间',
 	    'type' => 'text',
-	    'value'=> date('Y-m-d'),
+	    'value'=> date('Y/m/d'),
 	    'id' => 'datetimepicker'
 	])?>
 	

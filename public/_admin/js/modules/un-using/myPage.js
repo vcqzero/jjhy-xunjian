@@ -1,5 +1,4 @@
 define(['jquery'], function($) {
-	var pageContainer = {}
 	/**
 	 * 页面基本框架加载好之后，就要加载实质页面内容
 	 * 页面主要数据和交互功能都在这里定义
@@ -30,10 +29,5 @@ define(['jquery'], function($) {
 		init_page(page)
 	})
 	
-	return {
-		getPage : function(pageName) {
-			var page = pageContainer[pageName]
-			return page
-		}
-	}
+	return {}
 })

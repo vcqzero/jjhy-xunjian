@@ -72,7 +72,7 @@ class NavbarHelper extends AbstractHelper
                     'icon'  => 'fa fa-home',
                     'menus' => [
                         1=>[
-                            'title'=> '操作台',
+                            'title'=> '我的工地',
                             'url' => '/',
                             'allow' => [UserManager::ROLE_SUPER_ADMIN, UserManager::ROLE_WORKYARD_ADMIN],
                         ],
@@ -168,7 +168,14 @@ class NavbarHelper extends AbstractHelper
                             'url' => '/shift',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],
+                        
                         2=>[
+                            'title'=> '值班记录',
+                            'url' => '/shift/history',
+                            'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
+                        ],
+                        
+                        3=>[
                             'title'=> '考勤',
                             'url' => '/articleCategories',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],

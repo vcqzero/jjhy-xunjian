@@ -1,0 +1,85 @@
+<?php 
+
+$where     = $this->where;
+$page      = $this->page;
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('searchContent')->captureStart();?>
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '选择时间段：',
+	    'name' => 'range',
+	    'placeholder' => '请选择时间',
+	    'type' => 'text',
+	    'value'=> "",
+	    'id' => 'select-range-date'
+	])?>
+
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th >日期</th>
+          <th >班次</th>
+          <th >值班时间</th>
+          <th >巡逻次数</th>
+          <th >值班人员</th>
+          <th >备注</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $Entity):?>
+      		<?php 
+      		$shiftID = $Entity->getId();
+//       		$workyard_id   = $Entity->getWorkyard_id();
+      		$shift_type_name = $Entity->getShift_type_name();
+      		$start_time      = $Entity->getStart_time();
+      		$end_time        = $Entity->getEnd_time();
+      		$times           = $Entity->getTimes();
+      		$note            = $Entity->getNote();
+      		
+      		$start_day   = date('Y-m-d', $start_time);
+      		$end_day     = strtotime($start_day) + 60 * 60 * 24;
+      		$is_next_day = $end_time > $end_day;
+      		
+      		$format_start_time = date('H:i', $start_time);
+      		$format_end_time   = date('H:i', $end_time);
+      		
+      		$format_end_time  = $is_next_day ? $format_end_time . "（次日+1）" : $format_end_time;
+      		//获取值班人员
+      		$guardNames = $this->ShiftGuard()->getGuardNamesByShiftId($shiftID);
+      		?>
+      		<tr>
+      		<td><?=$start_day?></td>
+      		<td>
+      			<?=$shift_type_name?>
+      		</td>
+      		<td>
+      			<?=$format_start_time?> - <?=$format_end_time?>
+      		</td>
+      		<td><?=$times?>&nbsp;<small>次</small></td>
+      		<td><?=$guardNames?></td>
+      		<td><?=$note?></td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'ShiftHistoryListPage',
+    'pageTitle'     => '过往值班安排',
+    'paginator'     => $paginator,
+    'search'        => $where,
+//     'buttonGroup'   => $this->placeholder('buttonGroup'),
+    'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

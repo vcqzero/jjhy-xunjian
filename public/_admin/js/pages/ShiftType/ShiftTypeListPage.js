@@ -4,6 +4,7 @@ define(
 
 		return {
 			init: function(pageName, page) {
+				requirejs(['datetimepicker'], function() {})
 			}
 		}
 	})

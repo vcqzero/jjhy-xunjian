@@ -2,20 +2,20 @@ define(
 	['jquery', 'myResult', 'myValidator'], 
 	function($, myResult, myValidator) {
 
-	var myPickImage = {
-		init: function(page) {
-			$(document).on('picked.myPickImage', function() {
-				var _image = arguments[1].find('img')
-				var _imageCopy 	= _image.clone()
-				var thumbnail 	= $('#ico').find('div.thumbnail')
-				var ico_url     = _image.attr('src')
-				_imageCopy.css('width', '30%')
-				thumbnail.children().remove()
-				thumbnail.append(_imageCopy)
-				$('#ico').find('input').first().val(ico_url)
-			})
-		}
-	}
+//	var myPickImage = {
+//		init: function(page) {
+//			$(document).on('picked.myPickImage', function() {
+//				var _image = arguments[1].find('img')
+//				var _imageCopy 	= _image.clone()
+//				var thumbnail 	= $('#ico').find('div.thumbnail')
+//				var ico_url     = _image.attr('src')
+//				_imageCopy.css('width', '30%')
+//				thumbnail.children().remove()
+//				thumbnail.append(_imageCopy)
+//				$('#ico').find('input').first().val(ico_url)
+//			})
+//		}
+//	}
 
 	var myResultConfig = {
 		enabled: true,
@@ -60,7 +60,7 @@ define(
 	
 	return {
 		init: function(pageName, page) {
-			myPickImage.init(page)
+//			myPickImage.init(page)
 			myResult.init(page, myResultConfig)
 			myValidator.init(page, myValidatorConfig)
 		}

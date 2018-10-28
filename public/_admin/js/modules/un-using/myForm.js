@@ -59,7 +59,7 @@ define(['jquery'], function($) {
 		form.find('button').attr('disabled', disabled === true)
 	}
 
-	$('body').on('submit', 'form', function(e) {
+	$('body').on('submit', 'form.' + CLASS_AJAX_FORM, function(e) {
 		var form = $(this)
 		if(form.hasClass(CLASS_AJAX_FORM) == false) {
 			return false;

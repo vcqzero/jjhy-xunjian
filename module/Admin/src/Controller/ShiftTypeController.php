@@ -21,16 +21,25 @@ class ShiftTypeController extends AbstractActionController
     //goto add page
     public function addModalAction()
     {
-        $this->layout()->setTemplate('layout/blank.phtml');
-        return new ViewModel([
-        ]);
+        $view = new ViewModel();
+        $view->setTerminal(true);
+        return $view;
     }
     
     //goto edit page
     public function editModalAction()
     {
-        $this->layout()->setTemplate('layout/blank.phtml');
-        return new ViewModel($this->params()->fromRoute());
+        $view = new ViewModel($this->params()->fromRoute());
+        $view->setTerminal(true);
+        return $view;
+    }
+    
+    //goto delete page
+    public function deleteModalAction()
+    {
+        $view = new ViewModel($this->params()->fromRoute());
+        $view->setTerminal(true);
+        return $view;
     }
     
 }

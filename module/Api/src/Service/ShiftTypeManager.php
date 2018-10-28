@@ -28,5 +28,30 @@ class ShiftTypeManager
         $FormFilter->setRules(include self::PATH_FORM_FILTER_CONFIG);
         $this->FormFilter = $FormFilter;
     }
+    
+    public function trimTime($values)
+    {
+        if (isset($values[ShiftTypeEntity::FILED_START_TIME]))
+        {
+            $start_time = $values[ShiftTypeEntity::FILED_START_TIME];
+            $start_time = $this->trim($start_time);
+            $values[ShiftTypeEntity::FILED_START_TIME] = $start_time;
+        }
+        if (isset($values[ShiftTypeEntity::FILED_END_TIME]))
+        {
+            $end_time = $values[ShiftTypeEntity::FILED_END_TIME];
+            $end_time = $this->trim($end_time);
+            $values[ShiftTypeEntity::FILED_END_TIME] = $end_time;
+        }
+        
+        return $values;
+    }
+    
+    private function trim($time)
+    {
+        $time = explode(':', $time);
+        $time = trim($time[0]) . ':' .  trim($time[1]);
+        return $time;
+    }
 }
 

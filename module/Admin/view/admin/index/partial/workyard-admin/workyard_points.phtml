@@ -1,0 +1,27 @@
+<?php
+use Api\Entity\PointEntity;
+
+$workyard_id = $this->workyard_id;
+$where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
+$Entities = $this->Point()->getEntities($where);
+$count = count($Entities);
+?>
+    <h5 class="text-muted">共<?=$count?>个巡检点</h5>
+    <ul class="list-unstyled user_data" style="max-height: 430px; overflow: auto">
+    	<?php if($count):?>
+        	<?php foreach ($Entities as $Entity):?>
+        	<?php 
+        	$pointName = $Entity->getName();
+        	$address   = $Entity->getAddress();
+        	?>
+        	<li>
+        		<p><strong><?=$pointName?></strong></p>
+        		<span class="text-muted"><?=$address?></span>
+        	</li>
+        	<?php endforeach;?>
+    	<?php else :?>
+    	<li>
+    		<p>暂无巡检点， <a href="/point">新增巡检点</a></p>
+    	</li>
+    	<?php endif;?>
+    </ul>

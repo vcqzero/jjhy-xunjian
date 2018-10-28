@@ -9,7 +9,7 @@ requirejs.config({
 	//文件路径不可包含后缀名 js
 	paths: {
 		jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min',
-		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
+//		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
 		bootstrap: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min',
 		bootstrapvalidator: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min',
 		bootstrapvalidator_language: 'https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.min',
@@ -25,21 +25,18 @@ requirejs.config({
 		moment : 'https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/moment.min',
 		select2 : 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/select2.min',
 		
-		mySearch: 'modules/mySearch',
-		myForm: 'modules/myForm',
+		myFramework: 'modules/myFramework',
 		myValidator: 'modules/myValidator',
 		myResult: 'modules/myResult',
-		myPnotify: 'modules/myPnotify',
-//		myTable: 'modules/myTable',
-//		myDropzone: 'modules/myDropzone',
-//		myCheckbox: 'modules/myCheckbox',
+//		myPnotify: 'modules/myPnotify',
 		myGaodemap: 'modules/myGaodemap',
 		
+		//pages
 		//index
 		WorkyardAdminHomePage : 'pages/Index/WorkyardAdminHomePage',
 		WorkyardSuperAdminHomePage : 'pages/Index/WorkyardSuperAdminHomePage',
 		
-		//pages
+		//Auth
 		LoginPage : 'pages/Auth/LoginPage',
 		AuthChangePasswordPage : 'pages/Auth/AuthChangePasswordPage',
 		
@@ -65,11 +62,13 @@ requirejs.config({
 		ShiftTypeListPage : 'pages/ShiftType/ShiftTypeListPage',
 		ShiftTypeAddModal : 'pages/ShiftType/ShiftTypeAddModal',
 		ShiftTypeEditModal : 'pages/ShiftType/ShiftTypeEditModal',
+		ShiftTypeDeleteModal : 'pages/ShiftType/ShiftTypeDeleteModal',
 		
 		//Shift
 		ShiftListPage : 'pages/Shift/ShiftListPage',
 		ShiftAddModal : 'pages/Shift/ShiftAddModal',
 		ShiftDeleteModal : 'pages/Shift/ShiftDeleteModal',
+		ShiftHistoryListPage : 'pages/Shift/ShiftHistoryListPage',
 		
 		//WebsiteSettingPage
 		WebsiteBasicPage:'pages/Website/WebsiteBasicPage',
@@ -97,16 +96,8 @@ requirejs.config({
 
 // Start the main app 
 requirejs(
-	['jquery', 'bootstrap', 'fastclick'],
+	['myFramework'],
 	function($) {
-		//myNavbar
-		requirejs(['modules/myNavbar'], function(myNavbar) {})
-		//myForm
-		requirejs(['myForm'], function(myNavbar) {})
-		//myModal
-		requirejs(['modules/myModal'], function(myNavbar) {})
-		//myPage
-		requirejs(['modules/myPage'], function(myNavbar) {})
-		//myPage
-		requirejs(['mySearch'], function(myNavbar) {})
+		//预加载一些
+		requirejs(['bootstrap_notify', 'myValidator', 'myResult'], function() {})
 	});

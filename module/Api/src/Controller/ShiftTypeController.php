@@ -61,10 +61,25 @@ class ShiftTypeController extends AbstractActionController
         $typeID= $this->params()->fromRoute('typeID');
         //获取用户提交表单
         $values = $this->params()->fromPost();
+        $values = $this->ShiftTypeManager->trimTime($values);
         //do filter
         $values = $this->ShiftTypeManager->FormFilter->getFilterValues($values);
         //执行增加操作
         $res = $this->ShiftTypeManager->MyOrm->update($typeID, $values);
+        $this->ajax()->success($res);
+    }
+    
+    //delete 
+    public function deleteAction()
+    {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
+        
+        $typeID= $this->params()->fromRoute('typeID');
+        $res = $this->ShiftTypeManager->MyOrm->delete($typeID);
         $this->ajax()->success($res);
     }
     
@@ -77,6 +92,8 @@ class ShiftTypeController extends AbstractActionController
         }
         //获取用户提交表单
         $values = $this->params()->fromPost();
+        $values = $this->ShiftTypeManager->trimTime($values);
+        
         //do filter
         $values = $this->ShiftTypeManager->FormFilter->getFilterValues($values);
         //执行增加操作

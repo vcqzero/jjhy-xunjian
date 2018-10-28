@@ -5,7 +5,6 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Api\View\Helper\ShiftHelper;
 use Api\Service\ShiftManager;
-use Api\Service\UserManager;
 use Api\Service\ShiftGuardManager;
 
 /**
@@ -18,8 +17,7 @@ class ShiftHelperFactory implements FactoryInterface
     {   
         return new ShiftHelper(
             $container->get(ShiftManager::class),
-            $container->get(ShiftGuardManager::class),
-            $container->get(UserManager::class)
+            $container->get(ShiftGuardManager::class)
             );
     }
 }

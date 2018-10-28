@@ -1,6 +1,14 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
+?>
 <div class="page-title">
     <div class="title_left">
-    	<h3 id="breadcrumb"><?= $this->headTitle()->renderTitle() ?></h3>
+    	<h3 id="breadcrumb">
+    	<?= $this->headTitle()->renderTitle() ?> <small><?=$workyard_name?></small>
+    	</h3>
     </div>
     <div class="title_right">
 	</div>

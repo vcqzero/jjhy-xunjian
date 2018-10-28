@@ -17,5 +17,16 @@ class ShiftGuardManager
         $MyOrm->setTableName(ShiftGuardEntity::TABLE_NAME);
         $this->MyOrm = $MyOrm;
     }
+    
+    public function add($guard_id, $shift_id)
+    {
+        $values = [
+            ShiftGuardEntity::FILED_GUARD_ID => $guard_id,
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id,
+        ];
+        $res = $this->MyOrm->insert($values);
+        
+        return $res;
+    }
 }
 

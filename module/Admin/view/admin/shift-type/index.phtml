@@ -51,6 +51,12 @@ $paginator = $this->ShiftType()->getPaginator($this->page, $where, $workyard_id)
                 'data_modal_open' => true,
       		    'data_modal_url' => '/shiftType/editModal/'.$typeID, //string
             ])?>
+            
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '删除',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/shiftType/deleteModal/'.$typeID, //string
+            ])?>
             </div>
       		</td>
             </tr>
@@ -62,7 +68,7 @@ $paginator = $this->ShiftType()->getPaginator($this->page, $where, $workyard_id)
 
 <?=$this->partial('partial/admin/page/page/table-page.phtml', [
     'pageName'      => 'ShiftTypeListPage',
-    'pageTitle'     => '巡检班次设置',
+    'pageTitle'     => '巡检班次',
     'paginator'     => $paginator,
     'search'        => $where,
     'buttonGroup'   => $this->placeholder('buttonGroup'),

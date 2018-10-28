@@ -10,7 +10,7 @@ class UserEntity
     const FILED_ID              = 'id';
     const FILED_USERNAME        = 'username';
     const FILED_PASSWORD        = 'password';
-    const FILED_INITIAL_PASSWORD= 'initial_password';
+//     const FILED_INITIAL_PASSWORD= 'initial_password';
     const FILED_REALNAME        = 'realname';
 //     const FILED_EMAIL           = 'email';
     const FILED_TEL             = 'tel';

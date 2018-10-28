@@ -1,19 +1,15 @@
 <?php 
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
-$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
-$workyard_name  = $WorkyardEntity->getName();
-$address_path = $WorkyardEntity->getAddress_path();
+// $WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+// $workyard_name  = $WorkyardEntity->getName();
+// $address_path = $WorkyardEntity->getAddress_path();
 
 $token = $this->Token()->getToken();
 
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
-	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
-        'label' => '所属工地',
-	    'value' => $workyard_name,
-	])?>
 	
 	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
         'name'  => 'created_by',
@@ -39,19 +35,12 @@ $token = $this->Token()->getToken();
 	    'type' => 'text'
 	])?>
 	
-    <?=$this->partial('partial/admin/form/textarea.phtml', [
-        'id'    => '',
-        'label' => '具体信息：',
-        'name' => 'note',
-        'value' => '',
-        'placeholder' => '选填：备注信息',
-	])?>
 <?php $this->placeholder('formContent')->captureEnd() ?>
 
 <?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
     'pageName'      => 'PointAddPage',
     'pageTitle'     => '新增巡检点',
-//     'modalSize'     => 'lg',
+    'modalSize'     => 'lg',
     'form_id'       => 'form-add-point',
     'action'        => "/api/point/add?token=$token",
     'formContent'   => $this->placeholder('formContent'),

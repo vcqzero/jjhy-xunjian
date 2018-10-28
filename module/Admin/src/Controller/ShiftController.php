@@ -18,6 +18,14 @@ class ShiftController extends AbstractActionController
         ]);
     }
     
+    public function historyAction()
+    {
+        return new ViewModel([
+            'where' => $this->params()->fromQuery(),
+            'page'  => $this->params()->fromQuery('page', 1),
+        ]);
+    }
+    
     //goto add page
     public function addModalAction()
     {

@@ -32,19 +32,27 @@ class PointController extends AbstractActionController
     
     public function validNameAction()
     {
-        $name  = $this->params()->fromPost('name');
+        $name    = $this->params()->fromPost('name');
         $workyard_id = $this->params()->fromPost('workyard_id');
         $point_id    = $this->params()->fromPost('point_id');
+        
+        if (!empty($point_id))
+        {
+            //代表编辑
+            //如果新名称和原名称一致则返回true
+            $Entity = $this->PointManager->MyOrm->findOne($point_id);
+            $name_old = $Entity->getName();
+            if ($name_old == $name)
+            {
+                $this->ajax()->valid(true);
+            }
+        }
+        
         $where = [
             PointEntity::FILED_NAME => $name,
             PointEntity::FILED_WORKYARD_ID => $workyard_id
         ];
-        $Entity = $this->PointManager->MyOrm->findOne($where);
-        $count  = $this->PointManager->MyOrm->getCount();
-        if ($count && $point_id == $Entity->getId())
-        {
-            $this->ajax()->valid(true);
-        }
+        $count  = $this->PointManager->MyOrm->count($where);
         $this->ajax()->valid(empty($count));
     }
     
