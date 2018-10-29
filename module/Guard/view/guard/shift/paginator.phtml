@@ -1,0 +1,14 @@
+<?php 
+$type           = $this->type;
+$params = [
+    'workyard_id' => $this->workyard_id,
+    'user_id' => $this->user_id,
+    'page' => $this->page,
+    'type' => $this->type,
+];
+?>
+<?php if ($type == 'done'):?>
+<?=$this->partial('guard/shift/done/paginator.phtml', $params)?>
+<?php else :?>
+<?=$this->partial('guard/shift/plan/paginator.phtml', $params)?>
+<?php endif;?>

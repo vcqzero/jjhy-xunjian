@@ -1,0 +1,61 @@
+<?php 
+$shiftID     = $this->shiftID;
+$ShiftEntity = $this->Shift()->getEntity($shiftID);
+
+$shift_type_name = $ShiftEntity->getShift_type_name();
+$start_time      = $ShiftEntity->getStart_time();
+$start_time      = date('Y-m-d H:i', $start_time);
+$end_time        = $ShiftEntity->getEnd_time();
+$end_time        = date('Y-m-d H:i', $end_time);
+$times           = $ShiftEntity->getTimes();
+$note            = $ShiftEntity->getNote();
+
+$token = $this->Token()->getToken();
+
+?>
+
+<?php $this->placeholder('formContent')->captureStart();?>
+	
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label'  => '值班时间',
+	    'value'  => "$start_time 至 $end_time",
+	])?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label'  => '值班班次',
+	    'value'  => $shift_type_name,
+	])?>
+	
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+        'name'  => 'shift_id',
+	    'value' => $shiftID,
+	])?>
+     
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '巡检圈数：',
+	    'name' => 'times',
+	    'value'=> $times,
+	    'placeholder' => '请输入巡检圈数',
+	    'type' => 'text'
+	])?>
+		
+    <?=$this->partial('partial/admin/form/textarea.phtml', [
+        'id'    => '',
+        'label' => '具体信息：',
+        'name' => 'note',
+        'value' => $note,
+        'placeholder' => '选填：备注信息',
+	])?>
+    <?=$this->partial('partial/admin/form/select/user/select-multiple-guards.phtml', [
+        'shiftID' => $shiftID,
+     ])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName' => 'ShiftEditModal',
+    'pageTitle' => '编辑值班安排',
+    'modalSize'     => 'lg',
+    'form_id'=>'form-edit-shift',
+    'action'=>"/api/shift/edit/$shiftID?token=$token",
+    'beforeForm' => $this->placeholder('beforeForm'),
+    'formContent' => $this->placeholder('formContent'),
+])?>

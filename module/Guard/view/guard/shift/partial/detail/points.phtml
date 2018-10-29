@@ -1,0 +1,55 @@
+<?php
+use Api\Entity\PointEntity;
+
+$shift_time_id  =$this->shift_time_id;
+$shift_id       =$this->shift_id;
+$workyard_id    =$this->workyard_id;
+
+$ShiftTimePointEntities= $this->ShiftTimePoint()->getEntities($shift_time_id);
+$PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
+
+?>
+<div class="weui-cells">
+    <?php if(count($PointEntities)):?>
+    <?php foreach ($PointEntities as $PointEntity) :?>
+        <?php
+        $point_id    = $PointEntity->getId();
+        $pointName   = $PointEntity->getName();
+        $address     = $PointEntity->getAddress();
+        
+        // 该巡检点巡检信息
+        $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
+        $has_done = !empty($ShiftTimePointEntity->getId());
+        $time = $ShiftTimePointEntity->getTime();
+        $note = $ShiftTimePointEntity->getNote();
+        
+        $time = $time ? date('Y-m-d H-i-s', $time) : null;
+        ?>
+          <a 
+          class="weui-cell weui-cell_access alert-point-info" 
+          href="javascript:;"
+          data-point-address="<?=$this->escapehtml($address)?>"
+          data-point-time="<?=$this->escapehtml($time)?>"
+          data-point-note="<?=$this->escapehtml($note)?>"
+          >
+            <div class="weui-cell__bd">
+              <p><?=$pointName?></p>
+            </div>
+            <div class="weui-cell__ft">
+            <?php if($has_done):?>
+            <i class="weui-icon-success-no-circle"></i>
+            <?php else :?>
+           	 未巡检
+            <?php endif;?>
+            </div>
+          </a>
+        
+        <?php endforeach;?>
+    <?php else :?>
+    <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <p>无记录</p>
+    </div>
+  </div>
+    <?php endif;?>
+</div>        

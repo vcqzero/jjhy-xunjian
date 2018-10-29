@@ -84,14 +84,14 @@ class AuthPlugin extends AbstractPlugin
         
         //由于管理员和guard用同一个users 表
         //必须在验证成功之后，判断用户角色，排除guard角色
-        if($valid) {
-            $role = $authAdapter->getResultRowObject()->role;
-            if ($role == UserManager::ROLE_WORKYARD_GUARD)
-            {
-                $auth->clearIdentity();
-                return false;
-            }
-        }
+//         if($valid) {
+//             $role = $authAdapter->getResultRowObject()->role;
+//             if ($role == UserManager::ROLE_WORKYARD_GUARD)
+//             {
+//                 $auth->clearIdentity();
+//                 return false;
+//             }
+//         }
         //返回登录是否成功即可
         return $valid;
     }

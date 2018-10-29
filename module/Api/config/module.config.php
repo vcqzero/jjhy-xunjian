@@ -175,6 +175,7 @@ return [
             'allow'=> [
                 UserManager::ROLE_SUPER_ADMIN,
                 UserManager::ROLE_WORKYARD_ADMIN,
+                UserManager::ROLE_WORKYARD_GUARD,
             ],
         ],
         Controller\PointController::class => [

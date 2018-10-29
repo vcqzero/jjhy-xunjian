@@ -71,7 +71,7 @@ class ShiftManager
     * @param  
     * @return        
     */
-    public function getDates($dateRange)
+    public function getDatesFromDateRange($dateRange)
     {
         $dateRange = explode('-', $dateRange);
         $start  = strtotime($dateRange[0]);

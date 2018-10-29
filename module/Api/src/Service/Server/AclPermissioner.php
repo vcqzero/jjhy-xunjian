@@ -1,12 +1,11 @@
 <?php
 namespace Api\Service\Server;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Permissions\Acl\Acl;
 use Api\Service\UserManager;
 use Zend\Cache\Storage\Adapter\Filesystem;
 
-class AclPermissioner extends AbstractPlugin
+class AclPermissioner
 {
     const CACHE_KEY_ACL = 'acl-permission';
     /**
@@ -43,10 +42,10 @@ class AclPermissioner extends AbstractPlugin
             $this->addRoles();
             //config resoureces and roles
             $this->allow();
-            $this->Cache->setItem('acl_permission', $this->Acl);
+            $this->Cache->setItem(self::CACHE_KEY_ACL, $this->Acl);
         }else {
             $acl_serialize = $Cache->getItem(self::CACHE_KEY_ACL);
-            $this->Acl = unserialize($acl_serialize);
+            $this->Acl = $acl_serialize;
         }
         
         return $this->Acl;

@@ -392,6 +392,25 @@ define(['jquery', 'bootstrap'], function($) {
 
 			$ICON.toggleClass('fa-chevron-up fa-chevron-down');
 		});
+		
+		$('body').on('click', '.panel-collapse-link', function() {
+			console.log('jhkjj')
+			var $BOX_PANEL = $(this).closest('.panel'),
+				$ICON = $(this).find('i'),
+				$BOX_CONTENT = $BOX_PANEL.find('.panel-body');
+//
+//			// fix for some div with hardcoded fix class
+			if($BOX_PANEL.attr('style')) {
+				$BOX_CONTENT.slideToggle(200, function() {
+					$BOX_PANEL.removeAttr('style');
+				});
+			} else {
+				$BOX_CONTENT.slideToggle(200);
+				$BOX_PANEL.css('height', 'auto');
+			}
+//
+			$ICON.toggleClass('fa-chevron-up fa-chevron-down');
+		});
 	}
 
 	var myNavbar = function() {
@@ -412,6 +431,10 @@ define(['jquery', 'bootstrap'], function($) {
 				footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
 				leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
 				contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+			
+//			console.log('bodyHeight', bodyHeight)
+//			console.log('leftColHeight', leftColHeight)
+//			console.log('footerHeight', footerHeight)
 			// normalize content
 			//			contentHeight -= $NAV_MENU.height() + footerHeight;
 			$RIGHT_COL.css('min-height', contentHeight);
@@ -469,7 +492,8 @@ define(['jquery', 'bootstrap'], function($) {
 				return CURRENT_URL === href
 			}
 		}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-			//			setContentHeight();
+//			console.log('init setcontentheight')
+			setContentHeight();
 		}).parent().addClass('active');
 	}
 
@@ -519,7 +543,7 @@ define(['jquery', 'bootstrap'], function($) {
 	mySearch()
 	myForm()
 	myPanel()
-	console.log('init')
+	console.log('myFramework init')
 	return {
 		pnotify: pnotify,
 		route: route,

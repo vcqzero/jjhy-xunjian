@@ -8,8 +8,8 @@ define(
 				'form-account-password': {
 					//成功
 					success: {
-						toast: '修改成功',
-						route: 'reload',
+						toast: '修改成功,请重新登录',
+						route: '/api/auth/logout',
 					},
 
 					//失败

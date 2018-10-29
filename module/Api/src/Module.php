@@ -144,7 +144,7 @@ class Module
     /**
      *
      * @param
-     * @return AclPlugin
+     * @return AclPermissioner
      */
     public function getAclPlugin()
     {
@@ -178,7 +178,9 @@ class Module
         {
             if (!$isAllow)
             {
-                exit('deny');
+                var_dump($role);
+                var_dump($controller);
+                exit('no permission');
             }
             return ;
         }
@@ -264,6 +266,7 @@ class Module
         {
             return false;
         }
+        
         return $Acl->isAllowed($role, $controller);
     }
     

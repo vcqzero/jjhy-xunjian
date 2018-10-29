@@ -117,7 +117,7 @@ class ShiftGuardHelper extends AbstractHelper
     * @param  
     * @return Select        
     */
-    private function getSelectOnDone($workyardID, $userID)
+    private function getSelectOnDone($userID)
     {
         $Select = new Select();
         $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
@@ -125,7 +125,6 @@ class ShiftGuardHelper extends AbstractHelper
         $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
         
         $Select ->where
-        ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyardID)
         ->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $userID)
         ->lessThan(ShiftEntity::FILED_END_TIME, time());
         
@@ -140,27 +139,60 @@ class ShiftGuardHelper extends AbstractHelper
     * @param int $workyardID  
     * @return        
     */
-    public function getPaginator($workyardID, $userID, $type, $page = 1)
+    public function getPaginatorOnPlan($workyardID, $userID, $page = 1)
     {
-        if ($type == self::TYPE_PLAN) {
-            $Select = $this->getSelectOnPlan($workyardID, $userID);
-            //按照开始时间升序
-            $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING]);
-        }else 
-        {
-            $Select = $this->getSelectOnDone($workyardID, $userID);
-            //按照开始时间倒序
-            $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING]);
-        }
-        
+        $Select = $this->getSelectOnPlan($workyardID, $userID);
+        //按照开始时间升序
+        $Select->order([ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING]);
         $Entity = new ShiftEntity();
         $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, $Entity);
         $paginator->setItemCountPerPage(4);
-        $paginator->setCurrentPageNumber($page);
         
         return $paginator;
     }
     
+    public function getPaginatorOnDone($userID, $page = 1)
+    {
+        $Select = $this->getSelectOnDone($userID);
+        //按照开始时间倒序
+        $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING];
+        $Entity = new ShiftEntity();
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, $order, $Entity);
+        $paginator->setItemCountPerPage(4);
+        return $paginator;
+    }
+    
+    /**
+    * 获取某工地所有的值班记录
+    * 
+    * @param  
+    * @return        
+    */
+    public function getAllPaginator($workyard_id, $page=1, $where=[])
+    {
+        $Select = new Select();
+        $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
+        $on = 's.id=sg.shift_id';
+        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [ShiftEntity::FILED_GUARD_ID], Select::JOIN_LEFT);
+        
+        $Select ->where
+                ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyard_id)
+                ->lessThan(ShiftEntity::FILED_END_TIME, time())
+                ->lessThan(ShiftEntity::FILED_END_TIME, time());
+        
+        $order = [
+            ShiftEntity::FILED_GUARD_ID=>Select::ORDER_ASCENDING,
+            ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING,
+        ];
+        $Select->order($order);
+        
+        $Entity = new ShiftEntity();
+//         $this->ShiftManager->MyOrm->startDebug();
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, $Entity);
+//         $this->ShiftManager->MyOrm->stopDebug();
+        
+        return $paginator;
+    }
     /**
     * 
     * 
@@ -176,10 +208,16 @@ class ShiftGuardHelper extends AbstractHelper
         return !empty($MyOrm->getCount());
     }
     
-    public function hasShiftsOnDone($userID, $workyardID)
+    /**
+    * 查看用户是否有已完成的值班记录
+    * 
+    * @param  int $userID
+    * @return        
+    */
+    public function hasShiftsOnDone($userID)
     {
         $MyOrm =  $this->ShiftManager->MyOrm;
-        $Select = $this->getSelectOnDone($workyardID, $userID);
+        $Select = $this->getSelectOnDone($userID);
         $Entity = new ShiftEntity();
         $MyOrm->select($Select, $Entity);
         return !empty($MyOrm->getCount());

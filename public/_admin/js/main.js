@@ -67,8 +67,13 @@ requirejs.config({
 		//Shift
 		ShiftListPage : 'pages/Shift/ShiftListPage',
 		ShiftAddModal : 'pages/Shift/ShiftAddModal',
+		ShiftEditModal : 'pages/Shift/ShiftEditModal',
 		ShiftDeleteModal : 'pages/Shift/ShiftDeleteModal',
 		ShiftHistoryListPage : 'pages/Shift/ShiftHistoryListPage',
+		
+		//ShiftGuard
+		ShiftGuardListPage : 'pages/ShiftGuard/ShiftGuardListPage',
+		ShiftGuardDetailModal : 'pages/ShiftGuard/ShiftGuardDetailModal',
 		
 		//WebsiteSettingPage
 		WebsiteBasicPage:'pages/Website/WebsiteBasicPage',

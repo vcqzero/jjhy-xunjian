@@ -28,5 +28,14 @@ class ShiftGuardManager
         
         return $res;
     }
+    
+    public function deleteBy($shift_id)
+    {
+        $where = [
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
+        ];
+        
+        return $this->MyOrm->delete($where);
+    }
 }
 

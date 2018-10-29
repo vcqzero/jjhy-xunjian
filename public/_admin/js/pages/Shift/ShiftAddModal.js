@@ -17,8 +17,9 @@ define(
 			var _input = page.find('#datetimepicker')
 			var _config = {
 				singleDatePicker: false,
-				startDate: moment(),
-				endDate: moment(),
+				startDate: moment().add('1', 'days'),
+				endDate: moment().add('1', 'days'),
+				minDate: moment().add('1', 'days'),
 				locale: {
 					applyLabel: '确认',
 					cancelLabel: '取消',

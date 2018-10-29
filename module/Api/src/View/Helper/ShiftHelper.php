@@ -49,13 +49,14 @@ class ShiftHelper extends AbstractHelper
     
     public function getPaginator($page, $workyard_id, $where = [])
     {
+        //默认
         $start = strtotime(date('Y-m-d'));
         $end   = strtotime('2099-12-31');
         
-        $range = $where['range'];
-        unset($where['range']);
-        if (!empty($range))
+        if (!empty($where['range']))
         {
+            $range = $where['range'];
+            unset($where['range']);
             $range = explode('-', $range);
             $start = strtotime($range[0]) >= $start ? strtotime($range[0]) : $start;
             $end   = strtotime($range[1]) + 24 * 60 * 60;
@@ -71,15 +72,11 @@ class ShiftHelper extends AbstractHelper
     public function getHistoryPaginator($page, $workyard_id, $where = [])
     {
         $end   = strtotime(date('Y-m-d'));
-        
-        //默认显示今天~7天的值班安排
-        //只有开始时间在此范围内即可
-        $range = $where['range'];
-        unset($where['range']);
-        $range = $where['range'];
-        unset($where['range']);
-        if (!empty($range))
+        $start = 0;
+        if (!empty($where['range']))
         {
+            $range = $where['range'];
+            unset($where['range']);
             $range = explode('-', $range);
             $start = strtotime($range[0]) ;
             $end_range   = strtotime($range[1]) + 24 * 60 * 60;
@@ -87,7 +84,7 @@ class ShiftHelper extends AbstractHelper
         }
         
         $where[ShiftEntity::FILED_WORKYARD_ID] =$workyard_id;
-        $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_END_TIME, 0, $end);
+        $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_END_TIME, $start, $end);
         $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING];
         $paginator = $this->ShiftManager->MyOrm->paginator($page, $where, $order);
         $paginator::setDefaultItemCountPerPage(12);

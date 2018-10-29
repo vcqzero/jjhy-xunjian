@@ -261,3 +261,12 @@ body.error{
 	min-width: 180px;
 }
 
+.modal-xlg {
+	width: 70%;
+}
+a.panel-collapse-link{
+	color: #C5C7CB;
+}
+a.panel-collapse-link :hover{
+	color: #C5C7CB;
+}

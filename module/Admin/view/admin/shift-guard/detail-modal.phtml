@@ -1,0 +1,56 @@
+<?php 
+$shift_id = $this->shiftID;
+$guard_id = $this->guardID;
+
+$ShiftEntity = $this->Shift()->getEntity($shift_id);
+$workyard_id = $ShiftEntity->getWorkyard_id();
+
+//从巡检次数表中巡检次数
+//从巡检次数巡检点表中找出具体的巡检记录
+$shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $guard_id);//array
+
+?>
+
+<?php $this->placeholder('modalBody')->captureStart();?>
+
+<!-- guard info -->
+<?=$this->partial('admin/shift-guard/partial/guard-info.phtml', [
+    'guard_id' => $guard_id
+])?>
+
+<!-- shift info -->
+<?=$this->partial('admin/shift-guard/partial/shift-info.phtml', [
+    'ShiftEntity' => $ShiftEntity
+])?>
+
+<?php if (count($shfit_time_ids)):?>
+    <?php $count = 1;?>
+    <?php foreach ($shfit_time_ids as $shfit_time_id):?>
+        <!-- points info -->
+        <?=$this->partial('admin/shift-guard/partial/points-info.phtml', [
+            'shift_id'      => $shift_id,
+            'shift_time_id' => $shfit_time_id,
+            'workyard_id'   => $workyard_id,
+            'count' => $count,
+        ])?>
+        <?php $count++?>
+    <?php endforeach;?>
+<?php else :?>
+<!-- 没有记录 -->
+<div class="panel panel-info">
+  <div class="panel-heading"><i class="fa fa-navicon"></i> 巡检记录</div>
+  <div class="panel-body">
+      没有巡检记录
+  </div>
+</div>
+<?php endif;?>
+
+<?php $this->placeholder('modalBody')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
+    'pageName' => 'ShiftGuardDetailModal',
+    'pageTitle' => '巡检轨迹',
+    'modalSize'     => 'lg',
+    'modalBody' => $this->placeholder('modalBody'),
+])?>
+

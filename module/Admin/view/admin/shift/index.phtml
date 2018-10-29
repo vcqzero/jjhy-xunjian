@@ -8,7 +8,7 @@ $paginator   = $this->Shift()->getPaginator($page, $workyard_id, $where);
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
     'type'  => 'primary',
-    'title' => '新增班次',
+    'title' => '新增',
     'data_modal_open' => true,
     'data_modal_url' => '/shift/addModal'
 ])?>
@@ -76,6 +76,11 @@ $paginator   = $this->Shift()->getPaginator($page, $workyard_id, $where);
       		<td>
       		<div class="btn-group  btn-group-sm">
       		<?php if ($start_time > time()) :?>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '编辑',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/shift/editModal/'.$shiftID, //string
+            ])?>
       		<?=$this->partial('partial/admin/button/single.phtml', [
                 'title' => '删除',
                 'data_modal_open' => true,

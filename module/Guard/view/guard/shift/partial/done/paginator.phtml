@@ -1,0 +1,88 @@
+<?php
+/**
+ * 计划安排的值班任务
+ */
+$user_id = $this->user_id;
+$page = $this->page;
+$ShiftPaginator = $this->ShiftGuard()->getPaginatorOnDone($user_id, $page);
+
+$page_current = $ShiftPaginator->getCurrentPageNumber();
+$page_count   = $ShiftPaginator->count();
+
+?>
+
+<div class="weui-cells__title">巡检记录</div>
+<div 
+class="my-infinite-list"
+data-user-id = "<?=$user_id?>"
+data-type    = "done"
+>
+<?php foreach ($ShiftPaginator as $ShiftEntity):?>
+<?php
+$shift_id = $ShiftEntity->getId();
+$note = $ShiftEntity->getNote();
+
+//about count
+$times = (int) $ShiftEntity->getTimes();
+$times = (int) $times;
+
+//about time
+$shift_type_name= $ShiftEntity->getShift_type_name();
+$start_time = $ShiftEntity->getStart_time();
+$end_time   = $ShiftEntity->getEnd_time();
+
+//about workyard info
+$workyard_id    = $ShiftEntity->getWorkyard_id();
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
+
+//当前shift已完成巡检次数
+$done_count = $this->ShiftTime()->getDoneCount($user_id, $shift_id);
+//是否完成巡检
+//是否完成规定的巡检次数
+$has_done = $done_count == $times;
+?>
+<div 
+class="weui-form-preview my-infinite-list-cell"
+data-page-current="<?=$page_current?>"
+data-page-count="<?=$page_count?>"
+>
+	<div class="weui-form-preview__hd">
+		<label class="weui-form-preview__label">班次</label> <em
+			class="weui-form-preview__value"><?=$shift_type_name?></em>
+	</div>
+	<div class="weui-form-preview__bd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">工地</label> <span
+				class="weui-form-preview__value"><?=$workyard_name?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">开始时间</label> <span
+				class="weui-form-preview__value"><?=date('Y-m-d H:i', $start_time)?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">结束时间</label> <span
+				class="weui-form-preview__value"><?=date('Y-m-d H:i', $end_time)?></span>
+		</div>
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">任务描述</label> <span
+				class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
+		</div>
+		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">已巡检/总次数</label> <span
+    				class="weui-form-preview__value"><?=$done_count?>/<?=$times?></span>
+    		</div>
+    		
+    		<div class="weui-form-preview__item">
+    			<label class="weui-form-preview__label">状态</label> <span
+    				class="weui-form-preview__value"><?=$has_done ? '全部完成' : '未完成'?></span>
+    		</div>
+	</div>
+	<div class="weui-form-preview__ft">
+        <a 
+        class="weui-form-preview__btn weui-form-preview__btn_primary" 
+        href="/shift/shiftLog/<?=$shift_id?>/<?=$workyard_id?>">巡检记录</a>
+    </div>
+ </div>
+<?php endforeach;?>
+</div>

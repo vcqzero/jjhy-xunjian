@@ -153,14 +153,14 @@ class NavbarHelper extends AbstractHelper
                     'icon'  => 'fa fa-users',
                     'menus' => [
                         1=>[
-                            'title'=> '巡检员管理',
+                            'title'=> '巡检员',
                             'url' => '/guard',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],
                     ]
                 ],
                 
-                '值班表/考勤'=> [
+                '值班安排'=> [
                     'icon'  => 'fa fa-file-word-o',
                     'menus' => [
                         1=>[
@@ -170,16 +170,23 @@ class NavbarHelper extends AbstractHelper
                         ],
                         
                         2=>[
-                            'title'=> '值班记录',
+                            'title'=> '过往记录',
                             'url' => '/shift/history',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],
                         
-                        3=>[
-                            'title'=> '考勤',
-                            'url' => '/articleCategories',
+                    ]
+                ],
+                
+                '考勤记录'=> [
+                    'icon'  => 'fa fa-bar-chart',
+                    'menus' => [
+                        1=>[
+                            'title'=> '考勤记录',
+                            'url' => '/shiftGuard',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],
+                        
                     ]
                 ],
                 

@@ -14,6 +14,12 @@ class PointManager
 {
     const PATH_FORM_FILTER_CONFIG = 'module/Api/src/Filter/rules/Point.php';
     
+    /**
+    * 存放巡检点二维码文件路径
+    * 以不同工地id分开保存
+    */
+    const PATH_RECODE = 'data/qrcode/';
+    
     public $MyOrm;
     public $FormFilter;
     public function __construct(
@@ -43,7 +49,7 @@ class PointManager
         
         //获取该二维码名称
         //如果没有创建保存文件夹，创建
-        $dir = 'public/images/workyard_qrcode/' . $workyard_id;
+        $dir = self::PATH_RECODE . $workyard_id;
         if (!file_exists($dir)) {
             mkdir($dir);
         }

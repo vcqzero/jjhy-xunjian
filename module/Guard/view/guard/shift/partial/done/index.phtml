@@ -1,0 +1,50 @@
+<?php 
+$identity = $this->identity();
+$UserEntity  = $this->User()->getEntityByIdentity($identity);
+$userID = $UserEntity->getId();
+
+//获取某一巡检员所有的已过时间值班记录
+$has_shifts_on_done = $this->ShiftGuard()->hasShiftsOnDone($userID);
+
+//test
+// $has_shifts_on_done = true;
+
+?>
+
+<!-- 顶部导航 -->
+<?php $this->placeholder('narbar')->captureStart();?>
+<?=$this->partial('guard/shift/partial/top-narbar.phtml')?>
+<?php $this->placeholder('narbar')->captureEnd();?>
+
+<?php $this->placeholder('content')->captureStart();?>
+
+<!-- 显示已完成的值班安排 -->
+<?php if($has_shifts_on_done) :?>
+<div 
+id="my-shifts-on-done" 
+class="my-infinite"
+>
+<?=$this->partial('guard/shift/done/paginator.phtml', [
+    'user_id' => $userID
+])?>
+
+<?=$this->partial('partial/weixin/loading/loading.phtml')?>
+<?=$this->partial('partial/weixin/loading/loading-done.phtml')?>
+
+</div>
+<?php else :?>
+<!-- 无值班任务和安排 -->
+<?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
+    'title' => '没有记录',
+])?>
+<?php endif;?>
+
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'ShiftPlanAndDonePage',
+    'pageTitle'   => '值班记录',
+    'narbar'      => '',//指定导航条的url
+    'narbar'     => $this->placeholder('narbar'),
+    'content'     => $this->placeholder('content'),
+])?>

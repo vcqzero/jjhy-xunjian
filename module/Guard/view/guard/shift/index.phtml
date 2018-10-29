@@ -1,0 +1,8 @@
+<?php 
+$type = $this->type;
+?>
+<?php if ($type == 'done'):?>
+<?=$this->partial('guard/shift/done/index.phtml')?>
+<?php else :?>
+<?=$this->partial('guard/shift/plan/index.phtml')?>
+<?php endif;?>

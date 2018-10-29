@@ -1,0 +1,19 @@
+<?php
+$guard_id= $this->guard_id;
+
+//about guard
+$UserEntity = $this->User()->getEntity($guard_id);
+$realName   = $UserEntity->getRealName();
+$username   = $UserEntity->getUsername();
+
+?>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><i class="fa fa-user"></i> 巡检员</div>
+  <div class="panel-body">
+      <span> 用户名：<?=$username?></span>
+      <br>
+      <span> 真实姓名：<?=$realName?></span>
+  </div>
+</div>
+

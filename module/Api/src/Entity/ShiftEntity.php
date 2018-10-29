@@ -14,6 +14,10 @@ class ShiftEntity
     const FILED_START_TIME   = 'start_time';
     const FILED_END_TIME     = 'end_time';
     const FILED_SHIFT_TYPE_NAME= 'shift_type_name';
+    /**
+     * for join
+    */
+    const FILED_GUARD_ID= 'guard_id';
     
     /**
     * users表字段相匹配，字段不可错误
@@ -25,7 +29,16 @@ class ShiftEntity
     private $times;
     private $start_time;
     private $end_time;
+    private $guard_id;
     
+    /**
+     * @return the $guard_id
+     */
+    public function getGuard_id()
+    {
+        return $this->guard_id;
+    }
+
     /**
      * @return the $id
      */

@@ -1,0 +1,51 @@
+<?php
+$ShiftEntity = $this->ShiftEntity;
+
+// about shift info
+$shift_type_name    = $ShiftEntity->getShift_type_name();
+$start_time         = $ShiftEntity->getStart_time();
+$end_time           = $ShiftEntity->getEnd_time();
+$times              = $ShiftEntity->getTimes();
+$note               = $ShiftEntity->getNote();
+// shift date
+$start_day      = date('Y-m-d', $start_time);
+$end_day        = strtotime($start_day) + 60 * 60 * 24;
+$is_next_day    = $end_time > $end_day;
+$format_start_time  = date('H:i', $start_time);
+$format_end_time    = date('H:i', $end_time);
+
+?>
+
+<div class="panel panel-info">
+	<!-- Default panel contents --> 
+	<div class="panel-heading"><i class="fa fa-info "></i> 巡检任务</div>
+
+	<!-- Table -->
+	<table class="table">
+		<thead>
+			<tr>
+				<th>日期</th>
+				<th>班次</th>
+				<th>具体时间</th>
+				<th>巡检次数</th>
+				<th>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><?=$start_day?></td>
+				<td><?=$shift_type_name?></td>
+				<td>      			
+					<?=$format_start_time?> - <?=$format_end_time?><small><?=$is_next_day ? '（次日+1）' : ''?></small>
+				</td>
+				<td>
+					<?=$times?>
+				</td>
+				<td>
+					<?=$note?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+

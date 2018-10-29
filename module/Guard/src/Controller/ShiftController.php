@@ -22,13 +22,11 @@ class ShiftController extends AbstractActionController
     public function indexAction()
     {
         $View =  new ViewModel();
-        $type = $this->params()->fromQuery('type');
-        $template = $type == 'done' ? 'guard/shift/index-done' : 'guard/shift/index-plan';
-        $View->setTemplate($template);
+        $View->setTemplate($this->params()->fromQuery());
         return $View;
     }
     
-    public function logAction()
+    public function shiftDetailAction()
     {
         $view = new ViewModel($this->params()->fromRoute());
         return $view;
@@ -36,12 +34,10 @@ class ShiftController extends AbstractActionController
     
     public function paginatorAction()
     {
-        $post = $this->params()->fromPost();
-        $type = $this->params()->fromQuery('type');
-        $template = $type == 'done' ? 'guard/shift/paginator-done' : 'guard/shift/paginator-plan';
-        $view = new ViewModel($post);
+        $post  = $this->params()->fromPost();
+        $query = $this->params()->fromQuery();
+        $view = new ViewModel(array_merge($post, $query));
         $view->setTerminal(true);
-        $view->setTemplate($template);
         return $view;
     }
 }

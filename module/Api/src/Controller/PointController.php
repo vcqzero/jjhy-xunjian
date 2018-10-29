@@ -84,11 +84,14 @@ class PointController extends AbstractActionController
         
         //获取用户提交表单
         $values = $this->params()->fromPost();
+        //set created
+        $values[PointEntity::FILED_CREATED] = time();
         
         //do filter
         $values = $this->PointManager->FormFilter->getFilterValues($values);
         //执行增加操作
         $res = $this->PointManager->MyOrm->insert($values);
+        
         //生成二维码图片
         //获取id
         $point_id = $this->PointManager->MyOrm->getLastInsertId();

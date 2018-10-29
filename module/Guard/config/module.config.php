@@ -51,7 +51,7 @@ return [
                     'shift' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/shift[/:action][/:shiftID]',
+                            'route'    => '/shift[/:action][/:shiftID][/:workyardID]',
                             'defaults' => [
                                 'controller' => Controller\ShiftController::class,
                                 'action'     => 'index',

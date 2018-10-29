@@ -173,6 +173,21 @@ return [
                         ],
                     ],
                     
+                    //值班考勤记录
+                    'shift-guard' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/shiftGuard[/:action][/:shiftID][/:guardID]',
+                            'constraints' => [//设置router规则
+                                'action' => '[a-zA-Z][a-zA-Z0-9]*',//字母和数字组成 字母开头
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ShiftGuardController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    
                 ],//child_routes end
             ],//admin route end
         ],
@@ -189,6 +204,7 @@ return [
             Controller\GuardController::class=> Controller\Factory\GuardControllerFactory::class,
             Controller\ShiftTypeController::class=> Controller\Factory\ShiftTypeControllerFactory::class,
             Controller\ShiftController::class=> Controller\Factory\ShiftControllerFactory::class,
+            Controller\ShiftGuardController::class=> Controller\Factory\ShiftGuardControllerFactory::class,
         ],
         
     ],
@@ -215,7 +231,7 @@ return [
         Controller\UserController::class => [
             'allow'=> [
                 UserManager::ROLE_SUPER_ADMIN,
-                UserManager::ROLE_WORKYARD_ADMIN,
+//                 UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
         Controller\WorkyardController::class => [
@@ -248,6 +264,12 @@ return [
             ],
         ],
         Controller\ShiftController::class => [
+            'allow'=> [
+                UserManager::ROLE_SUPER_ADMIN,
+                UserManager::ROLE_WORKYARD_ADMIN,
+            ],
+        ],
+        Controller\ShiftGuardController::class => [
             'allow'=> [
                 UserManager::ROLE_SUPER_ADMIN,
                 UserManager::ROLE_WORKYARD_ADMIN,

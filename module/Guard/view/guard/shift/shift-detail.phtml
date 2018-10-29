@@ -1,0 +1,66 @@
+<?php
+$identity       = $this->identity();
+$shift_id       = $this->shiftID;
+$workyard_id    = $this->workyardID;
+//about user
+$UserEntity = $this->User()->getEntityByIdentity($identity);
+$user_id    = $UserEntity->getId();
+
+//从巡检次数表中巡检次数
+//从巡检次数巡检点表中找出具体的巡检记录
+$shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $user_id);//array
+
+//for test
+// $shfit_time_ids = [];
+?>
+<!-- 顶部导航 -->
+<?php $this->placeholder('narbar')->captureStart();?>
+<?=$this->partial('partial/weixin/navbar/back.phtml')?>
+<?php $this->placeholder('narbar')->captureEnd();?>
+
+<!-- 主体内容 -->
+<?php $this->placeholder('content')->captureStart();?>
+<!-- 根据每次巡检记录显示具体巡检点信息 -->
+<?php if (count($shfit_time_ids)):?>
+
+<?php 
+$i = 1;
+?>
+<?php foreach ($shfit_time_ids as $shfit_time_id):?>
+
+<div class="weui-cells__title">第<?=$i?>次巡检记录</div>
+
+<!-- 巡检点 -->
+<?=$this->partial('guard/shift/partial/detail/points.phtml', [
+    'shift_time_id' => $shfit_time_id,
+    'shift_id'      => $shift_id,
+    'workyard_id'   => $workyard_id,
+])?>
+
+<?php $i++?>
+
+<?php endforeach;?>
+
+<?php else :?>
+
+<!-- 没有记录 -->
+<?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
+    'title' => '没有记录',
+//     'desc' => '没有值班安排',
+])?>
+
+<?php endif;?>
+
+
+
+<?=$this->partial('layout/weixin/partial/footer.phtml')?>
+
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'ShiftLogPage',
+    'pageTitle'   => '巡检记录',
+    'narbar'     => $this->placeholder('narbar'),
+    'tarbar'     => false,
+    'content'     => $this->placeholder('content'),
+])?>
