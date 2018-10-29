@@ -7,7 +7,7 @@ define(
 	function(
 		$,
 		myResult, 
-		myValidator, 
+		myValidator
 	) {
 		
 		var myGuardsSelect = function(page) {
