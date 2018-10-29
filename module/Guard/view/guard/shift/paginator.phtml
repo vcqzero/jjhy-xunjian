@@ -8,7 +8,7 @@ $params = [
 ];
 ?>
 <?php if ($type == 'done'):?>
-<?=$this->partial('guard/shift/done/paginator.phtml', $params)?>
+<?=$this->partial('guard/shift/partial/done/paginator.phtml', $params)?>
 <?php else :?>
-<?=$this->partial('guard/shift/plan/paginator.phtml', $params)?>
+<?=$this->partial('guard/shift/partial/plan/paginator.phtml', $params)?>
 <?php endif;?>

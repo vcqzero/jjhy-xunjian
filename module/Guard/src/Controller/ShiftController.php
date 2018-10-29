@@ -21,8 +21,7 @@ class ShiftController extends AbstractActionController
     
     public function indexAction()
     {
-        $View =  new ViewModel();
-        $View->setTemplate($this->params()->fromQuery());
+        $View =  new ViewModel($this->params()->fromQuery());
         return $View;
     }
     

@@ -27,7 +27,7 @@ id="my-shifts-on-play"
 class="my-infinite"
 >
 <!-- 显示值班安排 -->
-<?=$this->partial('guard/shift/plan/paginator.phtml', [
+<?=$this->partial('guard/shift/partial/plan/paginator.phtml', [
     'user_id' => $userID,
     'workyard_id' => $workyard_id,
 ])?>
@@ -36,7 +36,7 @@ class="my-infinite"
 <?=$this->partial('partial/weixin/loading/loading-done.phtml')?>
 
 <!-- 显示所有巡检点popup -->
-<?=$this->partial('guard/index/partial/on-plan/points.phtml', [
+<?=$this->partial('partial/weixin/popup/points.phtml', [
     'workyard_id' => $workyard_id
 ])?>
 

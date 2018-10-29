@@ -24,7 +24,7 @@ $has_shifts_on_done = $this->ShiftGuard()->hasShiftsOnDone($userID);
 id="my-shifts-on-done" 
 class="my-infinite"
 >
-<?=$this->partial('guard/shift/done/paginator.phtml', [
+<?=$this->partial('guard/shift/partial/done/paginator.phtml', [
     'user_id' => $userID
 ])?>
 

@@ -66,7 +66,7 @@ data-workyard-id="<?=$workyard_id?>"
 </div>
 
 <!-- 显示所有巡检点popup -->
-<?=$this->partial('guard/index/partial/on-plan/points.phtml', [
+<?=$this->partial('partial/weixin/popup/points.phtml', [
     'workyard_id' => $workyard_id,
     'shift_id' => $shift_id,
 ])?>
