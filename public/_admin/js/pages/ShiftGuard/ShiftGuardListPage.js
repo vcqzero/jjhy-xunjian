@@ -7,7 +7,7 @@ define(
 //				singleDatePicker: true,
 				startDate: false,
 				endDate: false,
-				minDate : moment(),
+				maxDate : moment(),
 				ranges: {
 					'今天': [moment(), moment()],
 //					'昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

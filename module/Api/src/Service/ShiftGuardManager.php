@@ -37,5 +37,22 @@ class ShiftGuardManager
         
         return $this->MyOrm->delete($where);
     }
+    
+    /**
+    * check whether guard in shift
+    * 
+    * @param  
+    * @return bool       
+    */
+    public function existGuardInShift($shift_id, $guard_id)
+    {
+        $where = [
+            ShiftGuardEntity::FILED_GUARD_ID => $guard_id,
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id,
+        ];
+        $count = $this->MyOrm->count($where);
+        
+        return !empty($count);
+    }
 }
 

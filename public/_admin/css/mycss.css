@@ -2,56 +2,12 @@
 	margin-right: 10px;
 	margin-bottom: 15px;
 }
-
-
-/*定义 表格内容超过边界时*/
-
-.no_overflow {
-	overflow: visible !important;
-}
-
 .form-control-feedback {
 	margin-top: 5px;
 }
 
-
-/*
- * 操作反馈
- * 固定在窗口中上部
- */
-
-.notifications {
-	position: fixed;
-	z-index: 10000;
-	top: 50px;
-	left: 50%;
-	margin-left: -25px;
-}
-
 select.form-control+i.form-control-feedback {
 	margin-right: 15px;
-}
-
-.btn-group {
-	margin-bottom: 15px;
-}
-
-.nav-tabs li.bv-tab-error>a,
-.nav-tabs li.bv-tab-success>a {
-	color: #555 !important;
-}
-
-div.img-preview.mg-circle {
-	border-radius: 50%;
-}
-
-
-/*form.form-inline.bv-form small.help-block{
-	margin-left: 55px;
-}*/
-
-form.form-inline.bv-form.margin-left-80 small.help-block {
-	margin-left: 80px;
 }
 
 

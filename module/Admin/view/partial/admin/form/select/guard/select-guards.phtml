@@ -1,0 +1,50 @@
+<?php
+/**
+ * 选择本工地所有巡检员 
+ */
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+
+$withDefualt = $this->withDefualt;
+$defaultTitle= $this->defaultTitle;
+$selectedId  = $this->selectedId;
+
+$GuardEntities = $this->Guard()->getEntitiesBy($workyard_id);
+
+    
+/* <?=$this->partial('partial/admin/form/select/guard/select-guards.phtml', [
+ 'selectedId'  => null,
+ 'withDefualt' => true,
+ 'defaultTitle'  => '',
+ ])?> */
+
+?>
+
+<div class="form-group">
+	<label class="control-label col-md-3 col-sm-3 col-xs-12"
+		for="first-name">巡检员：</label>
+	<div class="col-md-6 col-sm-6 col-xs-12">
+    	<select 
+    	name="guard_id" 
+    	class="form-control" 
+    	>
+    		<?php if ($withDefualt) :?>
+		    	<option value=''><?=$defaultTitle?></option>
+		    <?php endif;?>
+			<?php if (count($GuardEntities)) :?>
+				<?php foreach ($GuardEntities as $GuardEntity) :?>
+					<?php 
+					$guardID = $GuardEntity->getId();
+					$username= $GuardEntity->getUsername();
+					?>
+					<?php if ($selectedId === $guardID) :?>
+					<option value=<?=$guardID?> selected="selected"><?=$username?></option>
+					<?php else :?>
+					<option value=<?=$guardID?>><?=$username?></option>
+					<?php endif;?>
+				<?php endforeach;?>
+			<?php endif;?>
+		</select>
+	</div>
+</div>
+

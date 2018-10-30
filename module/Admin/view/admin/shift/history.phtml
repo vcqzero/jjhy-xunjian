@@ -18,7 +18,12 @@ $paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
 	    'value'=> "",
 	    'id' => 'select-range-date'
 	])?>
-
+<!-- 选择巡检员 -->
+<?=$this->partial('partial/admin/form/select/guard/select-guards.phtml', [
+ 'selectedId'  => null,
+ 'withDefualt' => true,
+ 'defaultTitle'  => '全部',
+ ])?>
 <?php $this->placeholder('searchContent')->captureEnd() ?>
 
 <?php $this->placeholder('table')->captureStart();?>

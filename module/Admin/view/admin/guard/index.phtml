@@ -1,22 +1,16 @@
 <?php 
 use Api\Entity\UserEntity;
-use Api\Service\UserManager;
 
 $page      = $this->page;
 $where     = $this->where;
-$search    = $where;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
-
-$where[UserEntity::FILED_WORKYARD_ID] = $workyard_id;
-$where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_GUARD;
-
-$paginator = $this->User()->getPaginator($page, $where);
+$paginator = $this->Guard()->getPaginator($workyard_id, $page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
     'type'  => 'primary',
-    'title' => '新增巡检员',
+    'title' => '新增',
     'data_modal_open' => true,
     'data_modal_url' => '/guard/addModal'
 ])?>
@@ -38,8 +32,6 @@ $paginator = $this->User()->getPaginator($page, $where);
       		<?php 
       		$userID     = $UserEntity->getId();
       		$username   = $UserEntity->getUsername();
-//       		$status     = $UserEntity->getStatus();
-//       		$status     = $this->User()->renderStatusName($status);
       		$tel        = $UserEntity->getTel();
       		$realname   = $UserEntity->getRealName();
       		?>
@@ -72,7 +64,7 @@ $paginator = $this->User()->getPaginator($page, $where);
     'pageName'      => 'UserListPage',
     'pageTitle'     => '工地巡检员',
     'paginator'     => $paginator,
-    'search'        => $search,
+    'search'        => $where,
     'buttonGroup'   => $this->placeholder('buttonGroup'),
 //     'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),

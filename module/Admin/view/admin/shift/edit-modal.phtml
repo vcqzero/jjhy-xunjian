@@ -45,7 +45,7 @@ $token = $this->Token()->getToken();
         'value' => $note,
         'placeholder' => '选填：备注信息',
 	])?>
-    <?=$this->partial('partial/admin/form/select/user/select-multiple-guards.phtml', [
+    <?=$this->partial('partial/admin/form/select/guard/select-multiple-guards.phtml', [
         'shiftID' => $shiftID,
      ])?>
 <?php $this->placeholder('formContent')->captureEnd() ?>

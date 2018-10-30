@@ -168,18 +168,40 @@ class ShiftGuardHelper extends AbstractHelper
     * @param  
     * @return        
     */
-    public function getAllPaginator($workyard_id, $page=1, $where=[])
+    public function getAllGuardsPaginator($workyard_id, $page=1, $query=[])
     {
         $Select = new Select();
         $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
         $on = 's.id=sg.shift_id';
         $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [ShiftEntity::FILED_GUARD_ID], Select::JOIN_LEFT);
+        $Select ->where->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyard_id);
+        //process query
+        //data
+        //query the data before today
+        $start = time();
+        $Select->where
+                ->lessThan(ShiftEntity::FILED_START_TIME, $start)
+                ->lessThan(ShiftEntity::FILED_END_TIME, $start);
         
-        $Select ->where
-                ->equalTo(ShiftEntity::FILED_WORKYARD_ID, $workyard_id)
-                ->lessThan(ShiftEntity::FILED_END_TIME, time())
-                ->lessThan(ShiftEntity::FILED_END_TIME, time());
+        //if has where
+        if (!empty($query['range']))
+        {
+            $range = $query['range'];
+            $range = explode('-', $range);
+            $start = strtotime($range[0]);
+            $end   = strtotime($range[1]) + 24 * 60 * 60;
+            $Select->where->between(ShiftEntity::FILED_START_TIME, $start, $end);
+            $Select->where->between(ShiftEntity::FILED_END_TIME, $start, $end);
+        }
         
+        //set guard id
+        //set guard_id
+        if (!empty($query['guard_id']))
+        {
+            $guard_id = $query['guard_id'];
+            $Select->where->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $guard_id);
+        }
+                
         $order = [
             ShiftEntity::FILED_GUARD_ID=>Select::ORDER_ASCENDING,
             ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING,
@@ -234,42 +256,22 @@ class ShiftGuardHelper extends AbstractHelper
     
     public function getGuardNamesByShiftId($shift_id)
     {
-        $guard_ids = $this->getGuardIdsByShiftId($shift_id);
+        $where = [
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
+        ];
+        $shiftGuards = $this->ShiftGuardManager->MyOrm->findAll($where);
         $guardName = '';
-        foreach ($guard_ids as $guard_id)
+        foreach ($shiftGuards as $shiftGuard)
         {
             if (!empty($guardName)) {
                 $guardName.= ' | ';
             }
+            $guard_id = $shiftGuard->getGuard_id();
             $guard    = $this->UserManager->MyOrm->findOne($guard_id);
             $name     = $guard->getUserName();
             $guardName.=  $guard->getUserName();
         }
         
         return $guardName;
-    }
-    
-    /**
-    * 获取某一值班安排所有的值班人员
-    * 
-    * @param  
-    * @return        
-    */
-    public function getGuardIdsByShiftId($shift_id=null)
-    {
-        //获取值班安排
-        $where = [
-            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
-        ];
-        $shift_guards = $this->ShiftGuardManager->MyOrm->findAll($where);
-        
-        $guard_ids =[];
-        
-        foreach ($shift_guards as $shift_guard)
-        {
-            $guard_id = $shift_guard->getGuard_id();
-            $guard_ids[] = $guard_id;
-        }
-        return $guard_ids;
     }
 }

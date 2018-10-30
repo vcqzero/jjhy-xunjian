@@ -97,6 +97,7 @@ define(['jquery', 'GaodeMap', 'GaodeMapUi'], function($) {
 				}
 				console.log("地图加载完成！");
 			});
+			return mapObj
 		},
 		
 		/**

@@ -398,6 +398,7 @@ define(['jquery', 'bootstrap'], function($) {
 			var $BOX_PANEL = $(this).closest('.panel'),
 				$ICON = $(this).find('i'),
 				$BOX_CONTENT = $BOX_PANEL.find('.panel-body');
+				$BOX_CONTENT = $BOX_PANEL.children(':not(.panel-heading)');
 //
 //			// fix for some div with hardcoded fix class
 			if($BOX_PANEL.attr('style')) {

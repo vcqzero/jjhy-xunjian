@@ -27,4 +27,9 @@ class ShiftGuardController extends AbstractActionController
         return $view;
     }
     
+    public function csvAction()
+    {
+        
+    }
+    
 }

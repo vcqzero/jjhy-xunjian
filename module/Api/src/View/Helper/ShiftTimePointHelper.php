@@ -4,6 +4,7 @@ namespace Api\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Api\Service\ShiftTimePointManager;
 use Api\Entity\ShiftTimePointEntity;
+use Zend\Db\Sql\Select;
 
 /**
  * 用于分页的管理
@@ -77,5 +78,29 @@ class ShiftTimePointHelper extends AbstractHelper
         $ShiftTimePointEntities= $this->ShiftTimePointManager->MyOrm->findAll($where);
         
         return $ShiftTimePointEntities;
+    }
+    
+    /**
+    * 获取某次巡检中巡检轨迹的坐标
+    * 
+    * @param  
+    * @return        
+    */
+    public function getAddressPathJsonBy($shift_time_id)
+    {
+        //get the shift point time
+        $where = [
+            ShiftTimePointEntity::FILED_SHIFT_TIME_ID => $shift_time_id,  
+        ];
+        $order = [ShiftTimePointEntity::FILED_TIME => Select::ORDER_ASCENDING];
+        $Entities = $this->ShiftTimePointManager->MyOrm->findAll($where, $order);
+        $addresses_path = [];
+        foreach ($Entities as $Entity)
+        {
+            $address_path = $Entity->getAddress_path();
+            $address_path = json_decode($address_path, true);
+            $addresses_path[] = $address_path;
+        }
+        return json_encode($addresses_path);
     }
 }

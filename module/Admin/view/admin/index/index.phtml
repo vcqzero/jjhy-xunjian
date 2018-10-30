@@ -7,10 +7,10 @@ $role     = $Entity->getRole();
 switch ($role)
 {
     case UserManager::ROLE_SUPER_ADMIN:
-        $template = 'admin/index/index-super-admin.phtml';
+        $template = 'admin/index/partial/super-admin/index.phtml';
         break;
     case UserManager::ROLE_WORKYARD_ADMIN:
-        $template = 'admin/index/index-workyard-admin.phtml';
+        $template = 'admin/index/partial/workyard-admin/index.phtml';
         break;
     default:
 //         $template = 'admin/index/index-workyard-admin.phtml';

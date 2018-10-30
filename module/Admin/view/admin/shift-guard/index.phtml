@@ -4,7 +4,7 @@ $page      = $this->page;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 
-$paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where);
+$paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -24,7 +24,13 @@ $paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where)
 	    'value'=> "",
 	    'id' => 'select-range-date'
 	])?>
-
+	
+<!-- 选择巡检员 -->
+<?=$this->partial('partial/admin/form/select/guard/select-guards.phtml', [
+ 'selectedId'  => null,
+ 'withDefualt' => true,
+ 'defaultTitle'  => '全部',
+ ])?>
 <?php $this->placeholder('searchContent')->captureEnd() ?>
 
 <?php $this->placeholder('table')->captureStart();?>
@@ -35,6 +41,8 @@ $paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where)
           <th >日期</th>
           <th >班次</th>
           <th >值班时间</th>
+          <th >需巡检次数</th>
+          <th >已巡检次数</th>
           <th >是否完成</th>
           <th >操作</th>
     	</tr>
@@ -68,7 +76,7 @@ $paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where)
       		$done_count = $this->ShiftTime()->getDoneCount($guard_id, $shiftID);
       		//是否完成巡检
       		//是否完成规定的巡检次数
-      		$has_done = $done_count == $times;
+      		$has_done = $done_count >= $times;
       		?>
       		<tr>
       		<td><?=$username?></td>
@@ -80,7 +88,17 @@ $paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where)
       			<?=$format_start_time?> - <?=$format_end_time?><small><?=$is_next_day ? '（次日+1）' : ''?></small>
       		</td>
       		<td>
-      			<?=$has_done ? '已完成' : '未完成'?>
+      			<?=$times?>
+      		</td>
+      		<td>
+      			<?=$done_count?>
+      		</td>
+      		<td>
+      			<?php if ($has_done):?>
+      			<span class="text-success">已完成</span>
+      			<?php else :?>
+      			<span class="text-danger"><i class="fa fa-exclamation"></i> 未完成</span>
+      			<?php endif;?>
       		</td>
       		<td>
       		<div class="btn-group  btn-group-sm">
@@ -105,7 +123,8 @@ $paginator   = $this->ShiftGuard()->getAllPaginator($workyard_id, $page, $where)
     'pageTitle'     => '考勤记录',
     'paginator'     => $paginator,
     'search'        => $where,
-    'buttonGroup'   => $this->placeholder('buttonGroup'),
+//     'buttonGroup'   => $this->placeholder('buttonGroup'),
+    'buttonGroup'   => '考勤记录',
     'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),
 ])?>

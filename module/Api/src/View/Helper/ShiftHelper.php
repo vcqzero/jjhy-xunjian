@@ -9,6 +9,7 @@ use Api\Entity\ShiftEntity;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Predicate\Between;
+use Api\Entity\ShiftGuardEntity;
 
 /**
  * 用于分页的管理
@@ -38,55 +39,96 @@ class ShiftHelper extends AbstractHelper
         return $this->ShiftManager->MyOrm->findAll($where);
     }
     
-    public function getEntitiesOnPlayInWeek($workyard_id)
-    {
-        $where[] = new Between(ShiftEntity::FILED_START_TIME, time(), strtotime('2099-12-31'));
-        $where[ShiftEntity::FILED_WORKYARD_ID] = $workyard_id;
-        $order = [ShiftEntity::FILED_START_TIME=> Select::ORDER_ASCENDING];
-        $limit = 7;
-        return $this->ShiftManager->MyOrm->findAll($where, $order, $limit);
-    }
+//     public function getEntitiesOnPlayInWeek($workyard_id)
+//     {
+//         $where[] = new Between(ShiftEntity::FILED_START_TIME, time(), strtotime('2099-12-31'));
+//         $where[ShiftEntity::FILED_WORKYARD_ID] = $workyard_id;
+//         $order = [ShiftEntity::FILED_START_TIME=> Select::ORDER_ASCENDING];
+//         $limit = 7;
+//         return $this->ShiftManager->MyOrm->findAll($where, $order, $limit);
+//     }
     
-    public function getPaginator($page, $workyard_id, $where = [])
+    public function getPaginator($workyard_id, $page =1, $query= [])
     {
-        //默认
+        //about date range
+        //show the future data by default
+        $where[ShiftEntity::FILED_WORKYARD_ID] =$workyard_id;
         $start = strtotime(date('Y-m-d'));
         $end   = strtotime('2099-12-31');
-        
-        if (!empty($where['range']))
-        {
-            $range = $where['range'];
-            unset($where['range']);
-            $range = explode('-', $range);
-            $start = strtotime($range[0]) >= $start ? strtotime($range[0]) : $start;
-            $end   = strtotime($range[1]) + 24 * 60 * 60;
-        }
-        $where[ShiftEntity::FILED_WORKYARD_ID] =$workyard_id;
         $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_START_TIME, $start, $end);
+        
+        //if has where
+        if (!empty($query['range']))
+        {
+            $range = $query['range'];
+            $range = explode('-', $range);
+            $start = strtotime($range[0]) ;
+            $end   = strtotime($range[1]) + 24 * 60 * 60;
+            $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_START_TIME, $start, $end);
+        }
+        
+        
+        //set guard_id
+        if (!empty($query['guard_id']))
+        {
+            $guard_id = $query['guard_id'];
+            $where[ShiftGuardEntity::FILED_GUARD_ID] = $guard_id;
+        }
+        
+        //set join select
+        $Select = new Select();
+        $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
+        $on = 's.id=sg.shift_id';
+        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
+        $Select->where($where);
+        
+        //order
         $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING];
-        $paginator = $this->ShiftManager->MyOrm->paginator($page, $where, $order);
+        $Select->order($order);
+//         $this->ShiftManager->MyOrm->startDebug();
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, new ShiftEntity());
+//         $this->ShiftManager->MyOrm->stopDebug();
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }
     
-    public function getHistoryPaginator($page, $workyard_id, $where = [])
+    public function getHistoryPaginator($page, $workyard_id, $query = [])
     {
+        //about date range
+        //show the future data by default
         $end   = strtotime(date('Y-m-d'));
         $start = 0;
-        if (!empty($where['range']))
-        {
-            $range = $where['range'];
-            unset($where['range']);
-            $range = explode('-', $range);
-            $start = strtotime($range[0]) ;
-            $end_range   = strtotime($range[1]) + 24 * 60 * 60;
-            $end   = $end_range >= $end ? $end : $end_range; 
-        }
-        
         $where[ShiftEntity::FILED_WORKYARD_ID] =$workyard_id;
         $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_END_TIME, $start, $end);
+        //if has where
+        if (!empty($query['range']))
+        {
+            $range = $query['range'];
+            $range = explode('-', $range);
+            $start = strtotime($range[0]);
+            $end   = strtotime($range[1]) + 24 * 60 * 60;
+            $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_END_TIME, $start, $end);
+        }
+        
+        //set guard_id
+        if (!empty($query['guard_id']))
+        {
+            $guard_id = $query['guard_id'];
+            $where[ShiftGuardEntity::FILED_GUARD_ID] = $guard_id;
+        }
+        
+        //set join select
+        $Select = new Select();
+        $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
+        $on = 's.id=sg.shift_id';
+        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
+        $Select->where($where);
+        
+        //order
         $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING];
-        $paginator = $this->ShiftManager->MyOrm->paginator($page, $where, $order);
+        $Select->order($order);
+        
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, new ShiftEntity());
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }

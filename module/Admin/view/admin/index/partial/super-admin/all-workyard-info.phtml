@@ -13,9 +13,9 @@ $Entities = $this->Workyard()->getEntities();
             $address_path = $Entity->getAddress_path();
         ?>
     	<li data-address-path=<?=$address_path?>>
-			<h4>
-				<a href="javascript:;"><i class="fa fa-map-marker"></i>&nbsp;<strong><?=$name?></strong></a>
-			</h4> <span class="text-muted"><?=$address?></span>
+			<h5>
+				<a href="javascript:;"><strong><?=$name?></strong></a>
+			</h5> <span class="text-muted"><?=$address?></span>
 		</li>
     	<?php endforeach;?>
 	</ul>

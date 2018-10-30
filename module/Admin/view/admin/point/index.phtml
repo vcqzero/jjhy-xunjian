@@ -21,7 +21,6 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
 <table class="table table-striped jambo_table">
     <thead>
         <tr>
-          <th >工地名称</th>
           <th >巡检点</th>
           <th >巡检点地址</th>
           <th >添加人</th>
@@ -35,12 +34,9 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
       		$poinID = $Entity->getId();
       		$name   = $Entity->getName();
       		$address= $Entity->getAddress();
-      		$workyard_id   = $Entity->getWorkyard_id();
-      		$workyard_name = $this->Workyard()->getName($workyard_id);
       		$created_by    = $Entity->getCreated_by();
       		?>
       		<tr>
-      		<td><?=$workyard_name?></td>
       		<td><?=$name?></td>
       		<td><?=$address?></td>
       		<td><?=$created_by?></td>

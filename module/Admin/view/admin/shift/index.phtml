@@ -3,7 +3,7 @@ $where     = $this->where;
 $page      = $this->page;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
-$paginator   = $this->Shift()->getPaginator($page, $workyard_id, $where);
+$paginator   = $this->Shift()->getPaginator($workyard_id, $page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -24,6 +24,12 @@ $paginator   = $this->Shift()->getPaginator($page, $workyard_id, $where);
 	    'id' => 'select-range-date'
 	])?>
 
+<!-- 选择巡检员 -->
+<?=$this->partial('partial/admin/form/select/guard/select-guards.phtml', [
+ 'selectedId'  => null,
+ 'withDefualt' => true,
+ 'defaultTitle'  => '全部',
+ ])?>
 <?php $this->placeholder('searchContent')->captureEnd() ?>
 
 <?php $this->placeholder('table')->captureStart();?>

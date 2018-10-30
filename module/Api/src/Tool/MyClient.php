@@ -5,7 +5,7 @@ namespace Api\Tool;
  * 用于分页的管理
  * 注意不要和zend本身的paginator混淆了
  */
-class Client
+class MyClient
 {
     /**
     * 判断用户请求是不是来自手机端

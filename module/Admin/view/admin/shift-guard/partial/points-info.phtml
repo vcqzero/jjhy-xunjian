@@ -9,7 +9,7 @@ $count          = $this->count;
 //get all points
 //created before shfit start time
 $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
-
+$address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_id);
 ?>
 <div class="panel panel-info">
 	<div class="panel-heading">
@@ -43,15 +43,16 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
             $has_done = !empty($ShiftTimePointEntity->getId());
             $time = $ShiftTimePointEntity->getTime();
             $note = $ShiftTimePointEntity->getNote();
-            
-            $time = $time ? date('Y-m-d H-i-s', $time) : null;
+            $address_path = $ShiftTimePointEntity->getAddress_path();
+            $time = $time ? date('Y-m-d H-i-s', $time) : '-';
+            $note = $note ? $note : '-';
             ?>
-        	<tr>
+        	<tr data-address-path="<?=$address_path?>">
 				<td><?=++$key?></td>
-				<td><?=$this->escapehtml($pointName)?></td>
+				<td class="point-name"><?=$this->escapehtml($pointName)?></td>
 				<td><?=$this->escapehtml($address)?></td>
-				<td><?=$this->escapehtml($time)?></td>
-				<td><?=$this->escapehtml($note)?></td>
+				<td class="point-time"><?=$this->escapehtml($time)?></td>
+				<td class="point-note"><?=$this->escapehtml($note)?></td>
 				<td>
             	<?php if($has_done):?>
             	<span class="text-success"><i class="fa fa-check"></i> 已巡检</span>
@@ -64,11 +65,20 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
 	  </tbody>
 	</table>
 	<!-- map -->
-	<br>
 	<div class="panel-body">
+		<div class="ln_solid"></div>
 	<!-- 巡检轨迹 -->
-	<h5 class="">巡检轨迹</h5>
-	<div id="map_container" style="min-height: 500px; max-width: none;"></div>
+		<div class="my-map">
+        	<h5 class="">第<?=$count?>次巡检轨迹</h5>
+        	<button type="button" class="btn btn-default show-map-track">巡检轨迹</button>
+        	<button type="button" class="btn btn-default hide-map-track">关闭轨迹</button>
+        	<div 
+        	id="map_container_<?=$count?>" 
+        	class="hide map-container" 
+        	data-address-path=<?=$address_path_json?>
+        	style="min-height: 500px;max-width: none;">
+            </div>
+    	</div>
 	</div>
 </div>
 

@@ -293,6 +293,7 @@ return [
     'view_helpers' => [
         'factories' => [
             View\Helper\UserHelper::class => View\Helper\Factory\UserHelperFactory::class,
+            View\Helper\GuardHelper::class => View\Helper\Factory\GuardHelperFactory::class,
             View\Helper\WebsiteHelper::class => View\Helper\Factory\WebsiteHelperFactory::class,
             View\Helper\WorkyardHelper::class => View\Helper\Factory\WorkyardHelperFactory::class,
             View\Helper\PointHelper::class => View\Helper\Factory\PointHelperFactory::class,
@@ -306,6 +307,7 @@ return [
         
         'aliases' => [
             'User'      => View\Helper\UserHelper::class,
+            'Guard'     => View\Helper\GuardHelper::class,
             'Website'   => View\Helper\WebsiteHelper::class,
             'Workyard'  => View\Helper\WorkyardHelper::class,
             'Point'     => View\Helper\PointHelper::class,

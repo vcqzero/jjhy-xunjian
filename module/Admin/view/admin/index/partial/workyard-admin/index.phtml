@@ -20,15 +20,18 @@ $address_path = $WorkyardEntity->getAddress_path();
 			</div>
 
 			<div class="x_content">
-				<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+				<div class="col-md-12 col-sm-12 col-xs-12 profile_left">
 					<h3><?=$workyard_name?></h3>
 
 					<ul class="list-unstyled user_data">
-						<li><i class="fa fa-map-marker"></i>地址：<?=$address?></li>
+						<li><i class="fa fa-map-marker"></i> 地址：<?=$address?></li>
 						<li>介绍：<?=$desc?></li>
 					</ul>
+					<div class="ln_solid"></div>
 					<br>
-					<?=$this->partial('admin/index/partial/workyard-admin/workyard_points.phtml', 
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-12">
+				<?=$this->partial('admin/index/partial/workyard-admin/workyard_points.phtml', 
 					    ['workyard_id' => $workyard_id])?>
 				</div>
 				<div class="col-md-9 col-sm-9 col-xs-12">
