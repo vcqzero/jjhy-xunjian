@@ -47,6 +47,7 @@ class ShiftGuardHelper extends AbstractHelper
         //按照开始时间升序
         $Select->limit(1);
         $Entity = new ShiftEntity();
+        $Select->order([ShiftEntity::FILED_START_TIME => Select::ORDER_ASCENDING]);
         $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, $Entity);
         return $ShiftEntities->current();
     }
@@ -62,6 +63,7 @@ class ShiftGuardHelper extends AbstractHelper
     {
         $Select = $this->getSelectOnPlan($workyardID, $userID);
         //按照开始时间升序
+        $Select->order([ShiftEntity::FILED_START_TIME => Select::ORDER_ASCENDING]);
         $Select->limit(1);
         $Entity = new ShiftEntity();
         $ShiftEntities = $this->ShiftManager->MyOrm->select($Select, $Entity);

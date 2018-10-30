@@ -3,6 +3,7 @@ namespace Api\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Api\Service\UserManager;
+use Api\Entity\UserEntity;
 
 /**
  * 用于分页的管理
@@ -84,8 +85,9 @@ class UserHelper extends AbstractHelper
     
     public function getPaginator($page = 1, $where = [])
     {
+        $role  = UserManager::ROLE_WORKYARD_ADMIN;
+        $where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_ADMIN;
         $paginator = $this->UserManager->MyOrm->paginator($page, $where);
-//         $paginator  ->setDefaultItemCountPerPage(2);
         return $paginator;
     }
     

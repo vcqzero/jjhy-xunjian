@@ -24,6 +24,7 @@ requirejs.config({
 		datetimepicker_moment : 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min',
 		moment : 'https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/moment.min',
 		select2 : 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/select2.min',
+		select2_zh_cn : 'https://cdn.bootcss.com/select2/4.0.6-rc.1/js/i18n/zh-CN',
 		
 		myFramework: 'modules/myFramework',
 		myValidator: 'modules/myValidator',

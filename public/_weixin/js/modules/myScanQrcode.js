@@ -11,10 +11,12 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		var _this = $(this)
 		var shift = $('#my-shift-on-working')
 		var shift_time_id = shift.attr('data-shift-time-id')
+		var shift_id = shift.attr('data-shift-id')
 		workyard_id = shift.attr('data-workyard-id')
 		token = shift.attr('data-token')
 		data = {
 			'shift_time_id': shift_time_id,
+			'shift_id': shift_id,
 		}
 
 		//获取地理位置

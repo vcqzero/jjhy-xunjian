@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Api\Service\PointManager;
 use Api\Entity\PointEntity;
+use Api\Tool\MyDownload;
 
 class PointController extends AbstractActionController
 {
@@ -108,12 +109,9 @@ class PointController extends AbstractActionController
     
     public function downloadAction()
     {
-        
-        $pointID = $this->params()->fromRoute('pointID');
-        $Entity  = $this->PointManager->MyOrm->findOne($pointID); 
-        $qrcode_name = $Entity->getQrcode_filename();
-        $name    = $Entity->getName();
-        $this->Download()->download($qrcode_name, $name);
+        $qrcode_name = $this->params()->fromQuery('qrcode_name');
+        $download_name= $this->params()->fromQuery('download_name');
+        MyDownload::download($qrcode_name, $download_name);
         exit();
     }
 }

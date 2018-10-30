@@ -94,6 +94,12 @@ class ShiftTypeController extends AbstractActionController
         $values = $this->params()->fromPost();
         $values = $this->ShiftTypeManager->trimTime($values);
         
+        //判断是否为00:00
+        if ($values[ShiftTypeEntity::FILED_END_TIME] == '00:00')
+        {
+            $values[ShiftTypeEntity::FILED_IS_NEXT_DAY] = ShiftTypeManager::IS_NEXT_DAY_YES;
+        }
+        
         //do filter
         $values = $this->ShiftTypeManager->FormFilter->getFilterValues($values);
         //执行增加操作

@@ -25,9 +25,8 @@ $select2_config = $this->Guard()->getGuardDataForSelect2AsJson($workyard_id, $sh
     	data-json = <?=$select2_config?>
     	>
 		</select>
-		<?php if (empty($select2_config)) :?>
-    	<a href="/guard">
-        <i class="glyphicon glyphicon-plus"></i>请先增加巡检员</a>
+		<?php if ($select2_config == '[]') :?>
+    	<a href="/guard">请先增加巡检员</a>
         <?php endif;?>
 	</div>
 </div>

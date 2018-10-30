@@ -237,13 +237,11 @@ return [
             Controller\Plugin\TokenPlugin::class  => Controller\Plugin\Factory\TokenPluginFactory::class,
             Controller\Plugin\AjaxPlugin::class   => Controller\Plugin\Factory\AjaxPluginFactory::class,
             Controller\Plugin\AuthPlugin::class   => Controller\Plugin\Factory\AuthPluginFactory::class,
-            Controller\Plugin\DownloadPlugin::class => Controller\Plugin\Factory\DownloadPluginFactory::class,
         ],
         
         'aliases' => [
             'Token'      => Controller\Plugin\TokenPlugin::class,
             'ajax'       => Controller\Plugin\AjaxPlugin::class,
-            'Download'   => Controller\Plugin\DownloadPlugin::class,
         ],
     ],
     //service_manager
@@ -252,7 +250,6 @@ return [
             //Controller\Plugin
             Controller\Plugin\AjaxPlugin::class   => Controller\Plugin\Factory\AjaxPluginFactory::class,
             Controller\Plugin\AuthPlugin::class   => Controller\Plugin\Factory\AuthPluginFactory::class,
-            Controller\Plugin\DownloadPlugin::class => Controller\Plugin\Factory\DownloadPluginFactory::class,
             Controller\Plugin\TokenPlugin::class => Controller\Plugin\Factory\TokenPluginFactory::class,
             
             //Model\

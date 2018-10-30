@@ -1,13 +1,8 @@
 <?php 
 use Api\Entity\UserEntity;
-use Api\Service\UserManager;
 
 $where = $this->where;
 $page  = $this->page;
-
-$search= $where;
-$role  = UserManager::ROLE_WORKYARD_ADMIN;
-$where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_ADMIN;
 $paginator = $this->User()->getPaginator($page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
@@ -49,10 +44,7 @@ $paginator = $this->User()->getPaginator($page, $where);
       		$username   = $UserEntity->getUsername();
       		$workyard_id   = $UserEntity->getWorkyard_id();
       		$workyard_name = $this->Workyard()->getName($workyard_id);
-//       		$status     = $UserEntity->getStatus();
-//       		$status     = $this->User()->renderStatusName($status);
       		$tel        = $UserEntity->getTel();
-//       		$email      = $UserEntity->getEmail();
       		$realname   = $UserEntity->getRealName();
       		?>
       		<tr>
@@ -85,7 +77,7 @@ $paginator = $this->User()->getPaginator($page, $where);
     'pageName'      => 'UserListPage',
     'pageTitle'     => '工地管理员',
     'paginator'     => $paginator,
-    'search'         => $search,
+    'search'        => $where,
     'buttonGroup'   => $this->placeholder('buttonGroup'),
     'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),

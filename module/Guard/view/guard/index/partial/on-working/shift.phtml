@@ -17,7 +17,7 @@ $end_time       = $ShiftEntity->getEnd_time();
 $done_count = $this->ShiftTime()->getDoneCount($user_id, $shift_id);
 //是否完成巡检
 //是否完成规定的巡检次数
-$has_done = $done_count == $times;
+$has_done = $done_count >= $times;
 // 当前应该执行的巡检次数
 $next_count = $has_done ? null : $done_count + 1;
 
@@ -46,10 +46,6 @@ data-token="<?=$token?>"
       </div>
     </div>
     <div class="weui-form-preview">
-<!--     	<div class="weui-form-preview__hd"> -->
-<!--     		<label class="weui-form-preview__label">班次</label> <em -->
-<!--     			class="weui-form-preview__value"></em> -->
-<!--     	</div> -->
     	<div class="weui-form-preview__bd">
     		<div class="weui-form-preview__item">
     			<label class="weui-form-preview__label">开始时间</label> <span
@@ -89,7 +85,7 @@ data-token="<?=$token?>"
 
 <?php if(!$has_done):?>
 <!-- 巡检点 -->
-<?=$this->partial('guard/index/partial/points-on-working.phtml', [
+<?=$this->partial('guard/index/partial/on-working/points.phtml', [
     'workyard_id'   => $workyard_id,
     'shift_id'      => $shift_id,
     'shift_time_id' => $shift_time_id_on_working,

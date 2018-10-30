@@ -2,13 +2,19 @@
 $shiftID     = $this->shiftID;
 $ShiftEntity = $this->Shift()->getEntity($shiftID);
 $shift_type_name = $ShiftEntity->getShift_type_name();
+$start_time      = $ShiftEntity->getStart_time();
+$start_time      = date('Y-m-d H:i', $start_time);
+$end_time        = $ShiftEntity->getEnd_time();
+$end_time        = date('Y-m-d H:i', $end_time);
 
 $token = $this->Token()->getToken();
 
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
-<p>确认删除 <?=$shift_type_name?>?</p>
+<p>值班时间：</p>
+<p><?=$start_time . "至" . $end_time?></p>
+<p>确认删除 ?</p>
 <?php $this->placeholder('formContent')->captureEnd() ?>
 
 <?=$this->partial('partial/admin/page/modal/delete-modal.phtml', [

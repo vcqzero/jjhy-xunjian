@@ -53,14 +53,6 @@ define(
 							}
 						},
 
-						//						email: {
-						//
-						//							validators: {
-						//								emailAddress: {
-						//									message: '请输入正确邮箱地址'
-						//								}
-						//							}
-						//						},
 
 						workyard_id: {
 							validators: {

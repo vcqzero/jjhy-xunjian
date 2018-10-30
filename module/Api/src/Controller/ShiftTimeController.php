@@ -54,7 +54,7 @@ class ShiftTimeController extends AbstractActionController
         $MyOrm = $this->ShiftTimePointManager->MyOrm;
         $shift_time_id  = $this->params()->fromPost('shift_time_id');
         $point_id       = $this->params()->fromPost('point_id');
-        $workyard_id    = $this->params()->fromQuery('workyard_id');
+//         $shift_id= $this->params()->fromQuery('shift_id');
         $workyard_id    = $this->params()->fromQuery('workyard_id');
         
         //判断巡检点是否合法

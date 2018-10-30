@@ -53,8 +53,7 @@ $Entities = $this->ShiftType()->getEntities($where);
 			<?php endforeach;?>
 	</select>
 	<?php if (empty(count($Entities))) :?>
-	<a href="/shiftType">
-    <i class="glyphicon glyphicon-plus"></i>请先增加值班班次</a>
+	<a href="/shiftType">请先增加值班班次</a>
     <?php endif;?>
 	</div>
 </div>

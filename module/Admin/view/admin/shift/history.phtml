@@ -51,13 +51,11 @@ $paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
       		$note            = $Entity->getNote();
       		
       		$start_day   = date('Y-m-d', $start_time);
-      		$end_day     = strtotime($start_day) + 60 * 60 * 24;
-      		$is_next_day = $end_time > $end_day;
-      		
+      		$is_next_day = $this->Shift()->isNextDay($start_time, $end_time);
       		$format_start_time = date('H:i', $start_time);
       		$format_end_time   = date('H:i', $end_time);
       		
-      		$format_end_time  = $is_next_day ? $format_end_time . "（次日+1）" : $format_end_time;
+//       		$format_end_time  = $is_next_day ? $format_end_time . "（次日+1）" : $format_end_time;
       		//获取值班人员
       		$guardNames = $this->ShiftGuard()->getGuardNamesByShiftId($shiftID);
       		?>
@@ -67,7 +65,7 @@ $paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
       			<?=$shift_type_name?>
       		</td>
       		<td>
-      			<?=$format_start_time?> - <?=$format_end_time?>
+      			<?=$format_start_time?> - <?=$format_end_time?><small><?=$is_next_day ? '（次日+1）' : ''?></small>
       		</td>
       		<td><?=$times?>&nbsp;<small>次</small></td>
       		<td><?=$guardNames?></td>

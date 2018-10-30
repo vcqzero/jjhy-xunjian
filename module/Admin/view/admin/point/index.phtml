@@ -4,6 +4,10 @@ $page      = $this->page;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
+
+//workyard info
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
+$workyard_name  = $WorkyardEntity->getName();
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [
@@ -35,6 +39,8 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
       		$name   = $Entity->getName();
       		$address= $Entity->getAddress();
       		$created_by    = $Entity->getCreated_by();
+      		$qrcode_name   = $Entity->getQrcode_filename();
+      		$download_name = $workyard_name . "_" . $name;
       		?>
       		<tr>
       		<td><?=$name?></td>
@@ -49,7 +55,7 @@ $paginator = $this->Point()->getPaginator($page, $where, $workyard_id);
             ])?>
             <?=$this->partial('partial/admin/button/link.phtml', [
                 'title' => '下载二维码',
-                'href' => '/api/point/download/' . $workyard_id . '/' . $poinID
+                'href' => "/api/point/download?download_name=$download_name&qrcode_name=$qrcode_name"
             ])?>
             </div>
       		</td>

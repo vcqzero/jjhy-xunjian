@@ -132,4 +132,12 @@ class ShiftHelper extends AbstractHelper
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }
+    
+    public function isNextDay($start_time, $end_time)
+    {
+        $start_day   = date('Y-m-d', $start_time);
+        $end_day     = strtotime($start_day) + 60 * 60 * 24;
+        $is_next_day = $end_time >= $end_day;
+        return $is_next_day;
+    }
 }

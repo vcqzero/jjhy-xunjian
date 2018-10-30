@@ -51,7 +51,7 @@ class ShiftManager
         
         $start_time = $date . ' ' . $start_time;
         $start_time = strtotime($start_time);
-        if ($is_next_day) {
+        if ($is_next_day == ShiftTypeManager::IS_NEXT_DAY_YES) {
             $date = date('Y-m-d', strtotime($date) + 24 * 60 * 60);
         }
         

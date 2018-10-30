@@ -6,6 +6,12 @@ $token = $this->Token()->getToken();
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
+
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label'  => '巡检点数量：',
+	    'value'  => "",
+	])?>
+	
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '选择日期：',
 	    'name' => 'date-range',

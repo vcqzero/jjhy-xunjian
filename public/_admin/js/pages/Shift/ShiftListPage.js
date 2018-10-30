@@ -48,7 +48,7 @@ define(
 
 				//预加载
 				requirejs(
-					['select2'],
+					['select2',],
 					function() {})
 			}
 		}

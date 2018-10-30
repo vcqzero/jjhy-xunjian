@@ -48,10 +48,14 @@ data-page-current="<?=$page_current?>"
 data-page-count="<?=$page_count?>"
 >
 	<div class="weui-form-preview__hd">
-		<label class="weui-form-preview__label">班次</label> <em
-			class="weui-form-preview__value"><?=$shift_type_name?></em>
-	</div>
+    		<label class="weui-form-preview__label">日期</label> <em
+    			class="weui-form-preview__value"><?=date('Y-m-d', $start_time)?></em>
+    	</div>
 	<div class="weui-form-preview__bd">
+		<div class="weui-form-preview__item">
+			<label class="weui-form-preview__label">班次</label> <span
+				class="weui-form-preview__value"><?=$shift_type_name?></span>
+		</div>
 		<div class="weui-form-preview__item">
 			<label class="weui-form-preview__label">工地</label> <span
 				class="weui-form-preview__value"><?=$workyard_name?></span>

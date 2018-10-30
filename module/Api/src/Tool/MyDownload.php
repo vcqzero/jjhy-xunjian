@@ -1,12 +1,8 @@
 <?php
-namespace Api\Controller\Plugin;
+namespace Api\Tool;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-
-class DownloadPlugin extends AbstractPlugin
+class MyDownload
 {
-    public function __construct(){}
-    
     /**
     * 下载文件
     * 
@@ -14,7 +10,7 @@ class DownloadPlugin extends AbstractPlugin
     * @param  string $basename  文件显示的名称
     * @return void       
     */
-    public function download($file_name, $basename = null) {
+    public static function download($file_name, $basename = null) {
         //首先判断文件是否存在
         if(!file_exists($file_name)) {
             echo "文件不存在";
@@ -30,7 +26,7 @@ class DownloadPlugin extends AbstractPlugin
         }else {
             //获取扩展名
             $ext = strrchr($file_name,'.');
-            $basename = $basename . '.' . $ext;
+            $basename = $basename . $ext;
         }
         
         //以下为下载文件所需的http文件头

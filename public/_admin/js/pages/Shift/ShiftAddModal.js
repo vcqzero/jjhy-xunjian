@@ -4,7 +4,8 @@ define(
 	'myValidator', 
 	'moment', 
 	'daterangepicker',
-	'select2'
+	'select2',
+	'select2_zh_cn'
 	],
 	function(
 		$,
@@ -42,6 +43,8 @@ define(
 			var results = _select.attr('data-json')
 			results = JSON.parse(results)
 			_select.select2({
+				language:'zh-CN',
+				placeholder: '请选择巡检员',
 				'data' : results
 			})
 		}
