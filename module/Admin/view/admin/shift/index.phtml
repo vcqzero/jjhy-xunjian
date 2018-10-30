@@ -65,6 +65,7 @@ $paginator   = $this->Shift()->getPaginator($workyard_id, $page, $where);
 //       		$format_end_time  = $is_next_day ? $format_end_time . "（次日+1）" : $format_end_time;
       		//获取值班人员
       		$guardNames = $this->ShiftGuard()->getGuardNamesByShiftId($shiftID);
+      		
       		?>
       		<tr>
       		<td><?=$start_day?></td>
@@ -79,6 +80,11 @@ $paginator   = $this->Shift()->getPaginator($workyard_id, $page, $where);
       		<td><?=$note?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '详情',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/shift/detailModal/'.$shiftID, //string
+            ])?>
       		<?php if ($start_time > time()) :?>
       		<?=$this->partial('partial/admin/button/single.phtml', [
                 'title' => '编辑',

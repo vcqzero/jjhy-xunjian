@@ -1,0 +1,33 @@
+<?php 
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+$shiftID     = $this->shiftID;
+?>
+
+<?php $this->placeholder('modalBody')->captureStart();?>
+<!-- shift info -->
+<?=$this->partial('admin/shift/partial/shift-info.phtml', [
+    'shift_id'      => $shiftID,
+])?>
+
+<!-- points info -->
+<?=$this->partial('admin/shift/partial/points-info.phtml', [
+    'shift_id'      => $shiftID,
+    'workyard_id'   => $workyard_id,
+])?>
+
+<!-- guard info -->
+<?=$this->partial('admin/shift/partial/guard-info.phtml', [
+    'shift_id'      => $shiftID,
+    'workyard_id'   => $workyard_id,
+])?>
+	
+<?php $this->placeholder('modalBody')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
+    'pageName' => 'PointInfoModal',
+    'pageTitle' => '巡检详情',
+    'modalSize'     => 'lg',
+    'modalBody' => $this->placeholder('modalBody'),
+])?>
+

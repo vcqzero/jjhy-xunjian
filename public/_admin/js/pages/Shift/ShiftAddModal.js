@@ -80,16 +80,6 @@ define(
 									message: '请选择日期',
 								},
 								
-//								remote: {
-//									url: '/api/shift/validShiftType',
-//									type: 'POST', //以post的方式发生信息
-//									data: function(validator) {
-//										return {
-//											shift_type_id: validator.getFieldElements('shift_type_id').val()
-//										};
-//									},
-//									message: '该日班次已安排',
-//								},
 							}
 						},
 						
@@ -105,16 +95,6 @@ define(
 									min: 1,
 								},
 //
-//								remote: {
-//									url: '/api/shift/validShiftType',
-//									type: 'POST', //以post的方式发生信息
-//									data: function(validator) {
-//										return {
-//											date: validator.getFieldElements('date').val()
-//										};
-//									},
-//									message: '该日班次已安排',
-//								},
 							}
 						},
 						
@@ -130,15 +110,6 @@ define(
 							}
 						},
 						
-//						'guard_id[]': {
-//							validators: {
-//
-//								notEmpty: {
-//									message: '请设置人员安排',
-//								},
-//							}
-//						},
-						
 						note: {
 							validators: {
 								stringLength: {
@@ -153,11 +124,16 @@ define(
 						var form = arguments[0]
 						var _select_guard = form.find('select[name="guard_ids[]"]')
 						var value = _select_guard.val()
-						if (value) {
-							return true;
+						if (value.length < 1) {
+							alert('请选择巡逻人员')
+							return false;
 						}
-						alert('请选择巡逻人员')
-						return false;
+						var point_name = $('#point-name')
+						if (point_name.length < 1){
+							alert('请先增加巡检点')
+							return false;
+						}
+						return true;
 					}
 				},
 			},
