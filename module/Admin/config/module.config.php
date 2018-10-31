@@ -11,15 +11,15 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "admin.tanhansi.com" => [
+            "xunjian.tanhansi.com" => [
                 'type' => Hostname::class,
                 'options' => [
                     'route' => ':subdomain.tanhansi.com',
                     'constraints' => [
-                        'subdomain' => 'admin'
+                        'subdomain' => 'xunjian'
                     ],
                     'defaults' => [
-                        'subdomain' => 'admin'
+                        'subdomain' => 'xunjian'
                     ],
                 ],
                 
