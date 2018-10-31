@@ -55,7 +55,7 @@ requirejs.config({
 // Start the main app 
 requirejs(
 	['jquery', 
-//	'jquery-weui', 
+	'jquery-weui', 
 	],
 	function($) {
 		requirejs(['fastclick'], function(FastClick) {
