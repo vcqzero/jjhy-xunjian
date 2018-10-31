@@ -1,5 +1,7 @@
 <?php 
 $shiftID     = $this->shiftID;
+$identity = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
 $ShiftEntity = $this->Shift()->getEntity($shiftID);
 
 $shift_type_name = $ShiftEntity->getShift_type_name();

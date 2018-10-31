@@ -1,18 +1,13 @@
 <?php 
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
-$point_count = $this->Point()->getCountByNow();
-$token = $this->Token()->getToken();
 
+$pointName = $this->Point()->getPointNamesBy($workyard_id);
+$token = $this->Token()->getToken();
 ?>
 
 <?php $this->placeholder('formContent')->captureStart();?>
 
-	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
-        'label'  => '巡检点数量：',
-	    'value'  => "",
-	])?>
-	
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
 	    'label' => '选择日期：',
 	    'name' => 'date-range',
@@ -52,6 +47,19 @@ $token = $this->Token()->getToken();
 	<?=$this->partial('partial/admin/form/select/guard/select-multiple-guards.phtml', [
      'withDefualt' => true,
      ])?>
+     <div class="form-group">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">巡检点：</label>
+		<?php if(!empty($pointName)):?>
+		<div id="point-name" 
+		class="form-control-static col-md-6 col-sm-6 col-xs-12"
+		><?=$pointName?></div>
+		<?php else :?>
+		<p class="form-control-static " >
+		<a href="/point" class="text-danger">请先添加巡检点</a>
+		</p>
+		<?php endif;?>
+	</div>
+	
 <?php $this->placeholder('formContent')->captureEnd() ?>
 
 <?=$this->partial('partial/admin/page/modal/form-modal.phtml', [

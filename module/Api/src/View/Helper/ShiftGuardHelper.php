@@ -258,10 +258,7 @@ class ShiftGuardHelper extends AbstractHelper
     
     public function getGuardNamesByShiftId($shift_id)
     {
-        $where = [
-            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
-        ];
-        $shiftGuards = $this->ShiftGuardManager->MyOrm->findAll($where);
+        $shiftGuards = $this->getShiftGuardsByShiftId($shift_id);
         $guardName = '';
         foreach ($shiftGuards as $shiftGuard)
         {
@@ -275,5 +272,14 @@ class ShiftGuardHelper extends AbstractHelper
         }
         
         return $guardName;
+    }
+    
+    public function getShiftGuardsByShiftId($shift_id)
+    {
+        $where = [
+            ShiftGuardEntity::FILED_SHIFT_ID => $shift_id
+        ];
+        $shiftGuards = $this->ShiftGuardManager->MyOrm->findAll($where);
+        return $shiftGuards;
     }
 }

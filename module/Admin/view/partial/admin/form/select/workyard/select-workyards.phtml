@@ -40,5 +40,8 @@ $WorkyardEntities = $this->Workyard()->getEntities();
 				<?php endforeach;?>
 			<?php endif;?>
 	</select>
+	<?php if (empty(count($WorkyardEntities))) :?>
+	<a href="/workyard" class="text-danger">请先增加工地</a>
+    <?php endif;?>
 	</div>
 </div>

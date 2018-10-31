@@ -1,0 +1,35 @@
+<?php
+$shift_id       = $this->shift_id;
+$workyard_id    = $this->workyard_id;
+
+//about guard
+$ShiftGuards = $this->ShiftGuard()->getShiftGuardsByShiftId($shift_id);
+?>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><i class="fa fa-user"></i> 巡检员</div>
+  <!-- Table -->
+	<table class="table">
+		<thead>
+			<tr>
+				<th>用户名</th>
+				<th>真实姓名</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($ShiftGuards as $ShiftGuard):?>
+		<?php 
+		$guard_id   = $ShiftGuard->getGuard_id();
+		$UserEntity = $this->User()->getEntity($guard_id);
+		$realName   = $UserEntity->getRealName();
+		$username   = $UserEntity->getUsername();
+		?>
+			<tr>
+				<td><?=$username?></td>
+				<td><?=$realName?></td>
+			</tr>
+			<?php endforeach;?>
+		</tbody>
+	</table>
+</div>
+

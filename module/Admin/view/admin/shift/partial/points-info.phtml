@@ -1,0 +1,36 @@
+<?php
+use Api\Entity\PointEntity;
+
+$shift_id       = $this->shift_id;
+$workyard_id    = $this->workyard_id;
+
+$PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
+?>
+<div class="panel panel-info">
+	<div class="panel-heading">巡检点</div>
+	<!-- 巡检点 -->
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>巡检点</th>
+				<th>地址</th>
+			</tr>
+		</thead>
+		<tbody>
+    	<?php foreach ($PointEntities as $key=>$PointEntity) :?>
+        <?php
+            $point_id    = $PointEntity->getId();
+            $pointName   = $PointEntity->getName();
+            $address     = $PointEntity->getAddress();
+            ?>
+        	<tr>
+				<td><?=++$key?></td>
+				<td class="point-name"><?=$this->escapehtml($pointName)?></td>
+				<td><?=$this->escapehtml($address)?></td>
+			</tr>
+        <?php endforeach;?>
+	  </tbody>
+	</table>
+</div>
+

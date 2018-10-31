@@ -36,6 +36,7 @@ $paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
           <th >巡逻次数</th>
           <th >值班人员</th>
           <th >备注</th>
+          <th >详情</th>
     	</tr>
     </thead>
       <tbody>
@@ -70,6 +71,13 @@ $paginator = $this->Shift()->getHistoryPaginator($page, $workyard_id, $where);
       		<td><?=$times?>&nbsp;<small>次</small></td>
       		<td><?=$guardNames?></td>
       		<td><?=$note?></td>
+      		<td>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '详情',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/shift/detailModal/'.$shiftID, //string
+            ])?>
+      		</td>
             </tr>
       		<?php endforeach;?>
       	<?php endif;?>

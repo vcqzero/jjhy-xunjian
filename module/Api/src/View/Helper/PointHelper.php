@@ -5,6 +5,7 @@ use Zend\View\Helper\AbstractHelper;
 use Api\Service\PointManager;
 use Api\Entity\PointEntity;
 use Api\Service\ShiftManager;
+use Api\Entity\ShiftEntity;
 
 /**
  * 用于分页的管理
@@ -67,5 +68,18 @@ class PointHelper extends AbstractHelper
         $paginator = $this->PointManager->MyOrm->paginator($page, $where);
         $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
+    }
+    
+    public function getPointNamesBy($workyard_id, $shift_id=null)
+    {
+        $points = $this->getEntitiesOnShift($workyard_id, $shift_id);
+        $names = '';
+        foreach ($points as $point)
+        {
+            $name = $point->getName();
+            $names = $names . "&nbsp;&nbsp;" . $name;
+        }
+        
+        return $names;
     }
 }
