@@ -59,6 +59,18 @@ return [
                         ],
                     ],
                     
+                    //巡检
+                    'shiftTime' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/shiftTime[/:action][/:shiftID][/:workyardID]',
+                            'defaults' => [
+                                'controller' => Controller\ShiftTimeController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    
                     //个人中心
                     'account' => [
                         'type'    => Segment::class,
@@ -81,6 +93,7 @@ return [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
             Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
             Controller\AccountController::class => Controller\Factory\AccountControllerFactory::class,
+            Controller\ShiftTimeController::class => Controller\Factory\ShiftTimeControllerFactory::class,
         ],
         
     ],
@@ -106,6 +119,12 @@ return [
             ],
         ],
         Controller\AccountController::class => [
+            'allow'=> [
+                UserManager::ROLE_WORKYARD_GUARD,
+                UserManager::ROLE_WORKYARD_ADMIN,
+            ],
+        ],
+        Controller\ShiftTimeController::class => [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
                 UserManager::ROLE_WORKYARD_ADMIN,

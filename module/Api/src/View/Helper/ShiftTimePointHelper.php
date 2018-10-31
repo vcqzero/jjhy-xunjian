@@ -103,4 +103,9 @@ class ShiftTimePointHelper extends AbstractHelper
         }
         return json_encode($addresses_path);
     }
+    
+    public function getEntityById($shift_time_point_id)
+    {
+        return $this->ShiftTimePointManager->MyOrm->findOne($shift_time_point_id);
+    }
 }

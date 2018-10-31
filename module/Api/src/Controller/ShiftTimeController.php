@@ -70,7 +70,7 @@ class ShiftTimeController extends AbstractActionController
             $values= $this->params()->fromPost();
             $values[ShiftTimePointEntity::FILED_TIME] = time();
             $res = $MyOrm->insert($values);
-            
+            $shift_time_point_id = $MyOrm->getLastInsertId();
             if(empty($res)) {
                 throw new \Exception('数据插入错误');
             }
@@ -87,11 +87,21 @@ class ShiftTimeController extends AbstractActionController
                 }
             }
             $connection->commit();
-            $res = true;
+            $res = [
+                'success' => true,
+                'err' => '',
+                'shift_time_point_id' => $shift_time_point_id
+            ];
+            echo json_encode($res);
+            exit();
         }catch (\Exception $e ){
             $connection->rollback();
-            $res = false;
+            $res = [
+                'success' => false,
+                'err' => '服务器异常',
+            ];
+            echo json_encode($res);
+            exit();
         }
-        $this->ajax()->success($res);
     }
 }

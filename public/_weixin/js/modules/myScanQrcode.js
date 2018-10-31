@@ -6,8 +6,15 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 	var workyard_id
 	var token
 	var _url = '/api/shiftTime/add'
+	var scaning
 
 	$('body').on('click', '.scan-qrcode', function() {
+		if (scaning === true) {
+			return false;
+		}else {
+			scaning = true
+		}
+		
 		var _this = $(this)
 		var shift = $('#my-shift-on-working')
 		var shift_time_id = shift.attr('data-shift-time-id')
@@ -159,10 +166,10 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			var resObj = JSON.parse(res)
 			var success = resObj['success']
 			var err = resObj['err']
+			var shift_time_point_id
 			if(success) {
-				$.toast("数据上传成功", function() {
-					location.reload()
-				});
+				data['shift_time_point_id'] = resObj['shift_time_point_id']
+				toSuccessPage(data)
 			} else {
 				err = err ? err : '数据上传失败'
 				$.alert(err, function() {
@@ -170,6 +177,21 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 				})
 			}
 		})
+	}
+	
+	var toSuccessPage = function(data) {
+		var params = []
+		var _url   = '/shiftTime/successPage'
+		for(var key in data) {
+			var vaule = data[key]
+			var param = key + '=' + value
+			params.push(param)
+		}
+		
+		params = params.join('&')
+		
+		_url = _url + '?' + params
+		location = _url
 	}
 
 	return {}

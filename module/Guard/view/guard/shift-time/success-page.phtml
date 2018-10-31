@@ -1,0 +1,45 @@
+<?php
+$identity    = $this->identity();
+$workyard_id = $this->User()->getWorkyardId($identity);
+
+$shift_time_id = $this->shift_time_id;
+$shift_id      = $this->shift_id;
+$point_id      = $this->point_id;
+$shift_time_point_id= $this->shift_time_point_id;
+
+//about point info
+$PointEntity = $this->Point()->getEntity($point_id);
+$pointName   = $PointEntity->getName();
+$pointAddress= $PointEntity->getAddress();
+//about shift time point info
+$ShiftTimePointEntity = $this->ShiftTimePoint()->getEntityById($shift_time_point_id);
+$time = $ShiftTimePointEntity->getTime();
+$note = $ShiftTimePointEntity->getNote();
+$time = date('Y-m-d H:i');
+?>
+
+<?php $this->placeholder('content')->captureStart();?>
+<div class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">操作成功</h2>
+    <p class="weui-msg__desc"><?=$time?> ： 成功巡检<?=$pointName?></p>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a href="/" class="weui-btn weui-btn_primary">前往下一巡检点</a>
+    </p>
+  </div>
+  <div class="weui-msg__extra-area">
+    <?=$this->partial('layout/weixin/partial/footer.phtml')?>
+  </div>
+</div>
+<?php $this->placeholder('content')->captureEnd();?>
+
+<?=$this->partial('partial/weixin/page/basic-page.phtml', [
+    'pageName'    => 'ShiftTimeSuccessPage',
+    'pageTitle'   => '巡检任务',
+//     'narbar'      => '',//顶部导航
+    'tarbar'      => false,//底部导航
+    'content'     => $this->placeholder('content'),
+])?>

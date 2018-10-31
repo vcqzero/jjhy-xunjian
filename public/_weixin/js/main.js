@@ -35,6 +35,9 @@ requirejs.config({
 		ShiftPlanAndDonePage : 'pages/Shift/ShiftPlanAndDonePage',
 		ShiftLogPage : 'pages/Shift/ShiftLogPage',
 		
+		//ShiftTime
+		ShiftTimeSuccessPage : 'pages/ShiftTime/ShiftTimeSuccessPage',
+		
 		//Account
 		AccountIndexPage : 'pages/Account/AccountIndexPage',
 		ChangePasswordPage : 'pages/Account/ChangePasswordPage',
@@ -52,13 +55,16 @@ requirejs.config({
 // Start the main app 
 requirejs(
 	['jquery', 
-	'jquery-weui', 
-	'myNavbar',
-	'myPage',
-	'myForm',
+//	'jquery-weui', 
 	],
 	function($) {
 		requirejs(['fastclick'], function(FastClick) {
 			FastClick.attach(document.body);
+		})
+		requirejs(['myNavbar'], function() {
+		})
+		requirejs(['myPage'], function() {
+		})
+		requirejs(['myForm'], function() {
 		})
 	});
