@@ -1,6 +1,7 @@
 <?php 
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
+$point_count = $this->Point()->getCountByNow();
 $token = $this->Token()->getToken();
 
 ?>
