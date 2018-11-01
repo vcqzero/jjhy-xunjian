@@ -4,6 +4,7 @@ namespace Api\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Api\Service\WorkyardManager;
+use Api\Entity\WorkyardEntity;
 
 class WorkyardController extends AbstractActionController
 {
@@ -26,6 +27,20 @@ class WorkyardController extends AbstractActionController
         
         // Return the response
         return $response;
+    }
+    
+    public function validNameAction()
+    {
+        $name = $this->params()->fromPost('name');
+        $old_name = $this->params()->fromPost('old_name');
+        if($name == $old_name) {
+            $this->ajax()->valid(true);
+        }
+        $where = [
+            WorkyardEntity::FILED_NAME => $name
+        ];
+        $count = $this->WorkyardManager->MyOrm->count($where);
+        $this->ajax()->valid(empty($count));
     }
     
     //edit the website infomation

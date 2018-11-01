@@ -37,6 +37,16 @@ class UserHelper extends AbstractHelper
         return $this->UserManager->findUserByIdentity($identity);
     }
     
+    public function getRoleName($role)
+    {
+        if($role == UserManager::ROLE_SUPER_ADMIN){
+            return '系统管理员';
+        }
+        
+        if($role == UserManager::ROLE_WORKYARD_ADMIN){
+            return '工地管理员';
+        }
+    }
     
     /**
     * 判断用户是否是管理员

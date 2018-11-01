@@ -226,3 +226,10 @@ a.panel-collapse-link{
 a.panel-collapse-link :hover{
 	color: #C5C7CB;
 }
+.img-circle.profile_img{
+	border: none !important;
+	padding: 0;
+}
+.img-circle {
+    border-radius: 0;
+ }

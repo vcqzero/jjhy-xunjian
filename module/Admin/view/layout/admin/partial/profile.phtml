@@ -1,12 +1,15 @@
 <?php 
 $username = $this->identity();
+$UserEntity = $this->User()->getEntityByIdentity($username);
+$role = $UserEntity->getRole();
+$roleName = $this->User()->getRoleName($role);
 ?>
 <div class="profile clearfix">
     <div class="profile_pic">
     	<img src="/_admin/images/user_avatar.png" alt="个人头像" class="img-circle profile_img">
     </div>
     <div class="profile_info">
-    	<span>欢迎回来</span>
+    	<span><?=$roleName?></span>
     	<h2><?=$username?></h2>
     </div>
 </div>

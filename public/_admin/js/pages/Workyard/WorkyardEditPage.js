@@ -98,6 +98,17 @@ define(
 									message: '最长36个字符',
 									max: 124,
 								},
+								
+								remote: {
+									url: '/api/workyard/validName',
+									type: 'POST', //以post的方式发生信息
+									message: '名称已存在',
+									data: function(validator) {
+										return {
+											old_name: validator.getFieldElements('old_name').val(),
+										};
+									},
+								},
 							}
 						},
 

@@ -16,7 +16,10 @@ $token = $this->Token()->getToken();
 	    'type' => 'text',
 	    'value'=> $name,
 	])?>
-	
+	<?=$this->partial('partial/admin/form/input/input-hide.phtml', [
+        'name' => 'old_name',
+	    'value' => $name,
+	])?>
 	<div class="form-group">
     	<label class="control-label col-md-3 col-sm-3 col-xs-12">具体地址：</label>
     	<div class="col-md-6 col-sm-6 col-xs-12">

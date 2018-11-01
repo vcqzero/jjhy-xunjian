@@ -1,5 +1,6 @@
 <?php 
 use Api\Service\UserManager;
+$this->headTitle('首页');
 
 $identity = $this->identity();
 $Entity   = $this->User()->getEntityByIdentity($identity);
