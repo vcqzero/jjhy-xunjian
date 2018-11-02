@@ -1,5 +1,6 @@
 body, html {
   height: 100%;
+  display: flex;
   -webkit-tap-highlight-color: transparent;
 }
 * {
@@ -114,4 +115,10 @@ div.weui-form-preview{
 label.error{
 	font-size: small;
 	color: red;
+}
+.weui-footer_fixed-bottom {
+	position: absolute;
+}
+.logo img {
+	width: 35%;
 }

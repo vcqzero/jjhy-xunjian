@@ -67,4 +67,6 @@ requirejs(
 		})
 		requirejs(['myForm'], function() {
 		})
+		var hei = $('body')[0].clientHeight;
+		$('.container').css('height', hei);
 	});

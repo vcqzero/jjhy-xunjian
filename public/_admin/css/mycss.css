@@ -233,3 +233,6 @@ a.panel-collapse-link :hover{
 .img-circle {
     border-radius: 0;
  }
+ .logo img {
+ 	width: 120px;
+ }

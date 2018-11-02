@@ -1,6 +1,6 @@
 <?php 
 $title = $this->Website()->getTitle();
-$record = $this->Website()->getRecord();
+
 $token = $this->Token()->getToken();
 
 ?>
@@ -32,18 +32,7 @@ $token = $this->Token()->getToken();
                   </div>
               </form>
               <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">如忘记账户或密码，请联系管理员！
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <p><?=$record?></p>
-                </div>
-              </div>
+              <?=$this->partial('partial/admin/footer/auth-footer.phtml')?>
           </section>
         </div>
       </div>
