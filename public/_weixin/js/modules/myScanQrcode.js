@@ -30,17 +30,6 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		getAddressPath()
 		//扫码
 		scanQRCode()
-		//输入巡检点状况
-		prompt()
-
-		//test
-//		data['point_id'] = 8
-//		data['point_id'] = 11
-//		data['point_id'] = 12
-//		data['point_id'] = 13
-//		data['point_id'] = 14
-//		data['point_id'] = 1 //巡检点无效
-//		status_scan_qrcode = true
 
 	})
 
@@ -95,8 +84,13 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			success: function(res) {
 				try {
 					var str = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+					var strObj = JSON.parse(str)
+					//test
+//					var strObj = {
+//						'point_id' : '29'
+//					}
 					//设置二维码未json字符串{point_id : 'point_id'}
-					var strObj = JSON.parse(res)
+					
 					var point_id = strObj['point_id']
 					if(point_id.length < 1) {
 						throw '未查询到巡检点'
@@ -104,7 +98,9 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 					//添加巡检点id
 					data['point_id'] = point_id
 					status_scan_qrcode = true
-					trigger()
+					$.toptip('扫码成功', 'success');
+					//输入巡检点状况
+					prompt()
 
 				} catch(err) {
 					$.alert('扫码失败', function() {
@@ -183,7 +179,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		var params = []
 		var _url   = '/shiftTime/successPage'
 		for(var key in data) {
-			var vaule = data[key]
+			var value = data[key]
 			var param = key + '=' + value
 			params.push(param)
 		}

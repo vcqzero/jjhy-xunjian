@@ -27,6 +27,7 @@ $token = $this->Token()->getToken();
     <?=$this->partial('partial/admin/form/select/workyard/select-workyards.phtml', [
         'selectedId'  => null,
         'withDefualt' => true,
+        'withWarnig'  => true,
     ])?>
     
 <?php $this->placeholder('formContent')->captureEnd() ?>

@@ -12,7 +12,16 @@ class ShiftTimePointManager
 {
     public $MyOrm;
     public $PointManager;
+    public $ShiftManager;
     
+    /**
+     * @param field_type $ShiftManager
+     */
+    public function setShiftManager(ShiftManager $ShiftManager)
+    {
+        $this->ShiftManager = $ShiftManager;
+    }
+
     /**
      * @param PointManager
      */
@@ -92,17 +101,21 @@ class ShiftTimePointManager
     * @param  
     * @return bool       
     */
-    public function hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_time_id)
+    public function hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_id, $shift_time_id)
     {
+        //获取该巡检开始时间
+        $Shift = $this->ShiftManager->MyOrm->findOne($shift_id);
+        $start_time = $Shift->getStart_time();
         //获取该工地所有巡检点数量
         $where = [
-            PointEntity::FILED_WORKYARD_ID => $workyard_id
+            PointEntity::FILED_WORKYARD_ID => $workyard_id,
         ];
+        $where[] = new \Zend\Db\Sql\Predicate\Between(PointEntity::FILED_CREATED, 0, $start_time);
         $all_count = $this->PointManager->MyOrm->count($where);
         //获取该巡检已完成的巡检点数量
         $done_count = $this->getCountOnDone($shift_time_id);
         
-        return  $all_count == $done_count;
+        return  $all_count <= $done_count;
     }
 }
 

@@ -74,6 +74,9 @@ class TokenPlugin extends AbstractPlugin
     public function isValid($token)
     {
         $res = false;
+        if (empty($token)) {
+            return false;
+        }
         try{
             $tokenArray  = explode(self::TOKEN_SEPERATE, $token);
             $tokenName   = $tokenArray[0];

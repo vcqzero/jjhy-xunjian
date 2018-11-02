@@ -67,6 +67,7 @@ requirejs.config({
 		
 		//Shift
 		ShiftListPage : 'pages/Shift/ShiftListPage',
+		ShiftDetailModal : 'pages/Shift/ShiftDetailModal',
 		ShiftAddModal : 'pages/Shift/ShiftAddModal',
 		ShiftEditModal : 'pages/Shift/ShiftEditModal',
 		ShiftDeleteModal : 'pages/Shift/ShiftDeleteModal',

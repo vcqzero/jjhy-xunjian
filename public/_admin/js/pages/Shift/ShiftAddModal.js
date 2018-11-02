@@ -61,7 +61,7 @@ define(
 
 					//失败
 					error: {
-						toast: '操作失败',
+						toast: '值班时间冲突',
 						route: 'reload',
 					},
 				}
@@ -124,7 +124,7 @@ define(
 						var form = arguments[0]
 						var _select_guard = form.find('select[name="guard_ids[]"]')
 						var value = _select_guard.val()
-						if (value.length < 1) {
+						if (value == null) {
 							alert('请选择巡逻人员')
 							return false;
 						}

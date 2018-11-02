@@ -6,14 +6,7 @@ define(['jquery'], function($) {
 			var form_id = form.attr('id')
 			var _config = config['forms'][form_id]
 			if(_config) {
-				if(isModal(page)) {
-					page.modal('hide')
-					page.on('hidden.bs.modal', function() {
-						doResult(resObj, _config)
-					})
-				} else {
-					doResult(resObj, _config)
-				}
+				doResult(resObj, _config)
 			} else {
 				console.log('ERROR 未找到表单提交之后执行的配置文件信息，请确保已配置')
 			}
@@ -57,7 +50,7 @@ define(['jquery'], function($) {
 				}
 				location = route
 			},
-			1200
+			1500
 		)
 	}
 

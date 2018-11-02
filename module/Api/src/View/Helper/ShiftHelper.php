@@ -67,7 +67,6 @@ class ShiftHelper extends AbstractHelper
             $where[] = new \Zend\Db\Sql\Predicate\Between(ShiftEntity::FILED_START_TIME, $start, $end);
         }
         
-        
         //set guard_id
         if (!empty($query['guard_id']))
         {
@@ -79,16 +78,19 @@ class ShiftHelper extends AbstractHelper
         $Select = new Select();
         $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
         $on = 's.id=sg.shift_id';
-        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_LEFT);
+        $Select->join(['sg'=>ShiftGuardEntity::TABLE_NAME], $on, [], Select::JOIN_RIGHT);
         $Select->where($where);
         
         //order
         $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_ASCENDING];
         $Select->order($order);
+        
+        //group by
+        $Select->group(ShiftEntity::FILED_ID);
+        
 //         $this->ShiftManager->MyOrm->startDebug();
         $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, new ShiftEntity());
 //         $this->ShiftManager->MyOrm->stopDebug();
-        $paginator::setDefaultItemCountPerPage(12);
         return $paginator;
     }
     
@@ -127,6 +129,9 @@ class ShiftHelper extends AbstractHelper
         //order
         $order = [ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING];
         $Select->order($order);
+        
+        //group by
+        $Select->group(ShiftEntity::FILED_ID);
         
         $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, new ShiftEntity());
         $paginator::setDefaultItemCountPerPage(12);

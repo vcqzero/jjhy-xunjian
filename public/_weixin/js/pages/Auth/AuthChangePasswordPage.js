@@ -65,6 +65,7 @@ define(
 			init: function(pageName, page) {
 				var reason = page.find('form').attr('data-reason')
 				$.alert(reason)
+				$('form').find('input').val('')
 				myResult.init(page, myResultConfig)
 				myValidator.init(page, myValidatorConfig)
 			}

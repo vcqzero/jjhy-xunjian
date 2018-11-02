@@ -1,6 +1,4 @@
 <?php
-use Api\Entity\PointEntity;
-
 $shift_id       = $this->shift_id;
 $workyard_id    = $this->workyard_id;
 
@@ -14,7 +12,7 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
 			<tr>
 				<th>#</th>
 				<th>巡检点</th>
-				<th>地址</th>
+				<th>位置</th>
 			</tr>
 		</thead>
 		<tbody>

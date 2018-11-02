@@ -3,6 +3,7 @@ $selectedId     = $this->selectedId;
 $withDefualt    = $this->withDefualt;
 $defaultTitle   = $this->defaultTitle ? $this->defaultTitle : '请选择...';
 $disabled       = $this->disabled;
+$withWarnig     = $this->withWarnig;
 $WorkyardEntities = $this->Workyard()->getEntities();
 
 /* <?=$this->partial('partial/admin/form/select/workyard/select-workyards.phtml', [
@@ -40,7 +41,7 @@ $WorkyardEntities = $this->Workyard()->getEntities();
 				<?php endforeach;?>
 			<?php endif;?>
 	</select>
-	<?php if (empty(count($WorkyardEntities))) :?>
+	<?php if ($withWarnig === true && empty(count($WorkyardEntities))) :?>
 	<a href="/workyard" class="text-danger">请先增加工地</a>
     <?php endif;?>
 	</div>

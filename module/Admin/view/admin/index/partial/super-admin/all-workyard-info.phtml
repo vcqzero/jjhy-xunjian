@@ -5,18 +5,22 @@ $Entities = $this->Workyard()->getEntities();
 <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
 	<ul 
 	id ="workyard_info"
-	class="list-unstyled user_data"
-	style="max-height: 430px; overflow: auto">
+	class="list-unstyled user_data list-group"
+	style="max-height: 600px; overflow: auto">
 		<?php foreach ($Entities as $Entity):?>
     	<?php
             $name = $Entity->getName();
             $address = $Entity->getAddress();
+            $note    = $Entity->getNote();
             $address_path = $Entity->getAddress_path();
         ?>
     	<li data-address-path=<?=$address_path?>>
-			<h5>
-				<a href="javascript:;"><strong><?=$name?></strong></a>
-			</h5> <span class="text-muted"><?=$address?></span>
+    		<a href="javascript:;" class="list-group-item">
+            	<h4 class="list-group-item-heading"><?=$name?></h4>
+            	<p class="list-group-item-text"><?=$address?></p>
+            	<br />
+            	<p class="list-group-item-text"><?=$note?></p>
+          	</a>
 		</li>
     	<?php endforeach;?>
 	</ul>

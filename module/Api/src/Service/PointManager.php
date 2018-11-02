@@ -36,14 +36,19 @@ class PointManager
     /**
     * 生成二维码，返回生成的二维码文件名称
     * 
-    * @param array $values 要保存到二维码中的信息
+    * @param int $point_id
+    * @param int $workyard_id
     * @return string 二维码名称       
     */
     public function generateQrCode($point_id, $workyard_id)
     {
         //获取生产二维码对象
-        $text   = json_encode(['point_id' => $point_id]);
-        $qrCode = new QrCode($text);
+        $data = [
+            'point_id' => $point_id,
+            'workyard_id' => $workyard_id,
+        ];
+        $string   = json_encode($data);
+        $qrCode = new QrCode($string);
         $qrCode->setEncoding('UTF-8');
         $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::MEDIUM);
         
@@ -61,6 +66,5 @@ class PointManager
         
         return $qr_name;
     }
-    
 }
 

@@ -32,6 +32,7 @@ $paginator = $this->Workyard()->getPaginator($page, $where);
 <table class="table table-striped jambo_table">
     <thead>
         <tr>
+          <th class="th-id">id</th>
           <th >名称</th>
           <th >具体地址</th>
           <th >详情</th>
@@ -48,6 +49,7 @@ $paginator = $this->Workyard()->getPaginator($page, $where);
       		$address    = $Entity->getAddress();
       		?>
       		<tr>
+      		<td><?=$workyardID?></td>
       		<td><?=$name?></td>
       		<td><?=$address?></td>
       		<td><?=$note?></td>

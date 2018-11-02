@@ -8,17 +8,20 @@ use Api\Service\ShiftTimePointManager;
 use Api\Entity\ShiftTimePointEntity;
 use Api\Service\PointManager;
 use Api\Entity\ShiftTimeEntity;
+use Api\Service\ShiftManager;
 
 class ShiftTimeController extends AbstractActionController
 {
     private $ShiftTimeManager;
     private $ShiftTimePointManager;
     private $PointManager;
+    private $ShiftManager;
     
     public function __construct(
         ShiftTimeManager $ShiftTimeManager,
         ShiftTimePointManager $ShiftTimePointManager,
-        PointManager $PointManager
+        PointManager $PointManager,
+        ShiftManager $ShiftManager
         )
     {
         $this->ShiftTimeManager = $ShiftTimeManager;
@@ -26,6 +29,7 @@ class ShiftTimeController extends AbstractActionController
         $this->PointManager = $PointManager;
         
         $this->ShiftTimePointManager->setPointManager($PointManager);
+        $this->ShiftTimePointManager->setShiftManager($ShiftManager);
     }
     /**
      * We override the parent class' onDispatch() method to
@@ -54,7 +58,7 @@ class ShiftTimeController extends AbstractActionController
         $MyOrm = $this->ShiftTimePointManager->MyOrm;
         $shift_time_id  = $this->params()->fromPost('shift_time_id');
         $point_id       = $this->params()->fromPost('point_id');
-//         $shift_id= $this->params()->fromQuery('shift_id');
+        $shift_id       = $this->params()->fromPost('shift_id');
         $workyard_id    = $this->params()->fromQuery('workyard_id');
         
         //判断巡检点是否合法
@@ -69,6 +73,7 @@ class ShiftTimeController extends AbstractActionController
         try{
             $values= $this->params()->fromPost();
             $values[ShiftTimePointEntity::FILED_TIME] = time();
+            unset($values['shift_id']);
             $res = $MyOrm->insert($values);
             $shift_time_point_id = $MyOrm->getLastInsertId();
             if(empty($res)) {
@@ -77,7 +82,7 @@ class ShiftTimeController extends AbstractActionController
             
             //如果此时已完成全部巡检点的巡检任务
             //则将该次巡检标记为完成
-            if ($this->ShiftTimePointManager->hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_time_id)) {
+            if ($this->ShiftTimePointManager->hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_id, $shift_time_id)) {
                 $set= [
                     ShiftTimeEntity::FILED_STATUS => ShiftTimeManager::STATUS_DONE
                 ];

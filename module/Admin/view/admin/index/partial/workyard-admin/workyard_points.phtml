@@ -7,7 +7,7 @@ $Entities = $this->Point()->getEntities($where);
 $count = count($Entities);
 ?>
     <h5 class="text-muted">共<?=$count?>个巡检点</h5>
-    <ul class="list-unstyled user_data" style="max-height: 430px; overflow: auto">
+    <ul class="list-unstyled user_data" style="max-height: 530px; overflow: auto">
     	<?php if($count):?>
         	<?php foreach ($Entities as $Entity):?>
         	<?php 

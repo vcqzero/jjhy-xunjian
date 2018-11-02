@@ -214,7 +214,7 @@ body.error{
 	font-size: medium;
 }
 #select-range-date {
-	min-width: 180px;
+	min-width: 200px;
 }
 
 .modal-xlg {
@@ -236,3 +236,7 @@ a.panel-collapse-link :hover{
  .logo img {
  	width: 120px;
  }
+
+table thead .th-desc {
+	max-width: 25%;
+}

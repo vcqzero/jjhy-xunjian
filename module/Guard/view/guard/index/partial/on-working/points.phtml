@@ -28,7 +28,7 @@ data-done-count="<?=$all_done_point_count?>"
         
         //该巡检点巡检信息
         $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
-        $has_done = $this->ShiftTimePoint()->hasDone($shift_time_id, $point_id);
+        $has_done = !empty($ShiftTimePointEntity->getId());
         $time = $ShiftTimePointEntity->getTime();
         $note = $ShiftTimePointEntity->getNote();
         
@@ -37,6 +37,8 @@ data-done-count="<?=$all_done_point_count?>"
           <a 
           class="weui-cell weui-cell_access alert-point-info" 
           href="javascript:;"
+          data-point-point-id="<?=$this->escapehtml($point_id)?>"
+          data-point-shift-time-id="<?=$this->escapehtml($shift_time_id)?>"
           data-point-address="<?=$this->escapehtml($address)?>"
           data-point-time="<?=$this->escapehtml($time)?>"
           data-point-note="<?=$this->escapehtml($note)?>"

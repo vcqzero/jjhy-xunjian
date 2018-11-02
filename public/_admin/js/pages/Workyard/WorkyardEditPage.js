@@ -134,6 +134,15 @@ define(
 							}
 						},
 					},
+					
+					callback : function() {
+						var path = $('input[name="address_path"]').val()
+						if (path.length < 1) {
+							alert('请在地图上标出工地')
+							return false;
+						}
+						return true;
+					}
 				},
 			},
 		}

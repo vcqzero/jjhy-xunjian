@@ -13,7 +13,7 @@ define(
 
 					//失败
 					'error': {
-						toast: '登录失败',
+						toast: '用户名或密码错误',
 						route: 'reload',
 					},
 				}

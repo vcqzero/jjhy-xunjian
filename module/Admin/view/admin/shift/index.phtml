@@ -4,6 +4,7 @@ $page      = $this->page;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 $paginator   = $this->Shift()->getPaginator($workyard_id, $page, $where);
+
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
 <?=$this->partial('partial/admin/button/single.phtml', [

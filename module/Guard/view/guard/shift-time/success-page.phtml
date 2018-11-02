@@ -16,6 +16,9 @@ $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntityById($shift_time_point
 $time = $ShiftTimePointEntity->getTime();
 $note = $ShiftTimePointEntity->getNote();
 $time = date('Y-m-d H:i');
+
+$hasDone = $this->ShiftTime()->hasDone($shift_time_id);
+
 ?>
 
 <?php $this->placeholder('content')->captureStart();?>
@@ -27,7 +30,7 @@ $time = date('Y-m-d H:i');
   </div>
   <div class="weui-msg__opr-area">
     <p class="weui-btn-area">
-      <a href="/" class="weui-btn weui-btn_primary">前往下一巡检点</a>
+      <a href="/" class="weui-btn weui-btn_primary"><?=$hasDone ? '本次巡检完成，执行下一次巡检' : '前往下一巡检点'?></a>
     </p>
   </div>
   <div class="weui-msg__extra-area">

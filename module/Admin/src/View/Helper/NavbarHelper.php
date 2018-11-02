@@ -82,11 +82,11 @@ class NavbarHelper extends AbstractHelper
             
             '管理员/工地管理'=>[
                 
-                '管理员'=> [
+                '工地管理员'=> [
                     'icon'  => 'fa fa-users',
                     'menus' => [
                         1=>[
-                            'title'=> '管理员',
+                            'title'=> '工地管理员',
                             'url' => '/user',
                             'allow' => [UserManager::ROLE_SUPER_ADMIN],
                         ],

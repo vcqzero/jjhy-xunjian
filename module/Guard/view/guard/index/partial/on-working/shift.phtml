@@ -40,7 +40,7 @@ data-token="<?=$token?>"
       <div class="weui-cell">
 <!--         <div class="weui-cell__hd"><i class="fa  fa-coffee icon-in-list"></i></div> -->
         <div class="weui-cell__bd">
-          <p>当前值班</p>
+          <p class="">当前值班</p>
         </div>
         <div class="weui-cell__ft"><?=$shift_type_name?></div>
       </div>
@@ -66,7 +66,7 @@ data-token="<?=$token?>"
     		
     		<div class="weui-form-preview__item">
     			<label class="weui-form-preview__label">状态</label> <span
-    				class="weui-form-preview__value"><?=$has_done ? '巡检完成' : '第' . $next_count . '次巡检中...'?></span>
+    				class="weui-form-preview__value text-danger"><?=$has_done ? '巡检完成' : '第' . $next_count . '次巡检中...'?></span>
     		</div>
     	</div>
     	<div class="weui-form-preview__ft">
@@ -74,6 +74,9 @@ data-token="<?=$token?>"
     		<button 
             class="weui-form-preview__btn weui-form-preview__btn_default" 
             >本次巡检已完成</button>
+            <a 
+            class="weui-form-preview__btn weui-form-preview__btn_primary" 
+            href="/shift/shiftDetail/<?=$shift_id?>/<?=$workyard_id?>">巡检记录</a>
     		<?php else :?>
             <a 
             class="weui-form-preview__btn weui-form-preview__btn_primary scan-qrcode" 

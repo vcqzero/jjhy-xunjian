@@ -4,6 +4,7 @@ namespace Api\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Api\Service\ShiftTimeManager;
 use Api\Entity\ShiftTimeEntity;
+use Api\Model\MyOrm;
 
 class ShiftTimeHelper extends AbstractHelper 
 {
@@ -32,6 +33,13 @@ class ShiftTimeHelper extends AbstractHelper
         
         $count = $this->ShiftTimeManager->MyOrm->count($where);
         return $count;
+    }
+    
+    public function hasDone($shift_time_id)
+    {
+        $ShiftTime = $this->ShiftTimeManager->MyOrm->findOne($shift_time_id);
+        $status = $ShiftTime->getStatus();
+        return $status == ShiftTimeManager::STATUS_DONE;
     }
     
     /**

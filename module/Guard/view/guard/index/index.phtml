@@ -35,7 +35,8 @@ $has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard
 <!-- 如果没有当前值班任务，但是有值班安排 -->
 <?php elseif ($has_shifts_on_plan):?>
 <?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
-    'title' => '当前无巡检任务',
+    'title' => '无进行中的巡检任务',
+    'desc' => '请留意值班安排',
 ])?>
 <!-- 显示1条值班安排 -->
 <?=$this->partial('guard/index/partial/on-plan/shift.phtml', [
@@ -48,7 +49,6 @@ $has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard
 
 <?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
     'title' => '无内容',
-    'desc' => '没有值班任务和值班安排',
 ])?>
 <?php endif;?>
 

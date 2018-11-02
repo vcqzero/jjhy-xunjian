@@ -1,0 +1,40 @@
+<?php
+$workyard_id    = $this->workyard_id;
+$PointEntities = $this->Point()->getEntitiesOnShift($workyard_id);
+?>
+
+<div class="form-group">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">巡检点：</label>
+		<?php if(count($PointEntities)):?>
+		<div id="point-name" 
+		class="form-control-static col-md-6 col-sm-6 col-xs-12"
+		>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>名称</th>
+    					<th>位置</th>
+    				</tr>
+    			</thead>
+                <tbody>
+    		<?php foreach ($PointEntities as $key=>$PointEntity) :?>
+            <?php
+                $point_id    = $PointEntity->getId();
+                $pointName   = $PointEntity->getName();
+                $address     = $PointEntity->getAddress();
+                ?>
+                <tr>
+                <td><?=$this->escapehtml($pointName)?></td>
+                <td><?=$this->escapehtml($address)?></td>
+                </tr>
+            <?php endforeach;?>
+              </tbody>
+           </table>
+		</div>
+		<?php else :?>
+		<p class="form-control-static " >
+		<a href="/point" class="text-danger">请先添加巡检点</a>
+		</p>
+		<?php endif;?>
+	</div>
+

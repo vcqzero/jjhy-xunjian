@@ -33,6 +33,8 @@ class WorkyardController extends AbstractActionController
     {
         $name = $this->params()->fromPost('name');
         $old_name = $this->params()->fromPost('old_name');
+        $name = trim($name);
+        $old_name = trim($old_name);
         if($name == $old_name) {
             $this->ajax()->valid(true);
         }

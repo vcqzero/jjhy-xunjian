@@ -25,8 +25,9 @@ $workyard_name  = $WorkyardEntity->getName();
 <table class="table table-striped jambo_table">
     <thead>
         <tr>
+          <th >id</th>
           <th >巡检点</th>
-          <th >巡检点地址</th>
+          <th >所在位置</th>
           <th >添加人</th>
           <th >操作</th>
     	</tr>
@@ -43,6 +44,7 @@ $workyard_name  = $WorkyardEntity->getName();
       		$download_name = $workyard_name . "_" . $name;
       		?>
       		<tr>
+      		<td><?=$poinID?></td>
       		<td><?=$name?></td>
       		<td><?=$address?></td>
       		<td><?=$created_by?></td>

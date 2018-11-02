@@ -122,3 +122,6 @@ label.error{
 .logo img {
 	width: 35%;
 }
+.text-danger {
+  color: #a94442;
+}
