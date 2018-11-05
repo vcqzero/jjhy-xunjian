@@ -3281,7 +3281,7 @@ ul.project_files li a i {
 }
 
 .form-group.has-feedback span {
-	display: block!important
+	/*display: block!important*/
 }
 
 .form-group .btn {

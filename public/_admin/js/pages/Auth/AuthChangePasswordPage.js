@@ -8,8 +8,8 @@ define(
 				'auth-change-password': {
 					//成功
 					success: {
-						toast: '修改成功,请重新登录',
-						route: '/api/auth/logout',
+						toast: '修改成功',
+						route: '/',
 					},
 
 					//失败

@@ -28,6 +28,7 @@ $workyard_name  = $WorkyardEntity->getName();
           <th >id</th>
           <th >巡检点</th>
           <th >所在位置</th>
+          <th >创建时间</th>
           <th >添加人</th>
           <th >操作</th>
     	</tr>
@@ -40,6 +41,7 @@ $workyard_name  = $WorkyardEntity->getName();
       		$name   = $Entity->getName();
       		$address= $Entity->getAddress();
       		$created_by    = $Entity->getCreated_by();
+      		$created       = $Entity->getCreated();
       		$qrcode_name   = $Entity->getQrcode_filename();
       		$download_name = $workyard_name . "_" . $name;
       		?>
@@ -47,6 +49,7 @@ $workyard_name  = $WorkyardEntity->getName();
       		<td><?=$poinID?></td>
       		<td><?=$name?></td>
       		<td><?=$address?></td>
+      		<td><?=date('Y-m-d H:i:s', $created)?></td>
       		<td><?=$created_by?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">

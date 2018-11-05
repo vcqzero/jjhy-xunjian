@@ -30,4 +30,11 @@ class WorkyardController extends AbstractActionController
     {
         return new ViewModel($this->params()->fromRoute());
     }
+    
+    public function detailModalAction()
+    {
+        $view = new ViewModel($this->params()->fromRoute());
+        $view ->setTerminal(true);
+        return $view;
+    }
 }

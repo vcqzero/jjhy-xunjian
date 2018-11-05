@@ -240,3 +240,14 @@ a.panel-collapse-link :hover{
 table thead .th-desc {
 	max-width: 25%;
 }
+
+table th.th-button {
+	min-width: 12%;
+}
+.my-alert-info{
+	text-align: left;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	margin-bottom: 0;
+}

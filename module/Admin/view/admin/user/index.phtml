@@ -27,6 +27,7 @@ $paginator = $this->User()->getPaginator($page, $where);
 <table class="table table-striped jambo_table">
     <thead>
         <tr>
+          <th >id</th>
           <th >用户名</th>
           <th >所辖工地</th>
           <th >电话</th>
@@ -48,6 +49,7 @@ $paginator = $this->User()->getPaginator($page, $where);
       		$realname   = $UserEntity->getRealName();
       		?>
       		<tr>
+      		<td><?=$userID?></td>
       		<td><?=$username?></td>
       		<td><?=$workyard_name?></td>
       		<td><?=$tel?></td>

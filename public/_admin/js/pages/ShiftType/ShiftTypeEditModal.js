@@ -66,6 +66,20 @@ define(
 								},
 							}
 						},
+						start_time: {
+							validators: {
+								notEmpty: {
+									message: '请输入开始时间',
+								},
+							},
+						},
+						end_time: {
+							validators: {
+								notEmpty: {
+									message: '请输入结束时间',
+								},
+							},
+						},
 					},
 				},
 			},

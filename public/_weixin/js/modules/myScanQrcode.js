@@ -25,7 +25,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			'shift_time_id': shift_time_id,
 			'shift_id': shift_id,
 		}
-
+		$.toast('正开启扫码...', "text")
 		//获取地理位置
 		getAddressPath()
 		//扫码
@@ -40,33 +40,30 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		if(status_get_address !== true) {
 			return false;
 		}
-		if(status_prompt !== true) {
-			return false;
-		}
 		send()
 	}
 
-	var prompt = function() {
-		$.prompt({
-			title: '巡检状况',
-			text: '选填：可输入巡检状况',
-			empty: true, // 是否允许为空
-
-			onOK: function(_input) {
-				//点击确认
-				data['note'] = _input
-				status_prompt = true
-				trigger()
-			},
-
-			onCancel: function() {
-				//点击取消
-				status_prompt = true
-				trigger()
-			}
-
-		});
-	}
+//	var prompt = function() {
+//		$.prompt({
+//			title: '巡检状况',
+//			text: '选填：可输入巡检状况',
+//			empty: true, // 是否允许为空
+//
+//			onOK: function(_input) {
+//				//点击确认
+//				data['note'] = _input
+//				status_prompt = true
+//				trigger()
+//			},
+//
+//			onCancel: function() {
+//				//点击取消
+//				status_prompt = true
+//				trigger()
+//			}
+//
+//		});
+//	}
 
 	var scanQRCode = function() {
 		wx.scanQRCode({
@@ -74,7 +71,6 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
 
 			fail: function(errMsg) {
-				//				console.log(errMsg)
 				$.alert('扫码失败,请确保微信有调用摄像头权限', function() {
 					status_scan_qrcode = false
 					location.reload()
@@ -98,9 +94,8 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 					//添加巡检点id
 					data['point_id'] = point_id
 					status_scan_qrcode = true
-					$.toptip('扫码成功', 'success');
 					//输入巡检点状况
-					prompt()
+					trigger()
 
 				} catch(err) {
 					$.alert('扫码失败', function() {

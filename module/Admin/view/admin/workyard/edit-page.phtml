@@ -51,13 +51,12 @@ $token = $this->Token()->getToken();
     <?=$this->partial('partial/admin/form/textarea.phtml', [
         'id'    => '',
         'label' => '具体信息：',
-        'name' => 'note',
+        'name'  => 'note',
         'value' => $note,
         'placeholder' => '选填：工地详细信息',
 	])?>
-<?php $this->placeholder('formContent')->captureEnd() ?>
+<?php $this->placeholder('formContent')->captureEnd()?>
 
-<?php $this->placeholder('formContent')->captureEnd() ?>
 <?=$this->partial('partial/admin/page/page/form-page.phtml', [
     'pageName'      => 'WorkyardEditPage',
     'pageTitle'     => '编辑工地',

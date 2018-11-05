@@ -1,0 +1,44 @@
+<?php
+$workyardID = $this->workyardID;
+$WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyardID);
+$name       = $WorkyardEntity->getName();
+$note       = $WorkyardEntity->getNote();
+$address    = $WorkyardEntity->getAddress();
+$address_path = $WorkyardEntity->getAddress_path();
+?>
+
+<?php $this->placeholder('modalBody')->captureStart();?>
+<div class="panel panel-default">
+  <!-- Table -->
+  <table class="table">
+  <thead>
+  	<tr>
+  		<th>名称</th>
+  		<th>地址</th>
+  		<th>介绍</th>
+  	</tr>
+  </thead>
+  <tbody>
+  	<tr>
+  		<td><?=$name?></td>
+  		<td><?=$address?></td>
+  		<td><?=$note?></td>
+  	</tr>
+  </tbody>
+  </table>
+  <div class="panel-body">
+  <div id="map_container" 
+  style="min-height: 500px; max-width: none;"
+  ></div>
+  <div class="hide" id="map_container_address_path"><?=$address_path?></div>
+  </div>
+
+</div>
+<?php $this->placeholder('modalBody')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
+    'pageName'      => 'WorkyardDetailModal',
+    'pageTitle'     => '工地详情',
+    'modalSize'     => 'lg',
+    'modalBody'   => $this->placeholder('modalBody'),
+])?> 

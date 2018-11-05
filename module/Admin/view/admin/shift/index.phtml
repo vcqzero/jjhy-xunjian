@@ -99,6 +99,10 @@ $paginator   = $this->Shift()->getPaginator($workyard_id, $page, $where);
             ])?>
       		<?php endif;?>
       		
+      		<?php if ($start_time <= time() && time() <= $end_time) :?>
+      		<span class="text-danger">值班中...</span>
+      		<?php endif;?>
+      		
             </div>
       		</td>
             </tr>

@@ -36,6 +36,13 @@ $token = $this->Token()->getToken();
 			</div>
 			<input type="hidden" name="address_path">
     	</div>
+    	<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-12" id="">
+    	<div class="alert alert-info my-alert-info" role="alert">
+    		<p>开始绘制：点击绘制按钮， 在地图上点鼠标左键 创建点;</p> 
+    		<p>完成绘制： 点击鼠标右键完成绘制</p> 
+    		<p>重新绘制：点击删除按钮，然后重新绘制即可</p> 
+    		</div>
+    	</div>
     </div>
     <?=$this->partial('partial/admin/form/textarea.phtml', [
         'id'    => '',
@@ -46,7 +53,6 @@ $token = $this->Token()->getToken();
 	])?>
 <?php $this->placeholder('formContent')->captureEnd() ?>
 
-<?php $this->placeholder('formContent')->captureEnd() ?>
 <?=$this->partial('partial/admin/page/page/form-page.phtml', [
     'pageName'      => 'WorkyardAddPage',
     'pageTitle'     => '新增工地',

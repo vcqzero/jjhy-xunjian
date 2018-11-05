@@ -85,6 +85,7 @@ requirejs.config({
 		WorkyardListPage:'pages/Workyard/WorkyardListPage',
 		WorkyardAddPage:'pages/Workyard/WorkyardAddPage',
 		WorkyardEditPage:'pages/Workyard/WorkyardEditPage',
+		WorkyardDetailModal:'pages/Workyard/WorkyardDetailModal',
 	},
 
 	//定义不同js的依赖关系
@@ -107,4 +108,5 @@ requirejs(
 	function($) {
 		//预加载一些
 		requirejs(['bootstrap_notify', 'myValidator', 'myResult'], function() {})
+		requirejs(['GaodeMap', 'GaodeMapUi'], function() {})
 	});

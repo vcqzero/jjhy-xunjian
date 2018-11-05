@@ -35,8 +35,8 @@ $paginator = $this->Workyard()->getPaginator($page, $where);
           <th class="th-id">id</th>
           <th >名称</th>
           <th >具体地址</th>
-          <th >详情</th>
-          <th >操作</th>
+          <th style="max-width: 30%">详情</th>
+          <th class="th-button">操作</th>
     	</tr>
     </thead>
       <tbody>
@@ -55,6 +55,12 @@ $paginator = $this->Workyard()->getPaginator($page, $where);
       		<td><?=$note?></td>
       		<td>
       		<div class="btn-group  btn-group-sm">
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '查看地图',
+      		    'data_modal_open' => true,
+      		    'data_modal_url' => '/workyard/detailModal/'.$workyardID, //string
+            ])?>
+            
       		<?=$this->partial('partial/admin/button/link.phtml', [
                 'title' => '编辑',
       		    'href' => '/workyard/editPage/'.$workyardID, //string

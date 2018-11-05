@@ -13,12 +13,12 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 class PointManager
 {
     const PATH_FORM_FILTER_CONFIG = 'module/Api/src/Filter/rules/Point.php';
-    
+    const PATH_LOGO_IN_QRCODE = 'data/qrcode/logo_qrcode.png';
     /**
     * 存放巡检点二维码文件路径
     * 以不同工地id分开保存
     */
-    const PATH_RECODE = 'data/qrcode/';
+    const PATH_QRCODE = 'data/qrcode/';
     
     public $MyOrm;
     public $FormFilter;
@@ -52,9 +52,16 @@ class PointManager
         $qrCode->setEncoding('UTF-8');
         $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::MEDIUM);
         
+        //set logo
+        $logoPath = self::PATH_LOGO_IN_QRCODE;
+        if (file_exists($logoPath)) 
+        {
+            $qrCode->setLogoPath($logoPath);
+            $qrCode->setLogoWidth(90);
+        }
         //获取该二维码名称
         //如果没有创建保存文件夹，创建
-        $dir = self::PATH_RECODE . $workyard_id;
+        $dir = self::PATH_QRCODE . $workyard_id;
         if (!file_exists($dir)) {
             mkdir($dir);
         }
