@@ -74,7 +74,6 @@ define(
 		}
 		return {
 			init: function(pageName, page) {
-				$('form').find('input').val('')
 				myResult.init(page, myResultConfig)
 				myValidator.init(page, myValidatorConfig)
 			}

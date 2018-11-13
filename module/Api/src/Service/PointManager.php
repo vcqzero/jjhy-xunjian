@@ -50,14 +50,14 @@ class PointManager
         $string   = json_encode($data);
         $qrCode = new QrCode($string);
         $qrCode->setEncoding('UTF-8');
-        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::MEDIUM);
+        $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
         
         //set logo
         $logoPath = self::PATH_LOGO_IN_QRCODE;
         if (file_exists($logoPath)) 
         {
             $qrCode->setLogoPath($logoPath);
-            $qrCode->setLogoWidth(90);
+            $qrCode->setLogoWidth(60);
         }
         //获取该二维码名称
         //如果没有创建保存文件夹，创建

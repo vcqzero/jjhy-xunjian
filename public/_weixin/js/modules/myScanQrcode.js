@@ -110,7 +110,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 
 	var getAddressPath = function() {
 		wx.getLocation({
-			type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+			type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
 			fail: function(errMsg) {
 				$.alert('未获取到位置，请确保微信有获取位置权限', function() {
 					status_get_address = false
