@@ -21,7 +21,7 @@ return [
     //配置mysql数据库 pdo
     'db' => array(
         'driver'         => 'Pdo',
-        'dsn'            => 'mysql:dbname=xunjian.com;host=127.0.0.1',
+        'dsn'            => 'mysql:dbname=xunjian;host=127.0.0.1',
         'charset'        => 'UTF8',
         'driver_options' => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'',
@@ -30,7 +30,7 @@ return [
     
     //配置session
     'session_config' => [
-        'cookie_lifetime'     =>  0, // 默认浏览器关闭时将客户端cookie设置为失效
+        'cookie_lifetime'     =>  7 * 24 * 60 * 60 , // 默认浏览器关闭时将客户端cookie设置为失效
         'gc_maxlifetime'      => 60 * 60 * 10, // How long to store session data on server (for 30 days).
     ],
     // Session storage configuration.

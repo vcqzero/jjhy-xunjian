@@ -181,13 +181,9 @@ class ShiftGuardHelper extends AbstractHelper
         //data
         //query the data before today
         $start = time();
-        
-//         //for test
-//         $start = 9999999999999;
-        
         $Select->where
-                ->lessThan(ShiftEntity::FILED_START_TIME, $start)
-                ->lessThan(ShiftEntity::FILED_END_TIME, $start);
+                ->lessThan(ShiftEntity::FILED_START_TIME, $start);
+//                 ->lessThan(ShiftEntity::FILED_END_TIME, $start);
         
         //if has where
         if (!empty($query['range']))

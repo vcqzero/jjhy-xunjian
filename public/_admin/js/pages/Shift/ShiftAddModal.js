@@ -18,9 +18,9 @@ define(
 			var _input = page.find('#datetimepicker')
 			var _config = {
 				singleDatePicker: false,
-				startDate: moment().add('1', 'days'),
-				endDate: moment().add('1', 'days'),
-				minDate: moment().add('1', 'days'),
+				startDate: moment(),
+				endDate: moment(),
+				minDate: moment(),
 				locale: {
 					applyLabel: '确认',
 					cancelLabel: '取消',
@@ -61,7 +61,7 @@ define(
 
 					//失败
 					error: {
-						toast: '值班时间冲突',
+						toast: '添加失败，请检查班次是否已存在',
 						route: 'reload',
 					},
 				}

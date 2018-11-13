@@ -44,7 +44,7 @@ $address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_i
             $time = $ShiftTimePointEntity->getTime();
             $note = $ShiftTimePointEntity->getNote();
             $address_path = $ShiftTimePointEntity->getAddress_path();
-            $time = $time ? date('Y-m-d H-i-s', $time) : '-';
+            $time = $time ? date('Y-m-d H:i:s', $time) : '-';
             $note = $note ? $note : '-';
             ?>
         	<tr data-address-path="<?=$address_path?>">

@@ -8,6 +8,7 @@ define(
 				var mapObj = arguments[0]
 				mapObj.plugin(['AMap.MouseTool', 'AMap.PolyEditor'], function() {
 					var mouseTool = new AMap.MouseTool(mapObj)
+					var _input = $('input[name="address_path"]')
 					$('#button-mouse-draw-start').on('click', function() {
 						mouseTool.polygon({
 							strokeColor: "#FF33FF",
@@ -23,6 +24,7 @@ define(
 						})
 					})
 					$('#button-mouse-draw-delete').on('click', function() {
+						_input.val('')
 						mapObj.clearMap()
 					})
 
@@ -31,7 +33,7 @@ define(
 						var obj = arguments[0]['obj']
 						var paths = myGaodemap.getPath(obj)
 						var _path = JSON.stringify(paths)
-						$('input[name="address_path"]').val(_path)
+						_input.val(_path)
 						mouseTool.close()
 					})
 				})

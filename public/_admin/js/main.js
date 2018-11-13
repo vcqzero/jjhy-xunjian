@@ -18,7 +18,7 @@ requirejs.config({
 		//mouse0270-bootstrap-notify
 		bootstrap_notify: 'https://cdn.bootcss.com/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min',
 		GaodeMap : 'https://webapi.amap.com/maps?v=1.4.10&key=bf7d1e214598b146869b101434b3210a',
-		GaodeMapUi : 'https://webapi.amap.com/ui/1.0/main.js?v=1.0.11',
+		GaodeMapUi : 'https:webapi.amap.com/ui/1.0/main-async',
 		datetimepicker : 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min',
 		daterangepicker : 'https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/daterangepicker.min',
 		datetimepicker_moment : 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min',

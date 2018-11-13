@@ -130,7 +130,26 @@ define(
 								},
 							}
 						},
+
+//						note: {
+//							validators: {
+//
+//								stringLength: {
+//									message: '最长200个字符',
+//									max: 512,
+//								},
+//							}
+//						},
 					},
+
+//					callback: function(form) {
+//						var address_position = $('input[name="address_position"]').val()
+//						if(address_position.length < 1) {
+//							alert('请标记巡检点')
+//							return false;
+//						}
+//						return true;
+//					}
 				},
 			},
 

@@ -96,6 +96,8 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
       		<td>
       			<?php if ($has_done):?>
       			<span class="text-success">已完成</span>
+      			<?php elseif ($end_time >= time()) :?>
+      			<span class="text-warning">巡检中...</span>
       			<?php else :?>
       			<span class="text-danger">未完成</span>
       			<?php endif;?>

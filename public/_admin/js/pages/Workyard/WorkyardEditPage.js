@@ -7,7 +7,11 @@ define(
 				var mapObj = arguments[0]
 				var inputAddressPath = $('input[name="address_path"]')
 				var path = inputAddressPath.val()
-				path = JSON.parse(path)
+				if (path.length < 1) {
+					path = {}
+				}else {
+					path = JSON.parse(path)
+				}
 				mapObj.plugin(['AMap.PolyEditor'], function() {
 					var polygon = new AMap.Polygon({
 						map: mapObj,
