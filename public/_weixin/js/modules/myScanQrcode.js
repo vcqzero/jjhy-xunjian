@@ -10,7 +10,10 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 
 	$('body').on('click', '.scan-qrcode', function() {
 		if (scaning === true) {
-			return false;
+			$.alert('扫码失败，请重新扫码', function(){
+				location.reload()
+			})
+			return false
 		}else {
 			scaning = true
 		}
@@ -25,7 +28,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			'shift_time_id': shift_time_id,
 			'shift_id': shift_id,
 		}
-		$.toast('正开启扫码...', "text")
+		$.toast('打开摄像头...', "text")
 		//获取地理位置
 		getAddressPath()
 		//扫码
@@ -150,7 +153,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 			},
 
 			beforeSend: function() {
-				console.log('send...')
+				$.showLoading("数据上传中...");
 			},
 
 		}).done(function(res) {

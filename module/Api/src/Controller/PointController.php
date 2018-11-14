@@ -92,13 +92,14 @@ class PointController extends AbstractActionController
         $values = $this->PointManager->FormFilter->getFilterValues($values);
         //执行增加操作
         $res = $this->PointManager->MyOrm->insert($values);
-        
+        $this->ajax()->close($res);
         //生成二维码图片
         //获取id
         $point_id = $this->PointManager->MyOrm->getLastInsertId();
         $workyard_id = $values[PointEntity::FILED_WORKYARD_ID];
+        $name = $values[PointEntity::FILED_NAME];
         //获取二维码文件名称
-        $qrcode_name = $this->PointManager->generateQrCode($point_id, $workyard_id);
+        $qrcode_name = $this->PointManager->generateQrCode($point_id, $workyard_id, $name);
         //将名称和地址增加到数组中
         $set[PointEntity::FILED_QRCODE_FILENAME] = $qrcode_name;
         

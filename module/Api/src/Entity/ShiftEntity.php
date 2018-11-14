@@ -14,6 +14,7 @@ class ShiftEntity
     const FILED_START_TIME   = 'start_time';
     const FILED_END_TIME     = 'end_time';
     const FILED_SHIFT_TYPE_NAME= 'shift_type_name';
+    const FILED_CREATED     = 'created';
     /**
      * for join
     */
@@ -30,7 +31,16 @@ class ShiftEntity
     private $start_time;
     private $end_time;
     private $guard_id;
+    private $created;
     
+    /**
+     * @return the $created
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
     /**
      * @return the $guard_id
      */

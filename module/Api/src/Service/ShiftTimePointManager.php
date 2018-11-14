@@ -61,7 +61,7 @@ class ShiftTimePointManager
     * @param  
     * @return bool       
     */
-    public function isValidPoint($workyard_id, $shift_time_id, $point_id)
+    public function isValidPoint($workyard_id, $shift_time_id, $point_id, $shift_id)
     {
         //巡检点必须属于该工地
         $where = [
@@ -76,6 +76,22 @@ class ShiftTimePointManager
                 'err' => '巡检点无效'
             ];
             return json_encode($res);
+        }else {
+            $Point = $this->PointManager->MyOrm->findOne($where);
+            $created_point = $Point->getCreated();
+            //shift
+            $Shift = $this->ShiftManager->MyOrm->findOne($shift_id);
+            $created_shift = $Shift->getCreated();
+            $start_time    = $Shift->getStart_time();
+            
+            if ($created_point > $created_shift && $created_point > $start_time)
+            {
+                $res = [
+                    'success' => false,
+                    'err' => '本次巡检不含该巡检点'
+                ];
+                return json_encode($res);
+            }
         }
         
         //巡检点不能已巡检
@@ -106,6 +122,8 @@ class ShiftTimePointManager
         //获取该巡检开始时间
         $Shift = $this->ShiftManager->MyOrm->findOne($shift_id);
         $start_time = $Shift->getStart_time();
+        $created    = $Shift->getCreated();
+        $start_time = $start_time >= $created ? $start_time : $created;
         //获取该工地所有巡检点数量
         $where = [
             PointEntity::FILED_WORKYARD_ID => $workyard_id,

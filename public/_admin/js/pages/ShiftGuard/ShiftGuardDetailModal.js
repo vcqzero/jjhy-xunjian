@@ -60,7 +60,8 @@ define(
 										return name + '，巡检时间:' + time + '，巡检备注' + note 
 									}
 									//鼠标悬停在某个轨迹节点上
-									return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+									pointIndex = pointIndex + 1
+									return '巡检点: ' + pointIndex + '/' + pathData.path.length;
 								}
 							},
 							renderOptions: {

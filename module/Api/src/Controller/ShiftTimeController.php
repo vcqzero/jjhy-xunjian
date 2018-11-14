@@ -62,7 +62,7 @@ class ShiftTimeController extends AbstractActionController
         $workyard_id    = $this->params()->fromQuery('workyard_id');
         
         //判断巡检点是否合法
-        $isValid = $this->ShiftTimePointManager->isValidPoint($workyard_id, $shift_time_id, $point_id);
+        $isValid = $this->ShiftTimePointManager->isValidPoint($workyard_id, $shift_time_id, $point_id, $shift_id);
         if($isValid !== true) {
             echo $isValid;
             exit();
@@ -108,5 +108,18 @@ class ShiftTimeController extends AbstractActionController
             echo json_encode($res);
             exit();
         }
+    }
+    
+    public function testAction()
+    {
+        $isValid = $this->ShiftTimePointManager->isValidPoint(33, 46, 63, 386);
+        // DEBUG INFORMATION START
+        echo '------debug start------<br/>';
+        echo "<pre>";
+        var_dump(__METHOD__ . ' on line: ' . __LINE__);
+        var_dump($isValid);
+        echo "</pre>";
+        exit('------debug end------');
+        // DEBUG INFORMATION END
     }
 }

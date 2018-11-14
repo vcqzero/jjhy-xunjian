@@ -61,6 +61,7 @@ class ShiftManager
         $values[ShiftEntity::FILED_SHIFT_TYPE_NAME] = $shfit_type_name;
         $values[ShiftEntity::FILED_START_TIME] = $start_time;
         $values[ShiftEntity::FILED_END_TIME] = $end_time;
+        $values[ShiftEntity::FILED_CREATED] = time();
         
         return $values;
     }

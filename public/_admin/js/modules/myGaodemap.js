@@ -62,23 +62,23 @@ define(['jquery', 'GaodeMap', 'GaodeMapUi'], function($) {
 	var init_input_search = function(mapObj) {
 		mapObj.plugin(['AMap.PlaceSearch'], function() {
 			//自动输入框
-			//			var autoOptions = {
-			//				input: "tipinput"
-			//			};
-			//			var auto = new AMap.Autocomplete(autoOptions);
-			//			
-			//			AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
-			//			function select(e) {
-			//				placeSearch.setCity(e.poi.adcode);
-			//				placeSearch.search(e.poi.name); //关键字查询查询
-			//			}
+//			var autoOptions = {
+//				input: "tipinput"
+//			};
+//			var auto = new AMap.Autocomplete(autoOptions);
+//			
+//			AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+//			function select(e) {
+//				placeSearch.setCity(e.poi.adcode);
+//				placeSearch.search(e.poi.name); //关键字查询查询
+//			}
 			var placeSearch = new AMap.PlaceSearch({
 				map: mapObj
 			}); //构造地点查询类
 			var _input = $('#tipinput')
 			_input.on('keyup change', function() {
 				var _this = $(this)
-				var val = _this.val()
+				var val   = _this.val()
 				placeSearch.search(val); //关键字查询查询
 			})
 		})
@@ -107,7 +107,7 @@ define(['jquery', 'GaodeMap', 'GaodeMapUi'], function($) {
 			});
 			return mapObj
 		},
-
+		
 		/**
 		 * 获得多边形对象的坐标，
 		 * 二维数组，先是精度后是维度
@@ -124,16 +124,6 @@ define(['jquery', 'GaodeMap', 'GaodeMapUi'], function($) {
 				pathsAsArray.push(pathAsArray)
 			}
 			return pathsAsArray
-		},
-
-		//将其他坐标转为高德坐标
-		transferGpsPath: function(gps) {
-			AMap.convertFrom(gps, 'gps', function(status, result) {
-				if(result.info === 'ok') {
-					lnglats = result.locations; // Array.<LngLat>
-					console.log(lnglats)
-				}
-			});
-		},
+		}
 	}
 })

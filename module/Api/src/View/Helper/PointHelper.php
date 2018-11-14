@@ -48,6 +48,8 @@ class PointHelper extends AbstractHelper
         {
             $ShiftEntity     = $this->ShiftManager->MyOrm->findOne($shift_id);
             $start_time      = $ShiftEntity->getStart_time();
+            $created         = $ShiftEntity->getCreated();
+            $start_time      = $start_time >= $created ? $start_time : $created;
         }else {
             $start_time = time();
         }

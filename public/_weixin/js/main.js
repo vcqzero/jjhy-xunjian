@@ -13,7 +13,7 @@ requirejs.config({
 		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
 		jweixin: 'http://res.wx.qq.com/open/js/jweixin-1.4.0',
 		jquery_validate: 'http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min',
-		
+
 		//modules
 		myPage: 'modules/myPage',
 		myWeiXinJs: 'modules/myWeiXinJs',
@@ -22,25 +22,25 @@ requirejs.config({
 		myScanQrcode: 'modules/myScanQrcode',
 		myNavbar: 'modules/myNavbar',
 		myValidator: 'modules/myValidator',
-		
+
 		//pages
 		//Auth
-		LoginPage : 'pages/Auth/LoginPage',
-		AuthChangePasswordPage : 'pages/Auth/AuthChangePasswordPage',
-		
+		LoginPage: 'pages/Auth/LoginPage',
+		AuthChangePasswordPage: 'pages/Auth/AuthChangePasswordPage',
+
 		//index
-		GuardIndexPage : 'pages/Index/GuardIndexPage',
-		
+		GuardIndexPage: 'pages/Index/GuardIndexPage',
+
 		//Shift
-		ShiftPlanAndDonePage : 'pages/Shift/ShiftPlanAndDonePage',
-		ShiftLogPage : 'pages/Shift/ShiftLogPage',
-		
+		ShiftPlanAndDonePage: 'pages/Shift/ShiftPlanAndDonePage',
+		ShiftLogPage: 'pages/Shift/ShiftLogPage',
+
 		//ShiftTime
-		ShiftTimeSuccessPage : 'pages/ShiftTime/ShiftTimeSuccessPage',
-		
+		ShiftTimeSuccessPage: 'pages/ShiftTime/ShiftTimeSuccessPage',
+
 		//Account
-		AccountIndexPage : 'pages/Account/AccountIndexPage',
-		ChangePasswordPage : 'pages/Account/ChangePasswordPage',
+		AccountIndexPage: 'pages/Account/AccountIndexPage',
+		ChangePasswordPage: 'pages/Account/ChangePasswordPage',
 	},
 
 	//定义不同js的依赖关系
@@ -54,19 +54,16 @@ requirejs.config({
 
 // Start the main app 
 requirejs(
-	['jquery', 
-	'jquery-weui', 
+	['jquery',
+		'jquery-weui',
 	],
 	function($) {
 		requirejs(['fastclick'], function(FastClick) {
 			FastClick.attach(document.body);
 		})
-		requirejs(['myNavbar'], function() {
-		})
-		requirejs(['myPage'], function() {
-		})
-		requirejs(['myForm'], function() {
-		})
+		requirejs(['myNavbar'], function() {})
+		requirejs(['myPage'], function() {})
+		requirejs(['myForm'], function() {})
 		var hei = $('body')[0].clientHeight;
 		$('.container').css('height', hei);
 	});

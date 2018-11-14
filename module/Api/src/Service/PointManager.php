@@ -13,7 +13,8 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 class PointManager
 {
     const PATH_FORM_FILTER_CONFIG = 'module/Api/src/Filter/rules/Point.php';
-    const PATH_LOGO_IN_QRCODE = 'data/qrcode/logo_qrcode.png';
+    const PATH_LOGO_IN_QRCODE = 'data/qrcode/logo_qrcode.jpg';
+    const PATH_TEMPLATE       = 'data/qrcode/template.png';
     /**
     * 存放巡检点二维码文件路径
     * 以不同工地id分开保存
@@ -40,7 +41,7 @@ class PointManager
     * @param int $workyard_id
     * @return string 二维码名称       
     */
-    public function generateQrCode($point_id, $workyard_id)
+    public function generateQrCode($point_id, $workyard_id, $name)
     {
         //获取生产二维码对象
         $data = [
@@ -51,6 +52,8 @@ class PointManager
         $qrCode = new QrCode($string);
         $qrCode->setEncoding('UTF-8');
         $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
+        //set qrcode name
+        $qrCode->setLabel($name);
         
         //set logo
         $logoPath = self::PATH_LOGO_IN_QRCODE;
@@ -70,8 +73,36 @@ class PointManager
         
         //保存二维码
         $qrCode->writeFile($qr_name);
-        
+        $this->addToTemplate($qr_name);
         return $qr_name;
+    }
+    
+    private function addToTemplate($qrcode)
+    {
+        $template = self::PATH_TEMPLATE;
+        if(!file_exists($template)){
+            return ;
+        }
+        //imagecreatefrompng($filename)--由文件或 URL 创建一个新图象
+        $image_qrcode   = imagecreatefrompng($qrcode);
+        $image_template = imagecreatefrompng($template);
+        //合成图片
+        //imagecopymerge ( resource $dst_im , resource $src_im , int $dst_x , int $dst_y , int $src_x , int $src_y , int $src_w , int $src_h , int $pct )---拷贝并合并图像的一部分
+        //将 src_im 图像中坐标从 src_x，src_y 开始，宽度为 src_w，高度为 src_h 的一部分拷贝到 dst_im 图像中坐标为 dst_x 和 dst_y 的位置上。两图像将根据 pct 来决定合并程度，其值范围从 0 到 100。当 pct = 0 时，实际上什么也没做，当为 100 时对于调色板图像本函数和 imagecopy() 完全一样，它对真彩色图像实现了 alpha 透明。
+        $width_qrcode = imagesx($image_qrcode);
+        $width_template = imagesx($image_template);
+        $width_offset = ($width_template - $width_qrcode) / 2; 
+        imagecopymerge(
+            $image_template, 
+            $image_qrcode, 
+            $width_offset, 86, 0, 0, 
+            imagesx($image_qrcode), 
+            imagesy($image_qrcode), 100);
+        // 输出合成图片
+        //imagepng($image[,$filename]) — 以 PNG 格式将图像输出到浏览器或文件
+        $merge = 'merge.png';
+        var_dump(imagepng($image_template, $qrcode));
+        return $qrcode;
     }
 }
 

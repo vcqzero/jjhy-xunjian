@@ -25,8 +25,14 @@ class AjaxPlugin extends AbstractPlugin
         exit();
     }
     
-    public function close()
+    public function close($success, $message = null)
     {
+        $responce = [
+            self::AJAX_RESULT_SUCCESS => $success === true,
+            self::AJAX_RESULT_MESSAGE => $message,
+        ];
+        echo json_encode($responce);
+        
         // get the size of the output
         $size = ob_get_length();
         // send headers to tell the browser to close the connection
