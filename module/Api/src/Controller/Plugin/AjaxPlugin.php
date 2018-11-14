@@ -38,10 +38,9 @@ class AjaxPlugin extends AbstractPlugin
         // send headers to tell the browser to close the connection
         header("Content-Length: $size");
         header('Connection: close');
-        ob_end_flush();
         ob_flush();
         flush();
-        
+        ob_end_flush();
         /******** background process starts here ********/
         ignore_user_abort(true);//在关闭连接后，继续运行php脚本
         /******** background process ********/

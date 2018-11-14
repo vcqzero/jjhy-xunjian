@@ -115,4 +115,18 @@ class PointController extends AbstractActionController
         MyDownload::download($qrcode_name, $download_name);
         exit();
     }
+    
+    public function testAction()
+    {
+        $this->ajax()->close(false);
+        // DEBUG INFORMATION START
+        echo '------debug start------<br/>';
+        echo "<pre>";
+        var_dump(__METHOD__ . ' on line: ' . __LINE__);
+        var_dump('ok');
+        echo "</pre>";
+        exit('------debug end------');
+        // DEBUG INFORMATION END
+        
+    }
 }
