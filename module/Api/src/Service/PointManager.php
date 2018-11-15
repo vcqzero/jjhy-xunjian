@@ -53,14 +53,14 @@ class PointManager
         $qrCode->setEncoding('UTF-8');
         $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
         //set qrcode name
-        $qrCode->setLabel($name);
+//         $qrCode->setLabel($name);
         
         //set logo
         $logoPath = self::PATH_LOGO_IN_QRCODE;
         if (file_exists($logoPath)) 
         {
             $qrCode->setLogoPath($logoPath);
-            $qrCode->setLogoWidth(60);
+            $qrCode->setLogoWidth(80);
         }
         //获取该二维码名称
         //如果没有创建保存文件夹，创建
@@ -73,11 +73,10 @@ class PointManager
         
         //保存二维码
         $qrCode->writeFile($qr_name);
-        $this->addToTemplate($qr_name);
         return $qr_name;
     }
     
-    private function addToTemplate($qrcode)
+    public function addQrcodeToTemplate($qrcode)
     {
         $template = self::PATH_TEMPLATE;
         if(!file_exists($template)){
@@ -95,14 +94,28 @@ class PointManager
         imagecopymerge(
             $image_template, 
             $image_qrcode, 
-            $width_offset, 86, 0, 0, 
+            $width_offset, 339, 0, 0, 
             imagesx($image_qrcode), 
             imagesy($image_qrcode), 100);
         // 输出合成图片
-        //imagepng($image[,$filename]) — 以 PNG 格式将图像输出到浏览器或文件
-        $merge = 'merge.png';
-        var_dump(imagepng($image_template, $qrcode));
+        imagepng($image_template, $qrcode);
         return $qrcode;
+    }
+    
+    public function addTextToQrcode($qrcode, $content)
+    {
+        if(!file_exists($qrcode)){
+            return ;
+        }
+        $image_qrcode = imagecreatefrompng($qrcode);
+        $col = imagecolorallocatealpha($image_qrcode, 0, 0, 0, 0);
+        //指定字体内容
+        //给图片添加文字
+        $font = 2;
+        $x = 200;
+        $y = 138;
+        imagestring($image_qrcode, $font, $x, $y, $content, $col);
+        imagepng($image_qrcode, $qrcode);
     }
 }
 

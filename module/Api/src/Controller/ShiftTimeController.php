@@ -109,17 +109,4 @@ class ShiftTimeController extends AbstractActionController
             exit();
         }
     }
-    
-    public function testAction()
-    {
-        $isValid = $this->ShiftTimePointManager->isValidPoint(33, 46, 63, 386);
-        // DEBUG INFORMATION START
-        echo '------debug start------<br/>';
-        echo "<pre>";
-        var_dump(__METHOD__ . ' on line: ' . __LINE__);
-        var_dump($isValid);
-        echo "</pre>";
-        exit('------debug end------');
-        // DEBUG INFORMATION END
-    }
 }

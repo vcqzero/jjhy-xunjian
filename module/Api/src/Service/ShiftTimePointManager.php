@@ -83,7 +83,6 @@ class ShiftTimePointManager
             $Shift = $this->ShiftManager->MyOrm->findOne($shift_id);
             $created_shift = $Shift->getCreated();
             $start_time    = $Shift->getStart_time();
-            
             if ($created_point > $created_shift && $created_point > $start_time)
             {
                 $res = [

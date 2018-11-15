@@ -118,12 +118,17 @@ class PointController extends AbstractActionController
     
     public function testAction()
     {
-        $this->ajax()->close(false);
+        $point_id = time();
+        $workyard_id = 2;
+        $name = 'point name';
+        $qrcode = $this->PointManager->generateQrCode($point_id, $workyard_id, $name);
+        $qrcode = $this->PointManager->addQrcodeToTemplate($qrcode);
+        $qrcode = $this->PointManager->addTextToQrcode($qrcode, 'name');
         // DEBUG INFORMATION START
         echo '------debug start------<br/>';
         echo "<pre>";
         var_dump(__METHOD__ . ' on line: ' . __LINE__);
-        var_dump('ok');
+        var_dump();
         echo "</pre>";
         exit('------debug end------');
         // DEBUG INFORMATION END
