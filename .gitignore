@@ -10,8 +10,11 @@ config/development.config.php
 config/autoload/local.php
 data/cache/*
 data/qrcode/*
+!data/qrcode/logo_qrcode.jpg
+!data/qrcode/template.png
 data/log/*
 !data/cache/.gitkeep
+*.bak
 
 
 
