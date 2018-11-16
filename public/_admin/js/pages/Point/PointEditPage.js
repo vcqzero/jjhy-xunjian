@@ -89,8 +89,8 @@ define(
 								},
 
 								stringLength: {
-									message: '最长36个字符',
-									max: 121,
+									message: '最长5个字符',
+									max: 5,
 								},
 
 								remote: {
@@ -115,8 +115,8 @@ define(
 								},
 
 								stringLength: {
-									message: '最长36个字符',
-									max: 121,
+									message: '最长15个字符',
+									max: 15,
 								},
 							}
 						},

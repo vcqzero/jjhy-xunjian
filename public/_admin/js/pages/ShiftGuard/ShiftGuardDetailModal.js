@@ -83,7 +83,7 @@ define(
 						var navg0 = pathSimplifierIns.createPathNavigator(0, //关联第1条轨迹
 							{
 								loop: true, //循环播放
-								speed: 800
+								speed: 400
 							});
 
 						navg0.start();

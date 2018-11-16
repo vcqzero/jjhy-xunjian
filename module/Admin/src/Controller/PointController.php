@@ -45,4 +45,11 @@ class PointController extends AbstractActionController
         $this->layout()->setTemplate('layout/blank.phtml');
         return new ViewModel($this->params()->fromRoute());
     }
+    
+    //goto delete page
+    public function deleteModalAction()
+    {
+        $this->layout()->setTemplate('layout/blank.phtml');
+        return new ViewModel($this->params()->fromRoute());
+    }
 }

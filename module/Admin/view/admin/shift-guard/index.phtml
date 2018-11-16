@@ -4,14 +4,22 @@ $page      = $this->page;
 $identity  = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
 
+$query = [];
+if (count($where)) {
+    foreach ($where as $key=>$val){
+        if ($val){
+            $query[] = "$key=$val";
+        }
+    }
+}
+$query = implode('&', $query);
+
 $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $where);
 ?>
 <?php $this->placeholder('buttonGroup')->captureStart();?>
-<?=$this->partial('partial/admin/button/single.phtml', [
-    'type'  => 'primary',
-    'title' => '导出',
-    'data_modal_open' => true,
-    'data_modal_url' => '/shift/addModal'
+<?=$this->partial('partial/admin/button/link.phtml', [
+    'title' => '导出考勤表',
+    'href' => "/api/shift/csv?workyard_id=$workyard_id&$query"
 ])?>
 <?php $this->placeholder('buttonGroup')->captureEnd() ?>
 
@@ -125,8 +133,8 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
     'pageTitle'     => '考勤记录',
     'paginator'     => $paginator,
     'search'        => $where,
-//     'buttonGroup'   => $this->placeholder('buttonGroup'),
-    'buttonGroup'   => '考勤记录',
+    'buttonGroup'   => $this->placeholder('buttonGroup'),
+//     'buttonGroup'   => '考勤记录',
     'searchContent' => $this->placeholder('searchContent'),
     'table'         => $this->placeholder('table'),
 ])?>

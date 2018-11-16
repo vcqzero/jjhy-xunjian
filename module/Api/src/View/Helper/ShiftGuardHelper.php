@@ -172,6 +172,22 @@ class ShiftGuardHelper extends AbstractHelper
     */
     public function getAllGuardsPaginator($workyard_id, $page=1, $query=[])
     {
+        $Select = $this->getSelectAllGuard($workyard_id, $query);
+        $Entity = new ShiftEntity();
+        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, $Entity);
+        return $paginator;
+    }
+    
+    /**
+    * 获取所有巡检员的执勤表
+    * 用于管理员
+    * 
+    * @param  int $workyard_id
+    * @param array $query 查询数据
+    * @return Select       
+    */
+    public function getSelectAllGuard($workyard_id, $query)
+    {
         $Select = new Select();
         $Select->from(['s'=>ShiftEntity::TABLE_NAME]);
         $on = 's.id=sg.shift_id';
@@ -182,8 +198,8 @@ class ShiftGuardHelper extends AbstractHelper
         //query the data before today
         $start = time();
         $Select->where
-                ->lessThan(ShiftEntity::FILED_START_TIME, $start);
-//                 ->lessThan(ShiftEntity::FILED_END_TIME, $start);
+        ->lessThan(ShiftEntity::FILED_START_TIME, $start);
+        //                 ->lessThan(ShiftEntity::FILED_END_TIME, $start);
         
         //if has where
         if (!empty($query['range']))
@@ -203,20 +219,15 @@ class ShiftGuardHelper extends AbstractHelper
             $guard_id = $query['guard_id'];
             $Select->where->equalTo(ShiftGuardEntity::FILED_GUARD_ID, $guard_id);
         }
-                
+        
         $order = [
             ShiftEntity::FILED_GUARD_ID=>Select::ORDER_ASCENDING,
             ShiftEntity::FILED_START_TIME=>Select::ORDER_DESCENDING,
         ];
         $Select->order($order);
-        
-        $Entity = new ShiftEntity();
-//         $this->ShiftManager->MyOrm->startDebug();
-        $paginator = $this->ShiftManager->MyOrm->paginator($page, $Select, null, $Entity);
-//         $this->ShiftManager->MyOrm->stopDebug();
-        
-        return $paginator;
+        return $Select;
     }
+    
     /**
     * 
     * 

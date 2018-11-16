@@ -16,6 +16,12 @@ $workyard_name  = $WorkyardEntity->getName();
     'data_modal_open' => true,
     'data_modal_url' => '/point/addModal'
 ])?>
+<?php if (count($paginator)):?>
+<?=$this->partial('partial/admin/button/link.phtml', [
+    'title' => '批量下载',
+    'href' => "/api/point/downloadAll?workyard_id=$workyard_id"
+])?>
+<?php endif;?>
 <?php $this->placeholder('buttonGroup')->captureEnd() ?>
 
 <?php $this->placeholder('searchContent')->captureStart();?>
@@ -42,8 +48,6 @@ $workyard_name  = $WorkyardEntity->getName();
       		$address= $Entity->getAddress();
       		$created_by    = $Entity->getCreated_by();
       		$created       = $Entity->getCreated();
-      		$qrcode_name   = $Entity->getQrcode_filename();
-      		$download_name = $workyard_name . "_" . $name;
       		?>
       		<tr>
       		<td><?=$poinID?></td>
@@ -58,9 +62,14 @@ $workyard_name  = $WorkyardEntity->getName();
                 'data_modal_open' => true,
                 'data_modal_url' => '/point/editModal/'.$workyard_id . '/' . $poinID, //string
             ])?>
+            <?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '删除',
+                'data_modal_open' => true,
+                'data_modal_url' => '/point/deleteModal/'.$workyard_id . '/' . $poinID, //string
+            ])?>
             <?=$this->partial('partial/admin/button/link.phtml', [
                 'title' => '下载二维码',
-                'href' => "/api/point/download?download_name=$download_name&qrcode_name=$qrcode_name"
+                'href' => "/api/point/download/$workyard_id/$poinID?workyard_name=$workyard_name"
             ])?>
             </div>
       		</td>

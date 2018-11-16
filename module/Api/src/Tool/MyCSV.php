@@ -37,22 +37,38 @@ class MyCSV
     /**
      * 导出CSV文件
      * @param array $data        数据
-     * @param array $header_data 首行数据
-     * @param string $file_name  文件名称
+     * @param array $head_title  首行标题
+     * @param string $file_name  用户看到的文件名
+     * @param string $desc  文件说明
      * @return string
      */
-    public static function export_csv($data = [], $header_data = [], $file_name = '')
+    public static function export_csv($data = [], $head_title = [], $file_name = '', $descs = [])
     {
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename='.$file_name);
         header('Cache-Control: max-age=0');
         $fp = fopen('php://output', 'a');
-        if (!empty($header_data)) {
-            foreach ($header_data as $key => $value) {
-                $header_data[$key] = iconv('utf-8', 'gbk', $value);
+        
+        //设置文件描述
+        if (!empty($descs)) {
+            foreach ($descs as $key=>$desc) {
+                foreach ($desc as $key => $value) {
+                    $desc[$key] = iconv('utf-8', 'gbk', $value);
+                }
+                fputcsv($fp, $desc);
             }
-            fputcsv($fp, $header_data);
+            fputcsv($fp, []);
         }
+        
+        //设置表头
+        if (!empty($head_title)) {
+            foreach ($head_title as $key => $value) {
+                $head_title[$key] = iconv('utf-8', 'gbk', $value);
+            }
+            fputcsv($fp, $head_title);
+        }
+        
+        //设置文件数据
         $num = 0;
         //每隔$limit行，刷新一下输出buffer，不要太大，也不要太小
         $limit = 100000;

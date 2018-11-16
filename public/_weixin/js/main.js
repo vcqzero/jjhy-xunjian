@@ -10,7 +10,7 @@ requirejs.config({
 	paths: {
 		jquery: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min',
 		'jquery-weui': 'https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min',
-		fastclick: 'https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min',
+		fastclick: 'https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min',
 		jweixin: 'http://res.wx.qq.com/open/js/jweixin-1.4.0',
 		jquery_validate: 'http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min',
 

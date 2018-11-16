@@ -6,13 +6,15 @@ use Zend\Mvc\MvcEvent;
 use Api\Service\PointManager;
 use Api\Entity\PointEntity;
 use Api\Tool\MyDownload;
+use Api\Service\WorkyardManager;
 
 class PointController extends AbstractActionController
 {
     private $PointManager;
-    public function __construct(PointManager $PointManager)
+    public function __construct(PointManager $PointManager, WorkyardManager $WorkyardManager)
     {
         $this->PointManager = $PointManager;
+        $this->PointManager->setWorkyardManager($WorkyardManager);
     }
     /**
      * We override the parent class' onDispatch() method to
@@ -72,7 +74,12 @@ class PointController extends AbstractActionController
         $values = $this->PointManager->FormFilter->getFilterValues($values);
         //执行增加操作
         $res = $this->PointManager->MyOrm->update($pointID, $values);
-        $this->ajax()->success($res);
+        $this->ajax()->close($res);
+        
+        //删除原图片，重新生成
+        $workyard_id = $this->params()->fromRoute('workyardID');
+        $qrcode_name = $this->PointManager->generateQrCode($pointID, $workyard_id);
+        exit();
     }
     
     public function addAction()
@@ -93,42 +100,69 @@ class PointController extends AbstractActionController
         //执行增加操作
         $res = $this->PointManager->MyOrm->insert($values);
         $this->ajax()->close($res);
+        
         //生成二维码图片
         //获取id
-        $point_id = $this->PointManager->MyOrm->getLastInsertId();
+        $point_id    = $this->PointManager->MyOrm->getLastInsertId();
         $workyard_id = $values[PointEntity::FILED_WORKYARD_ID];
-        $name = $values[PointEntity::FILED_NAME];
-        //获取二维码文件名称
-        $qrcode_name = $this->PointManager->generateQrCode($point_id, $workyard_id, $name);
-        //将名称和地址增加到数组中
-        $set[PointEntity::FILED_QRCODE_FILENAME] = $qrcode_name;
-        
-        //然后更新
-        $res = $this->PointManager->MyOrm->update($point_id, $set);
-        $this->ajax()->success($res);
+        $qrcode_name = $this->PointManager->generateQrCode($point_id, $workyard_id);
+        exit();
     }
     
     public function downloadAction()
     {
-        $qrcode_name = $this->params()->fromQuery('qrcode_name');
-        $download_name= $this->params()->fromQuery('download_name');
-        MyDownload::download($qrcode_name, $download_name);
+        $pointID = $this->params()->fromRoute('pointID');
+        $workyard_id = $this->params()->fromRoute('workyardID');
+        
+        $Point    = $this->PointManager->MyOrm->findOne($pointID);
+        $qrcode   = $Point->getQrcode_filename();
+        $point_name = $Point->getName();
+        $workyard_name = $this->params()->fromQuery('workyard_name');
+        $point_name = str_replace(';', '', $point_name);
+        $point_name = $workyard_name . '_' . "$point_name";
+        MyDownload::download($qrcode, $point_name);
         exit();
+    }
+    
+    public function downloadAllAction()
+    {
+        $workyard_id = $this->params()->fromQuery('workyard_id');
+        $zip_name    = $this->PointManager->zip($workyard_id);
+        if (empty($zip_name)) {
+            exit();
+        }
+        MyDownload::download($zip_name);
+        unlink($zip_name);
+        exit();
+    }
+    
+    public function deleteAction()  
+    {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
+        $pointID = $this->params()->fromRoute('pointID');
+        //先把二维码删除
+        $Point = $this->PointManager->MyOrm->findOne($pointID);
+        $qrcode= $Point->getQrcode_filename();
+        if (file_exists($qrcode)) {
+            unlink($qrcode);
+        }
+        
+        $res = $this->PointManager->MyOrm->delete($pointID);
+        $this->ajax()->success($res);
     }
     
     public function testAction()
     {
-        $point_id = time();
-        $workyard_id = 2;
-        $name = 'point name';
-        $qrcode = $this->PointManager->generateQrCode($point_id, $workyard_id, $name);
-        $qrcode = $this->PointManager->addQrcodeToTemplate($qrcode);
-        $qrcode = $this->PointManager->addTextToQrcode($qrcode, 'name');
+        $this->PointManager->generateQrCode(63, 33);
         // DEBUG INFORMATION START
         echo '------debug start------<br/>';
         echo "<pre>";
         var_dump(__METHOD__ . ' on line: ' . __LINE__);
-        var_dump();
+        var_dump('ppp');
         echo "</pre>";
         exit('------debug end------');
         // DEBUG INFORMATION END

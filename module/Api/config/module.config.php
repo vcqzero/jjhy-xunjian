@@ -278,6 +278,19 @@ return [
             Service\ShiftGuardManager::class   => Service\Factory\ShiftGuardManagerFactory::class,
             Service\ShiftTimeManager::class   => Service\Factory\ShiftTimeManagerFactory::class,
             Service\ShiftTimePointManager::class   => Service\Factory\ShiftTimePointManagerFactory::class,
+            
+            //helper
+            View\Helper\UserHelper::class => View\Helper\Factory\UserHelperFactory::class,
+            View\Helper\GuardHelper::class => View\Helper\Factory\GuardHelperFactory::class,
+            View\Helper\WebsiteHelper::class => View\Helper\Factory\WebsiteHelperFactory::class,
+            View\Helper\WorkyardHelper::class => View\Helper\Factory\WorkyardHelperFactory::class,
+            View\Helper\PointHelper::class => View\Helper\Factory\PointHelperFactory::class,
+            View\Helper\ShiftHelper::class => View\Helper\Factory\ShiftHelperFactory::class,
+            View\Helper\ShiftTypeHelper::class => View\Helper\Factory\ShiftTypeHelperFactory::class,
+            View\Helper\ShiftTimeHelper::class => View\Helper\Factory\ShiftTimeHelperFactory::class,
+            View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
+            View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
+            View\Helper\TokenHelper::class => View\Helper\Factory\TokenHelperFactory::class,
         ],
         
         'shared' => [

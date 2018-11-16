@@ -6,6 +6,8 @@ use Api\Service\PointManager;
 use Api\Entity\PointEntity;
 use Api\Service\ShiftManager;
 use Api\Entity\ShiftEntity;
+use Zend\Db\Sql\Predicate\Predicate;
+use Zend\Db\Sql\Predicate\Between;
 
 /**
  * 用于分页的管理
@@ -83,5 +85,36 @@ class PointHelper extends AbstractHelper
         }
         
         return $names;
+    }
+    
+    public function canDelete($point_id, $workyard_id)
+    {
+        $Point  = $this->PointManager->MyOrm->findOne($point_id);
+        $created= $Point->getCreated();
+        //如果巡检点正在使用中，则不可删除
+        //获取当前正在巡检的任务
+        $where1 = [
+            ShiftEntity::FILED_WORKYARD_ID => $workyard_id,
+        ];
+        $where1[]= new Between(ShiftEntity::FILED_END_TIME, time(), strtotime('2099-12-31'));
+        $where1[]= new Between(ShiftEntity::FILED_START_TIME, 0, time());
+        $where1[]= new Between(ShiftEntity::FILED_CREATED, $created, strtotime('2099-12-31'));
+        $count = $this->ShiftManager->MyOrm->count($where1);
+        if($count > 0) {
+            return false;
+        }
+        
+        $where2 = [
+            ShiftEntity::FILED_WORKYARD_ID => $workyard_id,
+        ];
+        $where2[]= new Between(ShiftEntity::FILED_END_TIME, time(), strtotime('2099-12-31'));
+        $where2[]= new Between(ShiftEntity::FILED_START_TIME, 0, time());
+        $where2[]= new Between(ShiftEntity::FILED_CREATED, 0, $created);
+        $where2[]= new Between(ShiftEntity::FILED_START_TIME, $created, strtotime('2099-12-31'));
+        $count = $this->ShiftManager->MyOrm->count($where2);
+        if($count > 0) {
+            return false;
+        }
+        return true;
     }
 }
