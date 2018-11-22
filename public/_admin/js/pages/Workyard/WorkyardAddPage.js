@@ -71,8 +71,8 @@ define(
 								},
 
 								stringLength: {
-									message: '最长36个字符',
-									max: 124,
+									message: '最长50个字符',
+									max: 50,
 								},
 								
 								remote: {
@@ -90,7 +90,7 @@ define(
 								},
 
 								stringLength: {
-									message: '最长256个字符',
+									message: '最长80个字符',
 									max: 80,
 								},
 							}
@@ -100,7 +100,7 @@ define(
 							validators: {
 								stringLength: {
 									message: '最长160个字符',
-									max: 512,
+									max: 160,
 								},
 							}
 						},

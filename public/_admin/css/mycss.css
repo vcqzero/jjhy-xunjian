@@ -251,3 +251,6 @@ table th.th-button {
 	border-color: #bce8f1;
 	margin-bottom: 0;
 }
+.page-title .title_left {
+    width: 100% !important;
+}
