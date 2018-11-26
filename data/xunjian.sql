@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2018-11-16 16:12:38
+Date: 2018-11-26 15:54:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,11 +29,7 @@ CREATE TABLE `points` (
   `created` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`workyard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of points
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for shifts
@@ -50,11 +46,7 @@ CREATE TABLE `shifts` (
   `created` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `workyard_id` (`workyard_id`,`start_time`,`end_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=391 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shifts
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=425 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for shift_guard
@@ -66,11 +58,7 @@ CREATE TABLE `shift_guard` (
   `guard_id` int(255) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `shift_id` (`shift_id`,`guard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=520 DEFAULT CHARSET=utf8 COMMENT='规定巡检班次和保安人员的关系';
-
--- ----------------------------
--- Records of shift_guard
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=618 DEFAULT CHARSET=utf8 COMMENT='规定巡检班次和保安人员的关系';
 
 -- ----------------------------
 -- Table structure for shift_time
@@ -82,11 +70,7 @@ CREATE TABLE `shift_time` (
   `status` varchar(255) NOT NULL,
   `guard_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
-
--- ----------------------------
--- Records of shift_time
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Table structure for shift_time_point
@@ -101,11 +85,7 @@ CREATE TABLE `shift_time_point` (
   `address_path` varchar(255) NOT NULL DEFAULT '' COMMENT '扫描巡检点时巡检员地理坐标',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`,`shift_time_id`,`point_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
-
--- ----------------------------
--- Records of shift_time_point
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=577 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Table structure for shift_type
@@ -120,12 +100,7 @@ CREATE TABLE `shift_type` (
   `workyard_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`workyard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shift_type
--- ----------------------------
-INSERT INTO `shift_type` VALUES ('45', '早班', '10:25', '20:23', 'NO', '35');
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for users
@@ -142,16 +117,7 @@ CREATE TABLE `users` (
   `role` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES ('123', 'admin', '$2y$10$Th3iJ4dLNuWOzXAJlUHgHOQS9gZzsSZALN2rsCk/nypeNX61yNmYO', '0', '', '', 'ENABLED', 'SUPER_ADMIN');
-INSERT INTO `users` VALUES ('135', 'xyj123', '$2y$10$e5Ss4lSGdpigi24mIHis8OTifJ2GfKFhGme0Dzo/E1ZNKQBODCA9y', '35', '邢烟酒', '13012345678', 'ENABLED', 'WORKYARD_ADMIN');
-INSERT INTO `users` VALUES ('136', 'xyj234', '$2y$10$3BKZDtTJVc9QrSk2fkfJF./cXEyI1YayJk8sHbas8l03EYE5yOlPa', '35', '邢研究', '13012345678', 'ENABLED', 'WORKYARD_GUARD');
-INSERT INTO `users` VALUES ('137', 'qinchong', '$2y$10$twsSZv5Ne3ElvIPciVbdEOl7NNKmkkTSLt97mwvYEidgKKRbqqUz2', '35', 'qinchong-test', '13001030857', 'ENABLED', 'WORKYARD_ADMIN');
-INSERT INTO `users` VALUES ('138', 'qin1', '$2y$10$J5ayq0i/y2VhO9tLPyy5Me.Al38FBBdsHfnL037pgguzgjxkW8O1C', '35', 'q', '13001030857', 'ENABLED', 'WORKYARD_GUARD');
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for workyards
@@ -165,9 +131,4 @@ CREATE TABLE `workyards` (
   `address_path` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of workyards
--- ----------------------------
-INSERT INTO `workyards` VALUES ('35', '望京1号地块', '', '望京1号地块', '[[116.467446,40.018219],[116.471265,40.018318],[116.471415,40.016115],[116.467381,40.016148]]');
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;

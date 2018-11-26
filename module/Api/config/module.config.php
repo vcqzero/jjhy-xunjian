@@ -278,9 +278,9 @@ return [
             Service\ShiftGuardManager::class   => Service\Factory\ShiftGuardManagerFactory::class,
             Service\ShiftTimeManager::class   => Service\Factory\ShiftTimeManagerFactory::class,
             Service\ShiftTimePointManager::class   => Service\Factory\ShiftTimePointManagerFactory::class,
-            
-            //helper
-            View\Helper\UserHelper::class => View\Helper\Factory\UserHelperFactory::class,
+			
+			//view helper
+			View\Helper\UserHelper::class => View\Helper\Factory\UserHelperFactory::class,
             View\Helper\GuardHelper::class => View\Helper\Factory\GuardHelperFactory::class,
             View\Helper\WebsiteHelper::class => View\Helper\Factory\WebsiteHelperFactory::class,
             View\Helper\WorkyardHelper::class => View\Helper\Factory\WorkyardHelperFactory::class,

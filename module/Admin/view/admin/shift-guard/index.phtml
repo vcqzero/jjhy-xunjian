@@ -118,7 +118,10 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
                 'data_modal_open' => true,
       		    'data_modal_url' => "/shiftGuard/detailModal/$shiftID/$guard_id", //string
             ])?>
-            
+            <?=$this->partial('partial/admin/button/link.phtml', [
+                'title' => '导出巡检明细',
+                'href' => "/api/shift/csvDetail?guard_id=$guard_id&shift_id=$shiftID"
+            ])?>
             </div>
       		</td>
             </tr>

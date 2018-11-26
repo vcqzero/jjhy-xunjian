@@ -11,6 +11,8 @@ use Api\View\Helper\ShiftTimeHelper;
 use Api\View\Helper\UserHelper;
 use Api\Tool\MyCSV;
 use Api\Service\WorkyardManager;
+use Api\View\Helper\PointHelper;
+use Api\View\Helper\ShiftTimePointHelper;
 
 class ShiftController extends AbstractActionController
 {
@@ -22,6 +24,8 @@ class ShiftController extends AbstractActionController
     private $ShiftTimeHelper;
     private $UserHelper;
     private $WorkyardManager;
+    private $PointHelper;
+    private $ShiftTimePointHelper;
     public function __construct(
         ShiftManager $ShiftManager, 
         ShiftGuardManager $ShiftGuardManager, 
@@ -29,7 +33,9 @@ class ShiftController extends AbstractActionController
         ShiftGuardHelper $ShiftGuardHelper,
         ShiftTimeHelper $ShiftTimeHelper,
         UserHelper $UserHelper,
-        WorkyardManager $WorkyardManager
+        WorkyardManager $WorkyardManager,
+        PointHelper $PointHelper,
+        ShiftTimePointHelper $ShiftTimePointHelper
         )
     {
         $this->ShiftManager = $ShiftManager;
@@ -39,6 +45,8 @@ class ShiftController extends AbstractActionController
         $this->ShiftTimeHelper  = $ShiftTimeHelper;
         $this->UserHelper       = $UserHelper;
         $this->WorkyardManager       = $WorkyardManager;
+        $this->PointHelper = $PointHelper;
+        $this->ShiftTimePointHelper = $ShiftTimePointHelper;
     }
 
     /**
@@ -272,6 +280,96 @@ class ShiftController extends AbstractActionController
             $page++;
         }
         
+        MyCSV::export_csv($data, $head_title, $csv_name, $desc);
+        exit();
+    }
+    
+    public function csvDetailAction() 
+    {
+        $guard_id   = $this->params()->fromQuery('guard_id');
+        $shift_id   = $this->params()->fromQuery('shift_id');
+        //user
+        $UserEntity = $this->UserHelper->getEntity($guard_id);
+        $realName   = $UserEntity->getRealName();
+        $username   = $UserEntity->getUsername();
+        //shift
+        $ShiftEntity = $this->ShiftManager->MyOrm->findOne($shift_id);
+        $workyard_id = $ShiftEntity->getWorkyard_id();
+        //workyard
+        $Workyard      = $this->WorkyardManager->MyOrm->findOne($workyard_id);
+        $workyard_name = $Workyard->getName();
+        // about shift info
+        $shift_type_name    = $ShiftEntity->getShift_type_name();
+        $start_time         = $ShiftEntity->getStart_time();
+        $end_time           = $ShiftEntity->getEnd_time();
+        $times              = $ShiftEntity->getTimes();
+        $note               = $ShiftEntity->getNote();
+        // shift date
+        $start_day      = date('Y-m-d', $start_time);
+        $end_day        = strtotime($start_day) + 60 * 60 * 24;
+        $is_next_day    = $end_time > $end_day;
+        $format_start_time  = date('H:i', $start_time);
+        $format_end_time    = date('H:i', $end_time);
+        if($is_next_day) $format_end_time = $format_end_time . '（次日）';
+        $csv_name = $start_day . '_' . $shift_type_name . '_' . $username . '_考勤明细.csv';
+        $desc = [
+            ['值班考勤明细表'],
+            ['巡检员', $username],
+            ['真实姓名', $realName],
+            ['项目名称', $workyard_name],
+            ['项目地址', $Workyard->getAddress()],
+            ['值班时间', $start_day],
+            ['班次', $shift_type_name],
+            ['具体时间', "$format_start_time - $format_end_time"],
+            ['需巡检次数', $times],
+            ['备注', $note],
+            ['考勤统计时间', date('Y-m-d H:i:s')],
+        ];
+        $head_title = [
+            '序号',
+            '巡检点',
+            '位置',
+            '巡检时间',
+            '是否巡检',
+            '统计时间',
+        ];
+        
+        //shift times
+        $shfit_time_ids = $this->ShiftTimeHelper->getShfitTimeIDs($shift_id, $guard_id);//array
+        $desc[] = ['已巡检次数', count($shfit_time_ids)];
+        $data = [];
+        if (empty(count($shfit_time_ids))) $data[] = ['没有巡检记录'];
+        
+        foreach ($shfit_time_ids as $key1=>$shfit_time_id)
+        {
+            $count = $key1 + 1;
+            $data[] = ['第' . $count . '次巡检记录'];
+            $PointEntities = $this->PointHelper->getEntitiesOnShift($workyard_id, $shift_id);
+            foreach ($PointEntities as $key2=>$PointEntity)
+            {
+                $point_id    = $PointEntity->getId();
+                $pointName   = $PointEntity->getName();
+                $address     = $PointEntity->getAddress();
+                // 该巡检点巡检信息
+                $ShiftTimePointEntity = $this->ShiftTimePointHelper->getEntity($shfit_time_id, $point_id);
+                $has_done = !empty($ShiftTimePointEntity->getId());
+                $time = $ShiftTimePointEntity->getTime();
+                $note = $ShiftTimePointEntity->getNote();
+                $address_path = $ShiftTimePointEntity->getAddress_path();
+                $time = $time ? date('Y-m-d H:i:s', $time) : '-';
+                $note = $note ? $note : '-';
+                $has_done  = $has_done ? '已巡检' : '未巡检';
+                $item = [
+                    ++$key2,
+                    $pointName,
+                    $address,
+                    $time,
+                    $has_done,
+                    date('Y-m-d H:i:s')
+                ];
+                $data[] = $item;
+            }
+        }
         MyCSV::export_csv($data, $head_title, $csv_name, $desc);
         exit();
     }
