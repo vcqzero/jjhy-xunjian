@@ -39,7 +39,7 @@ class ShiftTimePointManager
     }
     
     /**
-     * 获取某一次巡检任务中，已经完成的巡检点数量
+     * 获取某一次巡逻任务中，已经完成的巡逻点数量
      *
      * @param  int $shift_time_id
      * @return int
@@ -56,14 +56,14 @@ class ShiftTimePointManager
     }
     
     /**
-    * 判断某一巡检点是否合法
+    * 判断某一巡逻点是否合法
     * 
     * @param  
     * @return bool       
     */
     public function isValidPoint($workyard_id, $shift_time_id, $point_id, $shift_id)
     {
-        //巡检点必须属于该工地
+        //巡逻点必须属于该工地
         $where = [
             PointEntity::FILED_WORKYARD_ID => $workyard_id,
             PointEntity::FILED_ID => $point_id,
@@ -73,7 +73,7 @@ class ShiftTimePointManager
         {
             $res = [
                 'success' => false,
-                'err' => '巡检点无效'
+                'err' => '巡逻点无效'
             ];
             return json_encode($res);
         }else {
@@ -87,13 +87,13 @@ class ShiftTimePointManager
             {
                 $res = [
                     'success' => false,
-                    'err' => '本次巡检不含该巡检点'
+                    'err' => '本次巡逻不含该巡逻点'
                 ];
                 return json_encode($res);
             }
         }
         
-        //巡检点不能已巡检
+        //巡逻点不能已巡逻
         $where = [
             ShiftTimePointEntity::FILED_SHIFT_TIME_ID => $shift_time_id,
             ShiftTimePointEntity::FILED_POINT_ID => $point_id,
@@ -103,7 +103,7 @@ class ShiftTimePointManager
         {
             $res = [
                 'success' => false,
-                'err' => '该巡检点已巡检'
+                'err' => '该巡逻点已巡逻'
             ];
             return json_encode($res);
         }
@@ -111,25 +111,25 @@ class ShiftTimePointManager
     }
     
     /**
-    * 判断该次巡检是否已经完成所有巡检点的巡检任务
+    * 判断该次巡逻是否已经完成所有巡逻点的巡逻任务
     * 
     * @param  
     * @return bool       
     */
     public function hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_id, $shift_time_id)
     {
-        //获取该巡检开始时间
+        //获取该巡逻开始时间
         $Shift = $this->ShiftManager->MyOrm->findOne($shift_id);
         $start_time = $Shift->getStart_time();
         $created    = $Shift->getCreated();
         $start_time = $start_time >= $created ? $start_time : $created;
-        //获取该工地所有巡检点数量
+        //获取该工地所有巡逻点数量
         $where = [
             PointEntity::FILED_WORKYARD_ID => $workyard_id,
         ];
         $where[] = new \Zend\Db\Sql\Predicate\Between(PointEntity::FILED_CREATED, 0, $start_time);
         $all_count = $this->PointManager->MyOrm->count($where);
-        //获取该巡检已完成的巡检点数量
+        //获取该巡逻已完成的巡逻点数量
         $done_count = $this->getCountOnDone($shift_time_id);
         
         return  $all_count <= $done_count;

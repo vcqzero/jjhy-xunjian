@@ -6,7 +6,7 @@ $where[PointEntity::FILED_WORKYARD_ID] = $workyard_id;
 $Entities = $this->Point()->getEntities($where);
 $count = count($Entities);
 ?>
-    <h5 class="text-muted">共<?=$count?>个巡检点</h5>
+    <h5 class="text-muted">共<?=$count?>个巡逻点</h5>
     <ul class="list-unstyled user_data" style="max-height: 530px; overflow: auto">
     	<?php if($count):?>
         	<?php foreach ($Entities as $Entity):?>
@@ -23,7 +23,7 @@ $count = count($Entities);
         	<?php endforeach;?>
     	<?php else :?>
     	<li>
-    		<p>暂无巡检点， <a href="/point" class="text-danger">新增巡检点</a></p>
+    		<p>暂无巡逻点， <a href="/point" class="text-danger">新增巡逻点</a></p>
     	</li>
     	<?php endif;?>
     </ul>

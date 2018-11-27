@@ -62,7 +62,7 @@ $paginator = $this->Guard()->getPaginator($workyard_id, $page, $where);
 
 <?=$this->partial('partial/admin/page/page/table-page.phtml', [
     'pageName'      => 'UserListPage',
-    'pageTitle'     => '工地巡检员',
+    'pageTitle'     => '工地巡逻员',
     'paginator'     => $paginator,
     'search'        => $where,
     'buttonGroup'   => $this->placeholder('buttonGroup'),

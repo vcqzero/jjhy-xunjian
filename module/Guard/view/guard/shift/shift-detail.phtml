@@ -6,8 +6,8 @@ $workyard_id    = $this->workyardID;
 $UserEntity = $this->User()->getEntityByIdentity($identity);
 $user_id    = $UserEntity->getId();
 
-//从巡检次数表中巡检次数
-//从巡检次数巡检点表中找出具体的巡检记录
+//从巡逻次数表中巡逻次数
+//从巡逻次数巡逻点表中找出具体的巡逻记录
 $shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $user_id);//array
 
 //for test
@@ -20,7 +20,7 @@ $shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $user_id);//arr
 
 <!-- 主体内容 -->
 <?php $this->placeholder('content')->captureStart();?>
-<!-- 根据每次巡检记录显示具体巡检点信息 -->
+<!-- 根据每次巡逻记录显示具体巡逻点信息 -->
 <?php if (count($shfit_time_ids)):?>
 
 <?php 
@@ -28,9 +28,9 @@ $i = 1;
 ?>
 <?php foreach ($shfit_time_ids as $shfit_time_id):?>
 
-<div class="weui-cells__title">第<?=$i?>次巡检记录</div>
+<div class="weui-cells__title">第<?=$i?>次巡逻记录</div>
 
-<!-- 巡检点 -->
+<!-- 巡逻点 -->
 <?=$this->partial('guard/shift/partial/detail/points.phtml', [
     'shift_time_id' => $shfit_time_id,
     'shift_id'      => $shift_id,
@@ -55,7 +55,7 @@ $i = 1;
 
 <?=$this->partial('partial/weixin/page/basic-page.phtml', [
     'pageName'    => 'ShiftLogPage',
-    'pageTitle'   => '巡检记录',
+    'pageTitle'   => '巡逻记录',
     'narbar'     => $this->placeholder('narbar'),
     'tarbar'     => false,
     'content'     => $this->placeholder('content'),

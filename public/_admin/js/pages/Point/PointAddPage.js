@@ -30,7 +30,7 @@ define(
 							validators: {
 
 								notEmpty: {
-									message: '请输入巡检点名称',
+									message: '请输入巡逻点名称',
 								},
 
 								stringLength: {
@@ -55,7 +55,7 @@ define(
 							validators: {
 
 								notEmpty: {
-									message: '请输入巡检点位置',
+									message: '请输入巡逻点位置',
 								},
 
 								stringLength: {
@@ -79,7 +79,7 @@ define(
 //					callback: function(form) {
 //						var address_position = $('input[name="address_position"]').val()
 //						if(address_position.length < 1) {
-//							alert('请标记巡检点')
+//							alert('请标记巡逻点')
 //							return false;
 //						}
 //						return true;

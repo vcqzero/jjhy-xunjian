@@ -1,5 +1,5 @@
 <?php
-// 当前巡检任务
+// 当前巡逻任务
 $workyard_id = $this->workyard_id;
 $user_id = $this->user_id;
 
@@ -23,7 +23,7 @@ $ShiftEntity    = $this->ShiftGuard()->getNextShiftOnPlan($workyard_id, $user_id
     'ShiftEntity' =>$ShiftEntity
 ])?>
 
-<!-- 显示所有巡检点popup -->
+<!-- 显示所有巡逻点popup -->
 <?=$this->partial('partial/weixin/popup/points.phtml', [
     'workyard_id' => $workyard_id,
 //     'shift_id' => $shift_id,

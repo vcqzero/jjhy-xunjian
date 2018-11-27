@@ -20,7 +20,7 @@ define(
 				addrss_path = container.attr('data-address-path')
 				addrss_path = JSON.parse(addrss_path)
 				if (addrss_path.length < 1) {
-					alert('没有巡检数据，无法生成巡检轨迹')
+					alert('没有巡逻数据，无法生成巡逻轨迹')
 					return
 				}
 				container.removeClass('hide')
@@ -57,11 +57,11 @@ define(
 										var name = tr.find('td.point-name').text()
 										var time = tr.find('td.point-time').text()
 										var note = tr.find('td.point-note').text()
-										return name + '，巡检时间:' + time + '，巡检备注' + note 
+										return name + '，巡逻时间:' + time + '，巡逻备注' + note 
 									}
 									//鼠标悬停在某个轨迹节点上
 									pointIndex = pointIndex + 1
-									return '巡检点: ' + pointIndex + '/' + pathData.path.length;
+									return '巡逻点: ' + pointIndex + '/' + pathData.path.length;
 								}
 							},
 							renderOptions: {
@@ -76,7 +76,7 @@ define(
 
 						//set data
 						pathSimplifierIns.setData([{
-							name: '巡检轨迹',
+							name: '巡逻轨迹',
 							path: addrss_path
 						}]);
 						//自动巡航

@@ -17,7 +17,7 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
         $pointName   = $PointEntity->getName();
         $address     = $PointEntity->getAddress();
         
-        // 该巡检点巡检信息
+        // 该巡逻点巡逻信息
         $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
         $has_done = !empty($ShiftTimePointEntity->getId());
         $time = $ShiftTimePointEntity->getTime();
@@ -39,7 +39,7 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id, $shift_id);
             <?php if($has_done):?>
             <i class="weui-icon-success-no-circle"></i>
             <?php else :?>
-           	 未巡检
+           	 未巡逻
             <?php endif;?>
             </div>
           </a>

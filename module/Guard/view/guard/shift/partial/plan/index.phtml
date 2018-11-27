@@ -4,7 +4,7 @@ $workyard_id = $this->User()->getWorkyardId($identity);
 $UserEntity  = $this->User()->getEntityByIdentity($identity);
 $userID = $UserEntity->getId();
 
-//获取某一巡检员是否有值班安排
+//获取某一巡逻员是否有值班安排
 $has_shifts_on_plan = $this->ShiftGuard()->hasShiftsOnPlan($userID, $workyard_id);
 
 //test
@@ -35,7 +35,7 @@ class="my-infinite"
 <?=$this->partial('partial/weixin/loading/loading.phtml')?>
 <?=$this->partial('partial/weixin/loading/loading-done.phtml')?>
 
-<!-- 显示所有巡检点popup -->
+<!-- 显示所有巡逻点popup -->
 <?=$this->partial('partial/weixin/popup/points.phtml', [
     'workyard_id' => $workyard_id
 ])?>

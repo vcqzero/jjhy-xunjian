@@ -18,7 +18,7 @@ class PointManager
     const PATH_TEMPLATE       = 'data/qrcode/template.png';
     const RECORD_INFO = '技术支持：北京京玖恒阳科技发展有限公司';
     /**
-    * 存放巡检点二维码文件路径
+    * 存放巡逻点二维码文件路径
     * 以不同工地id分开保存
     */
     const PATH_QRCODE = 'data/qrcode/';
@@ -81,7 +81,7 @@ class PointManager
         //zip name 
         $Workyard = $this->WorkyardManager->MyOrm->findOne($workyard_id);
         $workyard_name = $Workyard->getName();
-        $zipname = $base . $workyard_name . '_巡检点.zip';
+        $zipname = $base . $workyard_name . '_巡逻点.zip';
         $zip = new \ZipArchive();
         $res = $zip->open($zipname, \ZipArchive::CREATE);
         if (empty($res)) {

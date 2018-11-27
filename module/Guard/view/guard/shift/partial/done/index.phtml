@@ -3,7 +3,7 @@ $identity = $this->identity();
 $UserEntity  = $this->User()->getEntityByIdentity($identity);
 $userID = $UserEntity->getId();
 
-//获取某一巡检员所有的已过时间值班记录
+//获取某一巡逻员所有的已过时间值班记录
 $has_shifts_on_done = $this->ShiftGuard()->hasShiftsOnDone($userID);
 
 //test

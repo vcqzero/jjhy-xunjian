@@ -35,7 +35,7 @@ class ShiftGuardHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一巡检员，此时此刻巡检任务
+    * 获取某一巡逻员，此时此刻巡逻任务
     * 
     * @param int $userID  
     * @param int $workyardID  
@@ -53,7 +53,7 @@ class ShiftGuardHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一巡检员，最近一次的巡检计划
+    * 获取某一巡逻员，最近一次的巡逻计划
     * 
     * @param int $userID  
     * @param int $workyardID  
@@ -134,7 +134,7 @@ class ShiftGuardHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一巡检员所有的值班安排
+    * 获取某一巡逻员所有的值班安排
     * 值班开始时间 > 当前时间
     * 
     * @param int $userID  
@@ -179,7 +179,7 @@ class ShiftGuardHelper extends AbstractHelper
     }
     
     /**
-    * 获取所有巡检员的执勤表
+    * 获取所有巡逻员的执勤表
     * 用于管理员
     * 
     * @param  int $workyard_id

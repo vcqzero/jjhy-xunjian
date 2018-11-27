@@ -26,11 +26,11 @@ $hasDone = $this->ShiftTime()->hasDone($shift_time_id);
   <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
   <div class="weui-msg__text-area">
     <h2 class="weui-msg__title">操作成功</h2>
-    <p class="weui-msg__desc"><?=$time?> ： 成功巡检<?=$pointName?></p>
+    <p class="weui-msg__desc"><?=$time?> ： 成功巡逻<?=$pointName?></p>
   </div>
   <div class="weui-msg__opr-area">
     <p class="weui-btn-area">
-      <a href="/" class="weui-btn weui-btn_primary"><?=$hasDone ? '本次巡检完成，执行下一次巡检' : '前往下一巡检点'?></a>
+      <a href="/" class="weui-btn weui-btn_primary"><?=$hasDone ? '本次巡逻完成，执行下一次巡逻' : '前往下一巡逻点'?></a>
     </p>
   </div>
   <div class="weui-msg__extra-area">
@@ -41,7 +41,7 @@ $hasDone = $this->ShiftTime()->hasDone($shift_time_id);
 
 <?=$this->partial('partial/weixin/page/basic-page.phtml', [
     'pageName'    => 'ShiftTimeSuccessPage',
-    'pageTitle'   => '巡检任务',
+    'pageTitle'   => '巡逻任务',
 //     'narbar'      => '',//顶部导航
     'tarbar'      => false,//底部导航
     'content'     => $this->placeholder('content'),

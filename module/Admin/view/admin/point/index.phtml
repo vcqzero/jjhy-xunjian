@@ -32,7 +32,7 @@ $workyard_name  = $WorkyardEntity->getName();
     <thead>
         <tr>
           <th >id</th>
-          <th >巡检点</th>
+          <th >巡逻点</th>
           <th >所在位置</th>
           <th >创建时间</th>
           <th >添加人</th>
@@ -82,7 +82,7 @@ $workyard_name  = $WorkyardEntity->getName();
 
 <?=$this->partial('partial/admin/page/page/table-page.phtml', [
     'pageName'      => 'PointListPage',
-    'pageTitle'     => '巡检点管理',
+    'pageTitle'     => '巡逻点管理',
     'paginator'     => $paginator,
     'search'        => $where,
     'buttonGroup'   => $this->placeholder('buttonGroup'),

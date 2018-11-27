@@ -38,8 +38,8 @@ class PointHelper extends AbstractHelper
     }
     
     /**
-    * 获取某次巡检任务的巡检点
-    * 巡检点创建时间小于任务开始时间
+    * 获取某次巡逻任务的巡逻点
+    * 巡逻点创建时间小于任务开始时间
     * 
     * @param  
     * @return        
@@ -91,8 +91,8 @@ class PointHelper extends AbstractHelper
     {
         $Point  = $this->PointManager->MyOrm->findOne($point_id);
         $created= $Point->getCreated();
-        //如果巡检点正在使用中，则不可删除
-        //获取当前正在巡检的任务
+        //如果巡逻点正在使用中，则不可删除
+        //获取当前正在巡逻的任务
         $where1 = [
             ShiftEntity::FILED_WORKYARD_ID => $workyard_id,
         ];

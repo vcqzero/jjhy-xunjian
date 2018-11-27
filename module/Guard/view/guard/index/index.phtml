@@ -6,7 +6,7 @@ $user_id     = $UserEntity->getId();
 
 //check has shift on working 
 $has_shifts_on_working= $this->ShiftGuard()->hasShiftsOnWorking($user_id, $workyard_id);
-//获取某一巡检员是否有值班安排
+//获取某一巡逻员是否有值班安排
 $has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard_id);
 
 //test
@@ -35,7 +35,7 @@ $has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard
 <!-- 如果没有当前值班任务，但是有值班安排 -->
 <?php elseif ($has_shifts_on_plan):?>
 <?=$this->partial('partial/weixin/empty/weui-msg.phtml', [
-    'title' => '无进行中的巡检任务',
+    'title' => '无进行中的巡逻任务',
     'desc' => '请留意值班安排',
 ])?>
 <!-- 显示1条值班安排 -->
@@ -56,7 +56,7 @@ $has_shifts_on_plan   = $this->ShiftGuard()->hasShiftsOnPlan($user_id, $workyard
 
 <?=$this->partial('partial/weixin/page/basic-page.phtml', [
     'pageName'    => 'GuardIndexPage',
-    'pageTitle'   => '巡检任务',
+    'pageTitle'   => '巡逻任务',
     'narbar'      => '',//指定导航条的url
 //     'narbar'     => $this->placeholder('narbar'),
     'content'     => $this->placeholder('content'),

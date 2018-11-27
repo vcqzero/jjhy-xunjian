@@ -31,7 +31,7 @@ class GuardHelper extends AbstractHelper
         return $this->UserManager->MyOrm->paginator($page, $where);
     }
     /**
-    * 查询所辖工地所有巡检员
+    * 查询所辖工地所有巡逻员
     * 
     * @param  
     * @return        

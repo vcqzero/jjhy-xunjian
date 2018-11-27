@@ -187,7 +187,7 @@ class ShiftController extends AbstractActionController
     }
     
     /**
-    * 导出巡检员值班记录
+    * 导出巡逻员值班记录
     * 
     * @param  
     * @return        
@@ -206,12 +206,12 @@ class ShiftController extends AbstractActionController
             ['考勤统计时间', date('Y-m-d H:i:s')],
         ];
         $head_title = [
-            '巡检员',
+            '巡逻员',
             '值班日期',
             '班次',
             '值班时间',
-            '需巡检次数',
-            '已巡检次数',
+            '需巡逻次数',
+            '已巡逻次数',
             '是否完成',
             '统计时间',
         ];
@@ -250,15 +250,15 @@ class ShiftController extends AbstractActionController
                 $username   = $UserEntity->getUsername();
                 
                 //has done
-                //当前shift已完成巡检次数
+                //当前shift已完成巡逻次数
                 $done_count = $this->ShiftTimeHelper->getDoneCount($guard_id, $shiftID);
-                //是否完成巡检
-                //是否完成规定的巡检次数
+                //是否完成巡逻
+                //是否完成规定的巡逻次数
                 $has_done = $done_count >= $times;
                 if ($has_done) {
                     $status = '已完成';
                 }else if ($end_time >= time()) {
-                    $status = '巡检中...';
+                    $status = '巡逻中...';
                 }else {
                     $status = '未完成';
                 }
@@ -314,43 +314,43 @@ class ShiftController extends AbstractActionController
         $csv_name = $start_day . '_' . $shift_type_name . '_' . $username . '_考勤明细.csv';
         $desc = [
             ['值班考勤明细表'],
-            ['巡检员', $username],
+            ['巡逻员', $username],
             ['真实姓名', $realName],
             ['项目名称', $workyard_name],
             ['项目地址', $Workyard->getAddress()],
             ['值班时间', $start_day],
             ['班次', $shift_type_name],
             ['具体时间', "$format_start_time - $format_end_time"],
-            ['需巡检次数', $times],
+            ['需巡逻次数', $times],
             ['备注', $note],
             ['考勤统计时间', date('Y-m-d H:i:s')],
         ];
         $head_title = [
             '序号',
-            '巡检点',
+            '巡逻点',
             '位置',
-            '巡检时间',
-            '是否巡检',
+            '巡逻时间',
+            '是否巡逻',
             '统计时间',
         ];
         
         //shift times
         $shfit_time_ids = $this->ShiftTimeHelper->getShfitTimeIDs($shift_id, $guard_id);//array
-        $desc[] = ['已巡检次数', count($shfit_time_ids)];
+        $desc[] = ['已巡逻次数', count($shfit_time_ids)];
         $data = [];
-        if (empty(count($shfit_time_ids))) $data[] = ['没有巡检记录'];
+        if (empty(count($shfit_time_ids))) $data[] = ['没有巡逻记录'];
         
         foreach ($shfit_time_ids as $key1=>$shfit_time_id)
         {
             $count = $key1 + 1;
-            $data[] = ['第' . $count . '次巡检记录'];
+            $data[] = ['第' . $count . '次巡逻记录'];
             $PointEntities = $this->PointHelper->getEntitiesOnShift($workyard_id, $shift_id);
             foreach ($PointEntities as $key2=>$PointEntity)
             {
                 $point_id    = $PointEntity->getId();
                 $pointName   = $PointEntity->getName();
                 $address     = $PointEntity->getAddress();
-                // 该巡检点巡检信息
+                // 该巡逻点巡逻信息
                 $ShiftTimePointEntity = $this->ShiftTimePointHelper->getEntity($shfit_time_id, $point_id);
                 $has_done = !empty($ShiftTimePointEntity->getId());
                 $time = $ShiftTimePointEntity->getTime();
@@ -358,7 +358,7 @@ class ShiftController extends AbstractActionController
                 $address_path = $ShiftTimePointEntity->getAddress_path();
                 $time = $time ? date('Y-m-d H:i:s', $time) : '-';
                 $note = $note ? $note : '-';
-                $has_done  = $has_done ? '已巡检' : '未巡检';
+                $has_done  = $has_done ? '已巡逻' : '未巡逻';
                 $item = [
                     ++$key2,
                     $pointName,

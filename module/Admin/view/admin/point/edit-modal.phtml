@@ -12,9 +12,9 @@ $token = $this->Token()->getToken();
 
 <?php $this->placeholder('formContent')->captureStart();?>
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
-	    'label' => '巡检点名称：',
+	    'label' => '巡逻点名称：',
 	    'name' => 'name',
-	    'placeholder' => '请输入巡检点名称',
+	    'placeholder' => '请输入巡逻点名称',
 	    'type' => 'text',
 	    'value' => $name,
 	])?>
@@ -41,7 +41,7 @@ $token = $this->Token()->getToken();
 
 <?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
     'pageName'      => 'PointEditPage',
-    'pageTitle'     => '编辑巡检点',
+    'pageTitle'     => '编辑巡逻点',
     'modalSize'     => 'lg',
     'form_id'       => 'form-edit-point',
     'action'        => "/api/point/edit/$workyard_id/$point_id?token=$token",

@@ -129,13 +129,13 @@ class NavbarHelper extends AbstractHelper
                 ],
             ],
             
-            '巡检部分'=>[
+            '巡逻部分'=>[
                 
-                '巡检点'=> [
+                '巡逻点'=> [
                     'icon'  => 'fa fa-photo',
                     'menus' => [
                         1=>[
-                            'title'=> '巡检点',
+                            'title'=> '巡逻点',
                             'url' => '/point',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],
@@ -149,11 +149,11 @@ class NavbarHelper extends AbstractHelper
                     
                 ],
                 
-                '巡检员'=> [
+                '巡逻员'=> [
                     'icon'  => 'fa fa-users',
                     'menus' => [
                         1=>[
-                            'title'=> '巡检员',
+                            'title'=> '巡逻员',
                             'url' => '/guard',
                             'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
                         ],

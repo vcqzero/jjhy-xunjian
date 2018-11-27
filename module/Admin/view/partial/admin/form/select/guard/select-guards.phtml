@@ -1,6 +1,6 @@
 <?php
 /**
- * 选择本工地所有巡检员 
+ * 选择本工地所有巡逻员 
  */
 $identity = $this->identity();
 $workyard_id = $this->User()->getWorkyardId($identity);
@@ -22,7 +22,7 @@ $GuardEntities = $this->Guard()->getEntitiesBy($workyard_id);
 
 <div class="form-group">
 	<label class="control-label col-md-3 col-sm-3 col-xs-12"
-		for="first-name">巡检员：</label>
+		for="first-name">巡逻员：</label>
 	<div class="col-md-6 col-sm-6 col-xs-12">
     	<select 
     	name="guard_id" 

@@ -4,7 +4,7 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id);
 ?>
 
 <div class="form-group">
-		<label class="control-label col-md-3 col-sm-3 col-xs-12">巡检点：</label>
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">巡逻点：</label>
 		<?php if(count($PointEntities)):?>
 		<div id="point-name" 
 		class="form-control-static col-md-6 col-sm-6 col-xs-12"
@@ -33,7 +33,7 @@ $PointEntities = $this->Point()->getEntitiesOnShift($workyard_id);
 		</div>
 		<?php else :?>
 		<p class="form-control-static " >
-		<a href="/point" class="text-danger">请先添加巡检点</a>
+		<a href="/point" class="text-danger">请先添加巡逻点</a>
 		</p>
 		<?php endif;?>
 	</div>

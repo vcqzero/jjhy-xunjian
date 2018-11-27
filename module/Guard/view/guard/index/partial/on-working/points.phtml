@@ -18,7 +18,7 @@ id="my-point-on-working"
 data-all-count="<?=$all_point_count?>"
 data-done-count="<?=$all_done_point_count?>"
 >
-    <div class="weui-cells__title">共<?=$all_point_count?>个巡检点，已巡检<?=$all_done_point_count?>个 </div>
+    <div class="weui-cells__title">共<?=$all_point_count?>个巡逻点，已巡逻<?=$all_done_point_count?>个 </div>
     <div class="weui-cells" style="margin-top: 0px">
         <?php foreach ($PointEntities as $PointEntity) :?>
         <?php
@@ -26,7 +26,7 @@ data-done-count="<?=$all_done_point_count?>"
         $pointName = $PointEntity->getName();
         $address   = $PointEntity->getAddress();
         
-        //该巡检点巡检信息
+        //该巡逻点巡逻信息
         $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
         $has_done = !empty($ShiftTimePointEntity->getId());
         $time = $ShiftTimePointEntity->getTime();
@@ -50,7 +50,7 @@ data-done-count="<?=$all_done_point_count?>"
             <?php if($has_done):?>
             <i class="weui-icon-success-no-circle"></i>
             <?php else :?>
-           	 待巡检
+           	 待巡逻
             <?php endif;?>
             </div>
           </a>

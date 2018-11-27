@@ -14,7 +14,7 @@ $select2_config = $this->Guard()->getGuardDataForSelect2AsJson($workyard_id, $sh
 
 <div class="form-group">
 	<label class="control-label col-md-3 col-sm-3 col-xs-12"
-		for="first-name">巡检员：</label>
+		for="first-name">巡逻员：</label>
 	<div class="col-md-6 col-sm-6 col-xs-12">
     	<select 
     	id ="guard_select"
@@ -26,7 +26,7 @@ $select2_config = $this->Guard()->getGuardDataForSelect2AsJson($workyard_id, $sh
     	>
 		</select>
 		<?php if ($select2_config == '[]') :?>
-    	<a href="/guard" class="text-danger">请先增加巡检员</a>
+    	<a href="/guard" class="text-danger">请先增加巡逻员</a>
         <?php endif;?>
 	</div>
 </div>

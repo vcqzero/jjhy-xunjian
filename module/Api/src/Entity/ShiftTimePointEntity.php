@@ -2,7 +2,7 @@
 namespace Api\Entity;
 
 /**
-* 某一巡检任务中某一巡检次数和巡检点的关系
+* 某一巡逻任务中某一巡逻次数和巡逻点的关系
 */
 class ShiftTimePointEntity
 {

@@ -33,7 +33,7 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
 	    'id' => 'select-range-date'
 	])?>
 	
-<!-- 选择巡检员 -->
+<!-- 选择巡逻员 -->
 <?=$this->partial('partial/admin/form/select/guard/select-guards.phtml', [
  'selectedId'  => null,
  'withDefualt' => true,
@@ -49,8 +49,8 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
           <th >日期</th>
           <th >班次</th>
           <th >值班时间</th>
-          <th >需巡检次数</th>
-          <th >已巡检次数</th>
+          <th >需巡逻次数</th>
+          <th >已巡逻次数</th>
           <th >是否完成</th>
           <th >操作</th>
     	</tr>
@@ -80,10 +80,10 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
       		$username   = $UserEntity->getUsername();
       		
       		//has done
-      		//当前shift已完成巡检次数
+      		//当前shift已完成巡逻次数
       		$done_count = $this->ShiftTime()->getDoneCount($guard_id, $shiftID);
-      		//是否完成巡检
-      		//是否完成规定的巡检次数
+      		//是否完成巡逻
+      		//是否完成规定的巡逻次数
       		$has_done = $done_count >= $times;
       		?>
       		<tr>
@@ -105,7 +105,7 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
       			<?php if ($has_done):?>
       			<span class="text-success">已完成</span>
       			<?php elseif ($end_time >= time()) :?>
-      			<span class="text-warning">巡检中...</span>
+      			<span class="text-warning">巡逻中...</span>
       			<?php else :?>
       			<span class="text-danger">未完成</span>
       			<?php endif;?>
@@ -114,12 +114,12 @@ $paginator   = $this->ShiftGuard()->getAllGuardsPaginator($workyard_id, $page, $
       		<div class="btn-group  btn-group-sm">
       		
       		<?=$this->partial('partial/admin/button/single.phtml', [
-                'title' => '巡检轨迹',
+                'title' => '巡逻轨迹',
                 'data_modal_open' => true,
       		    'data_modal_url' => "/shiftGuard/detailModal/$shiftID/$guard_id", //string
             ])?>
             <?=$this->partial('partial/admin/button/link.phtml', [
-                'title' => '导出巡检明细',
+                'title' => '导出巡逻明细',
                 'href' => "/api/shift/csvDetail?guard_id=$guard_id&shift_id=$shiftID"
             ])?>
             </div>

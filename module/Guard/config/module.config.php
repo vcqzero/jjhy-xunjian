@@ -59,7 +59,7 @@ return [
                         ],
                     ],
                     
-                    //巡检
+                    //巡逻
                     'shiftTime' => [
                         'type'    => Segment::class,
                         'options' => [

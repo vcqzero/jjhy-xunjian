@@ -83,6 +83,7 @@ requirejs.config({
 		WorkyardAddPage:'pages/Workyard/WorkyardAddPage',
 		WorkyardEditPage:'pages/Workyard/WorkyardEditPage',
 		WorkyardDetailModal:'pages/Workyard/WorkyardDetailModal',
+		WorkyardDeletePage:'pages/Workyard/WorkyardDeletePage',
 	},
 
 	//定义不同js的依赖关系

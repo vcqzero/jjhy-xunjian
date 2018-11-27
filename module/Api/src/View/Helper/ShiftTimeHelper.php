@@ -18,7 +18,7 @@ class ShiftTimeHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一巡检员关于某已巡检班次已完成的巡检任务
+    * 获取某一巡逻员关于某已巡逻班次已完成的巡逻任务
     * 
     * @param  int $shift_id 
     * @return int max_count     
@@ -43,9 +43,9 @@ class ShiftTimeHelper extends AbstractHelper
     }
     
     /**
-    * 获取关于某一巡检员在某次巡检任务中，正在进行的巡检次数id
-    * 当该次巡检一个巡检点未扫描时，id = null
-    * 也就是说，当在第一次扫描巡检点时会生成巡检次数id
+    * 获取关于某一巡逻员在某次巡逻任务中，正在进行的巡逻次数id
+    * 当该次巡逻一个巡逻点未扫描时，id = null
+    * 也就是说，当在第一次扫描巡逻点时会生成巡逻次数id
     * 
     * @param  int $userID
     * @param  int $shift_id
@@ -55,7 +55,7 @@ class ShiftTimeHelper extends AbstractHelper
     public function getShiftTimeIdOnWorking($userID, $shift_id, $has_done)
     {
         $MyOrm = $this->ShiftTimeManager->MyOrm;
-        //如果本次巡检已完成，则代表没有正在巡检的次数id
+        //如果本次巡逻已完成，则代表没有正在巡逻的次数id
         if ($has_done)
         {
             return null;
@@ -82,7 +82,7 @@ class ShiftTimeHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一值班记录 某一巡检员的所有巡检次数记录id的数组
+    * 获取某一值班记录 某一巡逻员的所有巡逻次数记录id的数组
     * 
     * @param  
     * @return array       

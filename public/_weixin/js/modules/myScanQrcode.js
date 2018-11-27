@@ -48,8 +48,8 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 
 //	var prompt = function() {
 //		$.prompt({
-//			title: '巡检状况',
-//			text: '选填：可输入巡检状况',
+//			title: '巡逻状况',
+//			text: '选填：可输入巡逻状况',
 //			empty: true, // 是否允许为空
 //
 //			onOK: function(_input) {
@@ -92,12 +92,12 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 					
 					var point_id = strObj['point_id']
 					if(point_id.length < 1) {
-						throw '未查询到巡检点'
+						throw '未查询到巡逻点'
 					}
-					//添加巡检点id
+					//添加巡逻点id
 					data['point_id'] = point_id
 					status_scan_qrcode = true
-					//输入巡检点状况
+					//输入巡逻点状况
 					trigger()
 
 				} catch(err) {
@@ -135,7 +135,7 @@ define(['jquery', 'myWeiXinJs'], function($, wx) {
 		})
 	}
 	/**
-	 * 发送巡检信息到服务器
+	 * 发送巡逻信息到服务器
 	 * 
 	 */
 	var send = function() {

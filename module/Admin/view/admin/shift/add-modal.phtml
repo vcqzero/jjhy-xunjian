@@ -30,9 +30,9 @@ $token = $this->Token()->getToken();
 	])?>
 	
 	<?=$this->partial('partial/admin/form/input/input.phtml', [
-	    'label' => '巡检圈数：',
+	    'label' => '巡逻圈数：',
 	    'name' => 'times',
-	    'placeholder' => '请输入巡检圈数',
+	    'placeholder' => '请输入巡逻圈数',
 	    'type' => 'text'
 	])?>
 		
@@ -48,7 +48,7 @@ $token = $this->Token()->getToken();
      'withDefualt' => true,
      ])?>
      
-    <!-- 巡检点 -->
+    <!-- 巡逻点 -->
 	<?=$this->partial('admin/shift/partial/points-info-on-add.phtml', [
      'workyard_id' => $workyard_id,
      ])?>

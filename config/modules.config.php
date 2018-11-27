@@ -25,5 +25,5 @@ return [
 //     'ZendDeveloperTools',
     'Admin',//管理员端 PC
 	'Api',//获取数据
-    'Guard',//巡检员端 (微信)
+    'Guard',//巡逻员端 (微信)
 ];

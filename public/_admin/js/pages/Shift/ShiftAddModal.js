@@ -44,7 +44,7 @@ define(
 			results = JSON.parse(results)
 			_select.select2({
 				language:'zh-CN',
-				placeholder: '请选择巡检员',
+				placeholder: '请选择巡逻员',
 				'data' : results
 			})
 		}
@@ -130,7 +130,7 @@ define(
 						}
 						var point_name = $('#point-name')
 						if (point_name.length < 1){
-							alert('请先增加巡检点')
+							alert('请先增加巡逻点')
 							return false;
 						}
 						return true;

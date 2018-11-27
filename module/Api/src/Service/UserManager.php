@@ -33,7 +33,7 @@ class UserManager
     const ROLE_WORKYARD_ADMIN = 'WORKYARD_ADMIN';
     
     /**
-    * @var 巡检员
+    * @var 巡逻员
     */
     const ROLE_WORKYARD_GUARD = 'WORKYARD_GUARD';
     

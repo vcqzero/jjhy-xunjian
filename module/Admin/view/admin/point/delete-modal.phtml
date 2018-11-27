@@ -12,17 +12,17 @@ $token = $this->Token()->getToken();
 
 <?php $this->placeholder('formContent')->captureStart();?>
 <?php if($canDelete):?>
-<p>巡检点：<?=$name?></p>
+<p>巡逻点：<?=$name?></p>
 <p>确认删除 ?</p>
 <?php else :?>
-<p>当前巡检任务包含此巡检点，不可删除！</p>
-<p>当巡检任务结束或未开始之前可删除巡检点。</p>
+<p>当前巡逻任务包含此巡逻点，不可删除！</p>
+<p>当巡逻任务结束或未开始之前可删除巡逻点。</p>
 <?php endif;?>
 <?php $this->placeholder('formContent')->captureEnd() ?>
 
 <?=$this->partial('partial/admin/page/modal/delete-modal.phtml', [
     'pageName' => 'PointDeletePage',
-    'pageTitle' => '删除巡检点',
+    'pageTitle' => '删除巡逻点',
     'form_id'=>'form-delete-point',
     'action'=>"/api/point/delete/$workyard_id/$point_id?token=$token",
     'canDelete'=>$canDelete,

@@ -67,7 +67,7 @@ return [
                         ],
                     ],
                     
-                    //工地巡检员
+                    //工地巡逻员
                     'guard' => [
                         'type'    => Segment::class,
                         'options' => [
@@ -129,7 +129,7 @@ return [
                         ],
                     ],
                     
-                    //巡检点管理
+                    //巡逻点管理
                     'point' => [
                         'type'    => Segment::class,
                         'options' => [

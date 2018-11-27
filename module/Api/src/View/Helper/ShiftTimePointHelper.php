@@ -34,7 +34,7 @@ class ShiftTimePointHelper extends AbstractHelper
     }
     
     /**
-    * 判断某一巡检次数中，某一巡检点是否已巡检
+    * 判断某一巡逻次数中，某一巡逻点是否已巡逻
     * 
     * @param int $shift_time_id
     * @param int $point_id
@@ -53,7 +53,7 @@ class ShiftTimePointHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一次巡检任务中，已经完成的巡检点数量
+    * 获取某一次巡逻任务中，已经完成的巡逻点数量
     * 
     * @param  int $shift_time_id
     * @return int        
@@ -64,7 +64,7 @@ class ShiftTimePointHelper extends AbstractHelper
     }
     
     /**
-    * 获取某一巡检次数的所有巡检记录
+    * 获取某一巡逻次数的所有巡逻记录
     * 
     * @param  int $shift_time_id
     * @return        
@@ -81,7 +81,7 @@ class ShiftTimePointHelper extends AbstractHelper
     }
     
     /**
-    * 获取某次巡检中巡检轨迹的坐标
+    * 获取某次巡逻中巡逻轨迹的坐标
     * 
     * @param  
     * @return        

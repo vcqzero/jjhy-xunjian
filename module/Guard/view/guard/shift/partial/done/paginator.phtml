@@ -11,7 +11,7 @@ $page_count   = $ShiftPaginator->count();
 
 ?>
 
-<div class="weui-cells__title">巡检记录</div>
+<div class="weui-cells__title">巡逻记录</div>
 <div 
 class="my-infinite-list"
 data-user-id = "<?=$user_id?>"
@@ -36,10 +36,10 @@ $workyard_id    = $ShiftEntity->getWorkyard_id();
 $WorkyardEntity = $this->Workyard()->getWorkyardEntity($workyard_id);
 $workyard_name  = $WorkyardEntity->getName();
 
-//当前shift已完成巡检次数
+//当前shift已完成巡逻次数
 $done_count = $this->ShiftTime()->getDoneCount($user_id, $shift_id);
-//是否完成巡检
-//是否完成规定的巡检次数
+//是否完成巡逻
+//是否完成规定的巡逻次数
 $has_done = $done_count == $times;
 ?>
 <div 
@@ -73,7 +73,7 @@ data-page-count="<?=$page_count?>"
 				class="weui-form-preview__value"><?=$note ? $note : '-'?></span>
 		</div>
 		<div class="weui-form-preview__item">
-    			<label class="weui-form-preview__label">已巡检/总次数</label> <span
+    			<label class="weui-form-preview__label">已巡逻/总次数</label> <span
     				class="weui-form-preview__value"><?=$done_count?>/<?=$times?></span>
     		</div>
     		
@@ -85,7 +85,7 @@ data-page-count="<?=$page_count?>"
 	<div class="weui-form-preview__ft">
         <a 
         class="weui-form-preview__btn weui-form-preview__btn_primary" 
-        href="/shift/shiftDetail/<?=$shift_id?>/<?=$workyard_id?>">巡检记录</a>
+        href="/shift/shiftDetail/<?=$shift_id?>/<?=$workyard_id?>">巡逻记录</a>
     </div>
  </div>
 <?php endforeach;?>

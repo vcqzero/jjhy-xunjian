@@ -5,8 +5,8 @@ $guard_id = $this->guardID;
 $ShiftEntity = $this->Shift()->getEntity($shift_id);
 $workyard_id = $ShiftEntity->getWorkyard_id();
 
-//从巡检次数表中巡检次数
-//从巡检次数巡检点表中找出具体的巡检记录
+//从巡逻次数表中巡逻次数
+//从巡逻次数巡逻点表中找出具体的巡逻记录
 $shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $guard_id);//array
 
 ?>
@@ -38,9 +38,9 @@ $shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $guard_id);//ar
 <?php else :?>
 <!-- 没有记录 -->
 <div class="panel panel-info">
-  <div class="panel-heading"><i class="fa fa-navicon"></i> 巡检记录</div>
+  <div class="panel-heading"><i class="fa fa-navicon"></i> 巡逻记录</div>
   <div class="panel-body">
-      没有巡检记录
+      没有巡逻记录
   </div>
 </div>
 <?php endif;?>
@@ -49,7 +49,7 @@ $shfit_time_ids = $this->ShiftTime()->getShfitTimeIDs($shift_id, $guard_id);//ar
 
 <?=$this->partial('partial/admin/page/modal/basic-modal.phtml', [
     'pageName' => 'ShiftGuardDetailModal',
-    'pageTitle' => '巡检轨迹',
+    'pageTitle' => '巡逻轨迹',
     'modalSize'     => 'lg',
     'modalBody' => $this->placeholder('modalBody'),
 ])?>

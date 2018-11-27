@@ -15,20 +15,20 @@ $address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_i
 	<div class="panel-heading">
 		<span>
 		<i class="fa fa-navicon"></i> 
-		第<?=$count?>次巡检记录</span> 
+		第<?=$count?>次巡逻记录</span> 
 		<a class="pull-right panel-collapse-link" href="javascript:;">
 		<i class="fa fa-chevron-up"></i></a>
 	</div>
-	<!-- 巡检点 -->
+	<!-- 巡逻点 -->
 	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>巡检点</th>
+				<th>巡逻点</th>
 				<th>地址</th>
-				<th>巡检时间</th>
+				<th>巡逻时间</th>
 				<th>备注</th>
-				<th>是否巡检</th>
+				<th>是否巡逻</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -38,7 +38,7 @@ $address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_i
             $pointName   = $PointEntity->getName();
             $address     = $PointEntity->getAddress();
             
-            // 该巡检点巡检信息
+            // 该巡逻点巡逻信息
             $ShiftTimePointEntity = $this->ShiftTimePoint()->getEntity($shift_time_id, $point_id);
             $has_done = !empty($ShiftTimePointEntity->getId());
             $time = $ShiftTimePointEntity->getTime();
@@ -55,9 +55,9 @@ $address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_i
 				<td class="point-note"><?=$this->escapehtml($note)?></td>
 				<td>
             	<?php if($has_done):?>
-            	<span class="text-success"><i class="fa fa-check"></i> 已巡检</span>
+            	<span class="text-success"><i class="fa fa-check"></i> 已巡逻</span>
             	<?php else :?>
-            	<span class="text-danger">未巡检</span>
+            	<span class="text-danger">未巡逻</span>
             	<?php endif;?>
             	</td>
 			</tr>
@@ -67,10 +67,10 @@ $address_path_json = $this->ShiftTimePoint()->getAddressPathJsonBy($shift_time_i
 	<!-- map -->
 	<div class="panel-body">
 		<div class="ln_solid"></div>
-	<!-- 巡检轨迹 -->
+	<!-- 巡逻轨迹 -->
 		<div class="my-map">
-        	<h5 class="">第<?=$count?>次巡检轨迹</h5>
-        	<button type="button" class="btn btn-default show-map-track">巡检轨迹</button>
+        	<h5 class="">第<?=$count?>次巡逻轨迹</h5>
+        	<button type="button" class="btn btn-default show-map-track">巡逻轨迹</button>
         	<button type="button" class="btn btn-default hide-map-track">关闭轨迹</button>
         	<div 
         	id="map_container_<?=$count?>" 

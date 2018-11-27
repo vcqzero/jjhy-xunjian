@@ -6,6 +6,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Api\Controller\IndexController;
 use Api\Controller\WorkyardController;
 use Api\Service\WorkyardManager;
+use Api\Service\UserManager;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -16,7 +17,8 @@ class WorkyardControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         return new WorkyardController(
-            $container->get(WorkyardManager::class)
+            $container->get(WorkyardManager::class),
+            $container->get(UserManager::class)
            );
     }
 }

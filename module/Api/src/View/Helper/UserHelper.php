@@ -89,7 +89,7 @@ class UserHelper extends AbstractHelper
     {
         return [
             UserManager::ROLE_WORKYARD_ADMIN => '工地管理员',
-            UserManager::ROLE_WORKYARD_GUARD=> '巡检员'
+            UserManager::ROLE_WORKYARD_GUARD=> '巡逻员'
         ];
     }
     

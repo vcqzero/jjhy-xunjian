@@ -61,7 +61,7 @@ class ShiftTimeController extends AbstractActionController
         $shift_id       = $this->params()->fromPost('shift_id');
         $workyard_id    = $this->params()->fromQuery('workyard_id');
         
-        //判断巡检点是否合法
+        //判断巡逻点是否合法
         $isValid = $this->ShiftTimePointManager->isValidPoint($workyard_id, $shift_time_id, $point_id, $shift_id);
         if($isValid !== true) {
             echo $isValid;
@@ -80,8 +80,8 @@ class ShiftTimeController extends AbstractActionController
                 throw new \Exception('数据插入错误');
             }
             
-            //如果此时已完成全部巡检点的巡检任务
-            //则将该次巡检标记为完成
+            //如果此时已完成全部巡逻点的巡逻任务
+            //则将该次巡逻标记为完成
             if ($this->ShiftTimePointManager->hasDoneAllPointsOnThisShiftTime($workyard_id, $shift_id, $shift_time_id)) {
                 $set= [
                     ShiftTimeEntity::FILED_STATUS => ShiftTimeManager::STATUS_DONE

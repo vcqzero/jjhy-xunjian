@@ -65,6 +65,12 @@ $paginator = $this->Workyard()->getPaginator($page, $where);
                 'title' => '编辑',
       		    'href' => '/workyard/editPage/'.$workyardID, //string
             ])?>
+            
+             <?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '删除',
+                'data_modal_open' => true,
+                 'data_modal_url' => '/workyard/deleteModal/'.$workyardID, //string
+            ])?>
             </div>
       		</td>
             </tr>
