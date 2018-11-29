@@ -24,7 +24,7 @@ class Module
     const ROUTE_CHANGE_PASSWORD = 'CHANGE_PASSWORD';
     
     //定义请求是那种类型
-    const REQUET_FROM_ADMIN_PC = 'xunjian';//来自pc端请求
+    const REQUET_FROM_ADMIN_PC = 'xunluo';//来自pc端请求
     const REQUET_FROM_GUARD_WEIXIN = 'guard';//来自微信端请求
     const REQUET_FROM_API = 'api';//请求api
     

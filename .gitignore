@@ -15,6 +15,7 @@ data/qrcode/*
 data/log/*
 !data/cache/.gitkeep
 *.bak
+/docs/private/
 
 
 
