@@ -36,7 +36,7 @@ class MyCurl
     public static function get($url, $data = null, $httpheaders=null)
     {
         if (! empty($data)) {
-            $url = $this->splitUrl($url, $data);
+            $url = self::splitUrl($url, $data);
         }
         // 初始化
         $curl = curl_init();
@@ -66,7 +66,7 @@ class MyCurl
      *            array $data
      * @return string $url
      */
-    public function splitUrl($oriUrl, array $data)
+    static public function splitUrl($oriUrl, array $data)
     {
         $array = [];
         foreach ($data as $key => $val) {

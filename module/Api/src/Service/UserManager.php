@@ -17,7 +17,7 @@ class UserManager
     
     private $super_admin_config;
     
-    const DEFUALT_PASSWORD = 'xunjian2018';
+    const DEFUALT_PASSWORD = '123456';
     const STATUS_ENABLED    = 'ENABLED';
     const STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD   = 'WAIT_CHANGE_PASSWORD_RESET_PASSWORD';
     const STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED   = 'WAIT_CHANGE_PASSWORD_NEW_CREATED';

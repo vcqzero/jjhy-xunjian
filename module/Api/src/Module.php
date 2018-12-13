@@ -214,19 +214,19 @@ class Module
         if ($isAllow && $hasIdentity)
         {
             //需要验证用户的status
-            $UserEntity = $this->getUserEntity();
-            $status = $UserEntity->getStatus();
-            //如果用户状态异常，进入相应页面
-            //进入重新修改页面
-            switch ($status)
-            {
-                case UserManager::STATUS_ENABLED:
-                    break;
-                case UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED:
-                case UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD:
-                default:
-                    return $this->setRoutMatch($routeMatch, self::ROUTE_CHANGE_PASSWORD);
-            }
+//             $UserEntity = $this->getUserEntity();
+//             $status = $UserEntity->getStatus();
+//             //如果用户状态异常，进入相应页面
+//             //进入重新修改页面
+//             switch ($status)
+//             {
+//                 case UserManager::STATUS_ENABLED:
+//                     break;
+//                 case UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED:
+//                 case UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD:
+//                 default:
+//                     return $this->setRoutMatch($routeMatch, self::ROUTE_CHANGE_PASSWORD);
+//             }
         }
     }
     

@@ -9,6 +9,7 @@
 namespace Api\Service\Server;
 
 use Zend\Cache\Storage\Adapter\Filesystem;
+use Api\Tool\MyCurl;
 
 class Weixiner
 {
@@ -54,10 +55,7 @@ class Weixiner
                 'grant_type'=> 'client_credential',
             ];
             
-            $res = \Zend\Http\ClientStatic::get($url, $data);
-            $res = $res->getContent();
-            $res = json_decode($res, true);
-            
+            $res = MyCurl::get($url, $data);
             if (!empty($res['errcode']))
             {
                 $errcode = $res['errcode'];
@@ -120,18 +118,16 @@ class Weixiner
         {
             $access_token = $this->getAccessToken();
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=$access_token&type=jsapi";
-            $res = \Zend\Http\ClientStatic::get($url);
-            $contet = $res->getContent();
-            $contet = json_decode($contet, true);
+            $res = MyCurl::get($url);
             
-            if (!empty($contet['errcode']))
+            if (!empty($res['errcode']))
             {
-                $errcode = $contet['errcode'];
-                $errmsg  = $contet['errmsg'];
+                $errcode = $res['errcode'];
+                $errmsg  = $res['errmsg'];
                 throw new \Exception("获取微信jspai_ticket 发生错误，错误代码为:$errcode, 错误信息：$errmsg");
             }
             
-            $jsapi_ticket= $contet['ticket'];
+            $jsapi_ticket= $res['ticket'];
             $Cache->setItem(self::CACHE_KEY_WEIXIN_JSAPI_TICKET, $jsapi_ticket);
         }
         return $jsapi_ticket;
