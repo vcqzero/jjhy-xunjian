@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2018-11-26 15:54:44
+Date: 2018-12-17 10:46:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,26 @@ CREATE TABLE `points` (
   `created` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`workyard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for registers
+-- ----------------------------
+DROP TABLE IF EXISTS `registers`;
+CREATE TABLE `registers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `workyard_name` varchar(255) NOT NULL DEFAULT '',
+  `workayrd_address` varchar(255) NOT NULL DEFAULT '',
+  `admin_openid` varchar(255) NOT NULL DEFAULT '',
+  `admin_realname` varchar(255) NOT NULL DEFAULT '',
+  `admin_tel` varchar(11) NOT NULL,
+  `created_at` int(255) unsigned NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `admin_username` varchar(255) NOT NULL DEFAULT '',
+  `admin_password` varchar(255) NOT NULL DEFAULT '',
+  `note` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for shifts
@@ -46,7 +65,7 @@ CREATE TABLE `shifts` (
   `created` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `workyard_id` (`workyard_id`,`start_time`,`end_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=425 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=431 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for shift_guard
@@ -58,7 +77,7 @@ CREATE TABLE `shift_guard` (
   `guard_id` int(255) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `shift_id` (`shift_id`,`guard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=618 DEFAULT CHARSET=utf8 COMMENT='规定巡检班次和保安人员的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=744 DEFAULT CHARSET=utf8 COMMENT='规定巡检班次和保安人员的关系';
 
 -- ----------------------------
 -- Table structure for shift_time
@@ -70,7 +89,7 @@ CREATE TABLE `shift_time` (
   `status` varchar(255) NOT NULL,
   `guard_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Table structure for shift_time_point
@@ -85,7 +104,7 @@ CREATE TABLE `shift_time_point` (
   `address_path` varchar(255) NOT NULL DEFAULT '' COMMENT '扫描巡检点时巡检员地理坐标',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`,`shift_time_id`,`point_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=577 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
+) ENGINE=InnoDB AUTO_INCREMENT=1816 DEFAULT CHARSET=utf8 COMMENT='定义保安巡检任务和该次巡检次数的关系';
 
 -- ----------------------------
 -- Table structure for shift_type
@@ -117,7 +136,7 @@ CREATE TABLE `users` (
   `role` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for workyards
@@ -131,4 +150,4 @@ CREATE TABLE `workyards` (
   `address_path` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;

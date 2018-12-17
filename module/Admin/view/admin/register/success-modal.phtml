@@ -1,0 +1,32 @@
+<?php 
+$id = $this->id;
+$token = $this->Token()->getToken();
+$Register = $this->Register()->getEntityById($id);
+?>
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label'  => 'id：',
+	    'value'  => $id,
+	])?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '管理员：',
+	    'name' => 'admin_username',
+	    'placeholder' => '请输入管理员',
+	    'type' => 'text',
+	])?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '管理员密码：',
+	    'name' => 'admin_password',
+	    'placeholder' => '请输入管理员密码',
+	    'type' => 'text',
+	])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?php $this->placeholder('formContent')->captureEnd() ?>
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName'      => 'RegisterSuccessPage',
+    'pageTitle'     => '注册成功',
+    'form_id'       => 'form-register-success',
+    'action'        => "/api/register/success/$id?token=$token",
+    'formContent'   => $this->placeholder('formContent'),
+])?> 

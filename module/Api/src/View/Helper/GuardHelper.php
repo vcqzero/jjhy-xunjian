@@ -28,6 +28,7 @@ class GuardHelper extends AbstractHelper
     {
         $where[UserEntity::FILED_WORKYARD_ID] = $workyard_id;
         $where[UserEntity::FILED_ROLE] = UserManager::ROLE_WORKYARD_GUARD;
+        $where[UserEntity::FILED_STATUS] = UserManager::STATUS_ENABLED;
         return $this->UserManager->MyOrm->paginator($page, $where);
     }
     /**
@@ -36,12 +37,13 @@ class GuardHelper extends AbstractHelper
     * @param  
     * @return        
     */
-    public function getEntitiesBy($workyard_id)
+    public function getEntitiesBy($workyard_id, $status=null)
     {
         $where = [
             UserEntity::FILED_WORKYARD_ID => $workyard_id,
             UserEntity::FILED_ROLE => UserManager::ROLE_WORKYARD_GUARD,
         ];
+        if(!empty($status)) $where[UserEntity::FILED_STATUS] = $status;
         $Guards = $this->UserManager->MyOrm->findAll($where);
         return $Guards;
     }
@@ -56,10 +58,12 @@ class GuardHelper extends AbstractHelper
     {
         $where = [
             UserEntity::FILED_WORKYARD_ID => $workyard_id,
-            UserEntity::FILED_ROLE => UserManager::ROLE_WORKYARD_GUARD
+            UserEntity::FILED_ROLE => UserManager::ROLE_WORKYARD_GUARD,
+            UserEntity::FILED_STATUS => UserManager::STATUS_ENABLED,
         ];
+        $status = UserManager::STATUS_ENABLED;
         $select2_config = [];
-        $GuardEntities = $this->getEntitiesBy($workyard_id);
+        $GuardEntities = $this->getEntitiesBy($workyard_id, $status);
         foreach ($GuardEntities as $GuardEntity)
         {
             $guard_id = $GuardEntity->getId();

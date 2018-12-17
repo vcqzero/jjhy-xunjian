@@ -1,0 +1,26 @@
+<?php 
+$userID     = $this->userID;
+$UserEntity = $this->User()->getEntity($userID);
+$status     = $UserEntity->getStatus();
+$realName   = $UserEntity->getRealName();
+$tel        = $UserEntity->getTel();
+// $email = $UserEntity->getEmail();
+$username   = $UserEntity->getUsername();
+$workyard_id   = $UserEntity->getWorkyard_id();
+
+$token = $this->Token()->getToken();
+?>
+
+<?php $this->placeholder('formContent')->captureStart();?>
+<p>巡逻员：<?=$username?></p>
+<p>确认离职 ?</p>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/modal/delete-modal.phtml', [
+    'pageName' => 'OffJobModal',
+    'pageTitle' => '离职',
+    'form_id'=>'form-off-job',
+    'action'=>"/api/user/offJob/$userID?token=$token",
+    'canDelete'=>true,
+    'formContent' => $this->placeholder('formContent'),
+])?>

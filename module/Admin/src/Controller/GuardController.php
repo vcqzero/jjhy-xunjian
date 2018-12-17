@@ -39,6 +39,12 @@ class GuardController extends AbstractActionController
         $this->layout()->setTemplate('layout/blank.phtml');
         return new ViewModel($this->params()->fromRoute());
     }
+    //goto edit page
+    public function offJobModalAction()
+    {
+        $this->layout()->setTemplate('layout/blank.phtml');
+        return new ViewModel($this->params()->fromRoute());
+    }
     
     //goto change password page
     public function resetPasswordModalAction()

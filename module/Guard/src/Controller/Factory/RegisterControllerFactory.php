@@ -1,18 +1,18 @@
 <?php
-namespace Admin\Controller\Factory;
+namespace Guard\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Admin\Controller\IndexController;
+use Guard\Controller\RegisterController;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
  * controller and inject dependencies into it.
  */
-class IndexControllerFactory implements FactoryInterface
+class RegisterControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new IndexController();
+        return new RegisterController();
     }
 }

@@ -41,6 +41,8 @@ requirejs.config({
 		//Account
 		AccountIndexPage: 'pages/Account/AccountIndexPage',
 		ChangePasswordPage: 'pages/Account/ChangePasswordPage',
+		//workyard
+		RegisterPage: 'pages/Workyard/RegisterPage',
 	},
 
 	//定义不同js的依赖关系

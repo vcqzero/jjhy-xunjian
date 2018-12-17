@@ -1,0 +1,9 @@
+<?php
+$openid = $this->openid;
+$Register = $this->Register()->getEntityByOpenid($openid);
+?>
+<?php if($Register == false):?>
+<?=$this->partial('guard/register/register', ['openid'=>$openid])?>
+<?php else :?>
+<?=$this->partial('guard/register/view', ['Register'=>$Register])?>
+<?php endif;?>

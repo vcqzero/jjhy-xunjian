@@ -49,6 +49,7 @@ requirejs.config({
 		//Guard
 		GuardAddModal : 'pages/Guard/GuardAddModal',
 		GuardEditModal : 'pages/Guard/GuardEditModal',
+		OffJobModal : 'pages/Guard/OffJobModal',
 		
 		//Point
 		PointListPage : 'pages/Point/PointListPage',
@@ -84,6 +85,10 @@ requirejs.config({
 		WorkyardEditPage:'pages/Workyard/WorkyardEditPage',
 		WorkyardDetailModal:'pages/Workyard/WorkyardDetailModal',
 		WorkyardDeletePage:'pages/Workyard/WorkyardDeletePage',
+		//Register
+		RegisterSuccessPage:'pages/Register/RegisterSuccessPage',
+		RegisterListPage:'pages/Register/RegisterListPage',
+		RegisterRefusePage:'pages/Register/RegisterRefusePage',
 	},
 
 	//定义不同js的依赖关系

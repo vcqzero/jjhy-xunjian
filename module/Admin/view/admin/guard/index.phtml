@@ -51,6 +51,11 @@ $paginator = $this->Guard()->getPaginator($workyard_id, $page, $where);
                 'data_modal_open' => true,
       		    'data_modal_url' => '/guard/resetPasswordModal/'.$userID, //string
             ])?>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '离职',
+                'data_modal_open' => true,
+      		    'data_modal_url' => '/guard/offJobModal/'.$userID, //string
+            ])?>
             </div>
       		</td>
             </tr>

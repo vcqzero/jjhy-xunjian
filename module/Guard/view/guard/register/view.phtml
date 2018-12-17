@@ -1,0 +1,105 @@
+<?php
+use Api\Service\RegisterManager;
+
+$title = $this->Website()->getTitle();
+$Register = $this->Register;
+$id             = $Register->getId();
+$workyard_name  = $Register->getWorkyard_name();
+$workyard_address     = $Register->getWorkayrd_address();
+$admin_realname       = $Register->getAdmin_realname();
+$admin_tel          = $Register->getAdmin_tel();
+$created_at         = $Register->getCreated_at();
+$status             = $Register->getStatus();
+$username = $Register->getAdmin_username();
+$password = $Register->getAdmin_password();
+$openid = $Register->getAdmin_openid();
+switch ($status)
+{
+    case RegisterManager::STATUS_APPLIYING:
+        $status_desc = '申请中';
+        break;
+    case RegisterManager::STATUS_REFUSED:
+        $status_desc = '注册失败';
+        break;
+    case RegisterManager::STATUS_SUCCESS:
+        $status_desc = '注册成功';
+        break;
+}
+?>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <?=$this->headTitle("工地注册-$title") ?>
+
+    <?=$this->partial('layout/weixin/css/css.phtml')?>
+</head>
+<body ontouchstart="">
+	<div class="container">
+		<div class="page" data-name="RegisterPage">
+			<header class='demos-header'>
+				<h2 class="demos-title">工地注册</h2>
+			</header>
+			<div class="weui-form-preview">
+				<div class="weui-form-preview__hd">
+					<label class="weui-form-preview__label">状态</label> <em
+						class="weui-form-preview__value"><?=$status_desc?></em>
+				</div>
+				<div class="weui-form-preview__bd">
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">工地名称</label> <span
+							class="weui-form-preview__value"><?=$workyard_name?></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">工地地址</label> <span
+							class="weui-form-preview__value"><?=$workyard_address?></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">申请人</label> <span
+							class="weui-form-preview__value"><?=$admin_realname?></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">申请人电话</label> <span
+							class="weui-form-preview__value"><?=$admin_tel?></span>
+					</div>
+					<div class="weui-form-preview__item">
+						<label class="weui-form-preview__label">申请时间</label> <span
+							class="weui-form-preview__value"><?=date('Y-m-d H:i:s', $created_at)?></span>
+					</div>
+				</div>
+				<?php if($status == RegisterManager::STATUS_REFUSED):?>
+				<div class="weui-form-preview__ft">
+					<a class="weui-form-preview__btn weui-form-preview__btn_primary"
+						href="/register?openid=<?=$openid?>">重新申请</a>
+				</div>
+				<?php endif;?>
+			</div>
+			<?php if($status == RegisterManager::STATUS_SUCCESS):?>
+				<div class="weui-cells__title">请登录一下地址，根据用户名和密码进行登录</div>
+				<div class="weui-form-preview">
+    				<div class="weui-form-preview__bd">
+    					<div class="weui-form-preview__item">
+    						<label class="weui-form-preview__label">登录地址</label> <span
+    							class="weui-form-preview__value">http://xunluo.jjhycom.cn</span>
+    					</div>
+    					<div class="weui-form-preview__item">
+    						<label class="weui-form-preview__label">登录用户名</label> <span
+    							class="weui-form-preview__value"><?=$username?></span>
+    					</div>
+    					<div class="weui-form-preview__item">
+    						<label class="weui-form-preview__label">登录密码</label> <span
+    							class="weui-form-preview__value"><?=$password?></span>
+    					</div>
+    				</div>
+				</div>
+			<?php endif;?>
+		</div>
+	</div>
+	<?=$this->partial('layout/weixin/js/init.phtml')?>
+</body>
+</html>

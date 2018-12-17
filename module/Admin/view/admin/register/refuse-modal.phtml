@@ -1,0 +1,26 @@
+<?php 
+$id = $this->id;
+$token = $this->Token()->getToken();
+$Register = $this->Register()->getEntityById($id);
+?>
+<?php $this->placeholder('formContent')->captureStart();?>
+	<?=$this->partial('partial/admin/form/input/input-static.phtml', [
+        'label'  => 'id：',
+	    'value'  => $id,
+	])?>
+	<?=$this->partial('partial/admin/form/input/input.phtml', [
+	    'label' => '拒绝原因：',
+	    'name' => 'note',
+	    'placeholder' => '请输入拒绝原因',
+	    'type' => 'text',
+	])?>
+<?php $this->placeholder('formContent')->captureEnd() ?>
+
+<?php $this->placeholder('formContent')->captureEnd() ?>
+<?=$this->partial('partial/admin/page/modal/form-modal.phtml', [
+    'pageName'      => 'RegisterRefusePage',
+    'pageTitle'     => '拒绝注册',
+    'form_id'       => 'form-register-refuse',
+    'action'        => "/api/register/refuse/$id?token=$token",
+    'formContent'   => $this->placeholder('formContent'),
+])?> 

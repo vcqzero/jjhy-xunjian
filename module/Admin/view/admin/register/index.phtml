@@ -1,0 +1,94 @@
+<?php 
+use Api\Service\RegisterManager;
+
+$where     = $this->where;
+$page      = $this->page;
+$where['status'] = RegisterManager::STATUS_APPLIYING;
+$paginator = $this->Register()->getPaginator($page, $where);
+?>
+<?php $this->placeholder('buttonGroup')->captureStart();?>
+<?=$this->partial('partial/admin/button/link.phtml', [
+    'type'  => 'primary',
+    'title' => '新增',
+    'href' => '/workyard/addPage'
+])?>
+<?php $this->placeholder('buttonGroup')->captureEnd() ?>
+
+<?php $this->placeholder('searchContent')->captureStart();?>
+
+<?=$this->partial('partial/admin/form/input/input.phtml', [
+    'label' => '用户名：',
+    'name' => 'username',
+    'value' => '',
+    'placeholder' => '用户名搜索',
+    'type' => 'text'
+])?>
+
+<?=$this->partial('partial/admin/form/select/user/select-status.phtml', [
+    'selectedId'  => null,
+    'withDefualt' => true,
+ ])?>
+ 
+<?php $this->placeholder('searchContent')->captureEnd() ?>
+
+<?php $this->placeholder('table')->captureStart();?>
+<table class="table table-striped jambo_table">
+    <thead>
+        <tr>
+          <th class="">id</th>
+          <th >工地名称</th>
+          <th >具体地址</th>
+          <th >联系人</th>
+          <th >联系人电话</th>
+          <th >申请时间</th>
+          <th class="">操作</th>
+    	</tr>
+    </thead>
+      <tbody>
+      	<?php if (count($paginator)) :?>
+      		<?php foreach ($paginator as $Entity):?>
+      		<?php 
+      		$id = $Entity->getId();
+      		$workyard_name= $Entity->getWorkyard_name();
+      		$workyard_address     = $Entity->getWorkayrd_address();
+      		$admin_realname       = $Entity->getAdmin_realname();
+      		$admin_tel       = $Entity->getAdmin_tel();
+      		$created_at = $Entity->getCreated_at();
+      		?>
+      		<tr>
+      		<td><?=$id?></td>
+      		<td><?=$workyard_name?></td>
+      		<td><?=$workyard_address?></td>
+      		<td><?=$admin_realname?></td>
+      		<td><?=$admin_tel?></td>
+      		<td><?=date('Y-m-d H:i:s', $created_at)?></td>
+      		<td>
+      		<div class="btn-group  btn-group-sm">
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '注册成功',
+      		    'data_modal_open' => true,
+      		    'data_modal_url' => '/register/successModal/'.$id, //string
+            ])?>
+      		<?=$this->partial('partial/admin/button/single.phtml', [
+                'title' => '拒绝注册',
+      		    'data_modal_open' => true,
+      		    'data_modal_url' => '/register/refuseModal/'.$id, //string
+            ])?>
+            </div>
+      		</td>
+            </tr>
+      		<?php endforeach;?>
+      	<?php endif;?>
+      </tbody>
+</table>
+<?php $this->placeholder('table')->captureEnd() ?>
+
+<?=$this->partial('partial/admin/page/page/table-page.phtml', [
+    'pageName'      => 'RegisterListPage',
+    'pageTitle'     => '工地注册',
+    'paginator'     => $paginator,
+    'search'        => $where,
+    'buttonGroup'   => '列表',
+//     'searchContent' => $this->placeholder('searchContent'),
+    'table'         => $this->placeholder('table'),
+])?>

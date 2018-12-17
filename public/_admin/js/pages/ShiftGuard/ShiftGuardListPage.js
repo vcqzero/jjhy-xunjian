@@ -11,9 +11,9 @@ define(
 				ranges: {
 					'今天': [moment(), moment()],
 //					'昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-					'最近7天': [moment(), moment().add(6, 'days')],
-//					'最近30天': [moment().add(29, 'days'), moment()],
-					'本月': [moment(), moment().endOf('month')],
+					'最近7天': [moment().subtract(6, 'days'), moment()],
+//					'最近30天': [moment().subtract(29, 'days'), moment()],
+					'本月': [moment().startOf('month') , moment()],
 //					'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 				},
 				alwaysShowCalendars: true,

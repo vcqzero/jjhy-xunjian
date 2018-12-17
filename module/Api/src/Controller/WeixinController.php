@@ -8,6 +8,8 @@ use Api\Service\Server\Weixiner;
 class WeixinController extends AbstractActionController
 {
     private $Weixiner;
+    const STATE_REGISTER = 'REGISTER';
+    
     public function __construct(
         Weixiner $Weixiner
         )
@@ -36,5 +38,35 @@ class WeixinController extends AbstractActionController
         $config = $this->Weixiner->getWxConfig($url);
         echo json_encode($config);
         exit();
+    }
+    
+    public function oauthAction()
+    {
+        $code = $this->params()->fromQuery('code');
+        $state= $this->params()->fromQuery('state');
+        $openid = $this->Weixiner->getOpenid($code);
+        $host = $_SERVER['HTTP_HOST'];
+        switch ($state)
+        {
+            case self::STATE_REGISTER :
+                $route = "$host/register";
+                break;
+            default:
+                // DEBUG INFORMATION START
+                echo '------debug start------<br/>';
+                echo "<pre>";
+                var_dump(__METHOD__ . ' on line: ' . __LINE__);
+                var_dump($openid);
+                echo "</pre>";
+                exit('------debug end------');
+                // DEBUG INFORMATION END
+        }
+        
+        $this->redirect()->toRoute($route, ['action'=>'index'], [
+            'query'=>[
+                'openid'=>$openid
+            ],
+            ]);
+        return $this->getResponse();//disable return view 
     }
 }

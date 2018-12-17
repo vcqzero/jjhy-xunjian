@@ -132,5 +132,30 @@ class Weixiner
         }
         return $jsapi_ticket;
     }
+    
+    /**
+    * 获取用户openid
+    * 静默方式
+    * 
+    * @param string $code 
+    * @return string $openid       
+    */
+    public function getOpenid($code)
+    {
+        $appid  = $this->appid;
+        $secret = $this->secret;
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+        $res = MyCurl::get($url);
+        
+        if (!empty($res['errcode']))
+        {
+            $errcode = $res['errcode'];
+            $errmsg  = $res['errmsg'];
+            throw new \Exception("获取微信openid 发生错误，错误代码为:$errcode, 错误信息：$errmsg");
+        }
+        
+        $openid= $res['openid'];
+        return $openid;
+    }
 }
 

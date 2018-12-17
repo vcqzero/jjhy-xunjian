@@ -15,7 +15,11 @@ $narbars  = $this->Navbar()->getNavbar($role);
                 <ul class="nav child_menu">
                 	<?php foreach ($menus['menus'] as $key=>$menu):?>
                 	<?php if ($key > 0) :?>
+                		<?php if(!empty($menu['target'])):?>
+                		<li><a href="<?=$menu['url']?>" target="<?=$menu['target']?>"><?=$menu['title']?></a></li>
+                		<?php else :?>
                 		<li><a href="<?=$menu['url']?>"><?=$menu['title']?></a></li>
+                		<?php endif;?>
             		<?php endif;?>
                 	<?php endforeach;?>
                 </ul>

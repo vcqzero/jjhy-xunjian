@@ -76,7 +76,7 @@ class UserController extends AbstractActionController
                 break;
         }
         $values[UserEntity::FILED_PASSWORD] = $password_hash;
-        $values[UserEntity::FILED_STATUS] = UserManager::STATUS_WAIT_CHANGE_PASSWORD_NEW_CREATED;
+        $values[UserEntity::FILED_STATUS] = UserManager::STATUS_ENABLED;
 //         $values[UserEntity::FILED_INITIAL_PASSWORD] = $password;
         
         //过滤表单
@@ -143,9 +143,25 @@ class UserController extends AbstractActionController
         $password_hash  = $this->UserManager->password_hash($password);
         $values = [
             UserEntity::FILED_PASSWORD  => $password_hash,
-            UserEntity::FILED_STATUS    => UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD
+//             UserEntity::FILED_STATUS    => UserManager::STATUS_WAIT_CHANGE_PASSWORD_RESET_PASSWORD
         ];
         
+        $res = $this->UserManager->MyOrm->update($userID, $values);
+        $this->AjaxPlugin->success($res);
+    }
+    
+    public function offJobAction()
+    {
+        $token  = $this->params()->fromQuery('token');
+        if (!$this->Token()->isValid($token))
+        {
+            $this->ajax()->success(false);
+        }
+        $userID = $this->params()->fromRoute('userID', 0);
+        //执行增加操作
+        $values = [
+            'status'=> UserManager::STATUS_OFF_JOB
+        ];
         $res = $this->UserManager->MyOrm->update($userID, $values);
         $this->AjaxPlugin->success($res);
     }

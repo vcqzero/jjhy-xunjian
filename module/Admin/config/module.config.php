@@ -11,10 +11,10 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "xunluo.tanhansi.com" => [
+            "xunluo.jjhycom.cn" => [
                 'type' => Hostname::class,
                 'options' => [
-                    'route' => ':subdomain.tanhansi.com',
+                    'route' => ':subdomain.jjhycom.cn',
                     'constraints' => [
                         'subdomain' => 'xunluo'
                     ],
@@ -67,7 +67,7 @@ return [
                         ],
                     ],
                     
-                    //工地巡逻员
+                    //工地巡检员
                     'guard' => [
                         'type'    => Segment::class,
                         'options' => [
@@ -129,7 +129,7 @@ return [
                         ],
                     ],
                     
-                    //巡逻点管理
+                    //巡检点管理
                     'point' => [
                         'type'    => Segment::class,
                         'options' => [
@@ -187,6 +187,21 @@ return [
                             ],
                         ],
                     ],
+			
+		    'register' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/register[/:action][/:id]',
+                            'constraints' => [//设置router规则
+                                'action' => '[a-zA-Z][a-zA-Z0-9]*',//字母和数字组成 字母开头
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RegisterController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+
                     
                 ],//child_routes end
             ],//admin route end
@@ -205,6 +220,7 @@ return [
             Controller\ShiftTypeController::class=> Controller\Factory\ShiftTypeControllerFactory::class,
             Controller\ShiftController::class=> Controller\Factory\ShiftControllerFactory::class,
             Controller\ShiftGuardController::class=> Controller\Factory\ShiftGuardControllerFactory::class,
+	    Controller\RegisterController::class=> Controller\Factory\RegisterControllerFactory::class,
         ],
         
     ],
@@ -275,6 +291,12 @@ return [
                 UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
+	Controller\RegisterController::class => [
+            'allow'=> [
+                UserManager::ROLE_SUPER_ADMIN,
+            ],
+        ],
+
     ],
     
     'view_helpers' => [

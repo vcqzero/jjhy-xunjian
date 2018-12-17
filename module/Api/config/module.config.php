@@ -154,6 +154,17 @@ return [
                 ],
             ],
             
+            'api/register' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/api/register[/:action][/:id]',
+                    'defaults' => [
+                        'controller' => Controller\RegisterController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            
         ],
     ],
     
@@ -168,6 +179,7 @@ return [
             Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
             Controller\ShiftTimeController::class => Controller\Factory\ShiftTimeControllerFactory::class,
             Controller\WeixinController::class => Controller\Factory\WeixinControllerFactory::class,
+            Controller\RegisterController::class => Controller\Factory\RegisterControllerFactory::class,
         ],
     ],
     'permission' => [
@@ -225,9 +237,16 @@ return [
         
         Controller\WeixinController::class => [
             'allow'=> [
+                UserManager::ROLE_GUEST,
                 UserManager::ROLE_SUPER_ADMIN,
                 UserManager::ROLE_WORKYARD_ADMIN,
                 UserManager::ROLE_WORKYARD_GUARD,
+            ],
+        ],
+        Controller\RegisterController::class => [
+            'allow'=> [
+                UserManager::ROLE_GUEST,
+                UserManager::ROLE_SUPER_ADMIN,
             ],
         ],
     ],
@@ -278,6 +297,7 @@ return [
             Service\ShiftGuardManager::class   => Service\Factory\ShiftGuardManagerFactory::class,
             Service\ShiftTimeManager::class   => Service\Factory\ShiftTimeManagerFactory::class,
             Service\ShiftTimePointManager::class   => Service\Factory\ShiftTimePointManagerFactory::class,
+            Service\RegisterManager::class   => Service\Factory\RegisterManagerFactory::class,
 			
 			//view helper
 			View\Helper\UserHelper::class => View\Helper\Factory\UserHelperFactory::class,
@@ -313,6 +333,7 @@ return [
             View\Helper\ShiftTimePointHelper::class => View\Helper\Factory\ShiftTimePointHelperFactory::class,
             View\Helper\ShiftGuardHelper::class => View\Helper\Factory\ShiftGuardHelperFactory::class,
             View\Helper\TokenHelper::class => View\Helper\Factory\TokenHelperFactory::class,
+            View\Helper\RegisterHelper::class => View\Helper\Factory\RegisterHelperFactory::class,
         ],
         
         'aliases' => [
@@ -327,6 +348,7 @@ return [
             'ShiftTimePoint'    => View\Helper\ShiftTimePointHelper::class,
             'ShiftGuard'    => View\Helper\ShiftGuardHelper::class,
             'Token'    => View\Helper\TokenHelper::class,
+            'Register'    => View\Helper\RegisterHelper::class,
         ],
     ],
     

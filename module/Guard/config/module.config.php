@@ -12,10 +12,10 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "guard.tanhansi.com" => [
+            "guard.jjhycom.cn" => [
                 'type' => Hostname::class,
                 'options' => [
-                    'route' => ':subdomain.tanhansi.com',
+                    'route' => ':subdomain.jjhycom.cn',
                     'constraints' => [
                         'subdomain' => 'guard'
                     ],
@@ -59,7 +59,7 @@ return [
                         ],
                     ],
                     
-                    //巡逻
+                    //巡检
                     'shiftTime' => [
                         'type'    => Segment::class,
                         'options' => [
@@ -83,6 +83,17 @@ return [
                         ],
                     ],
                     
+                    'register' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/register[/:action]',
+                            'defaults' => [
+                                'controller' => Controller\RegisterController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
+                    
                 ],//child_routes end
             ],//admin route end
         ],
@@ -94,6 +105,7 @@ return [
             Controller\ShiftController::class => Controller\Factory\ShiftControllerFactory::class,
             Controller\AccountController::class => Controller\Factory\AccountControllerFactory::class,
             Controller\ShiftTimeController::class => Controller\Factory\ShiftTimeControllerFactory::class,
+            Controller\RegisterController::class => Controller\Factory\RegisterControllerFactory::class,
         ],
         
     ],
@@ -128,6 +140,12 @@ return [
             'allow'=> [
                 UserManager::ROLE_WORKYARD_GUARD,
                 UserManager::ROLE_WORKYARD_ADMIN,
+            ],
+        ],
+        Controller\RegisterController::class => [
+            'allow'=> [
+                UserManager::ROLE_GUEST,
+//                 UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
     ],

@@ -104,6 +104,30 @@ class NavbarHelper extends AbstractHelper
                         2=>[
                             'title'=> '新增/编辑工地',
                             'url' => '/workyard/addPage',
+                            'target'=>'_blank',
+                            'allow' => [UserManager::ROLE_SUPER_ADMIN],
+                        ],
+                    ]
+                ],
+                
+                '申请注册'=> [
+                    'icon'  => 'fa fa-pencil',
+                    'menus' => [
+                        1=>[
+                            'title'=> '等待注册',
+                            'url' => '/register',
+                            'allow' => [UserManager::ROLE_SUPER_ADMIN],
+                        ],
+                        
+                        2=>[
+                            'title'=> '注册成功',
+                            'url' => '/register/success',
+                            'allow' => [UserManager::ROLE_SUPER_ADMIN],
+                        ],
+                        
+                        3=>[
+                            'title'=> '注册失败',
+                            'url' => '/register/refuse',
                             'allow' => [UserManager::ROLE_SUPER_ADMIN],
                         ],
                     ]
