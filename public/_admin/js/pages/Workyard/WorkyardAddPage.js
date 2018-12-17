@@ -10,6 +10,9 @@ define(
 					var mouseTool = new AMap.MouseTool(mapObj)
 					var _input = $('input[name="address_path"]')
 					$('#button-mouse-draw-start').on('click', function() {
+						_input.val('')
+						mapObj.clearMap()
+						
 						mouseTool.polygon({
 							strokeColor: "#FF33FF",
 							strokeOpacity: 1,

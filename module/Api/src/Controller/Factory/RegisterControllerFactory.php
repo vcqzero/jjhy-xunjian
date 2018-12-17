@@ -8,6 +8,8 @@ use Api\Controller\Plugin\AuthPlugin;
 use Api\Controller\Plugin\AjaxPlugin;
 use Api\Controller\RegisterController;
 use Api\Service\RegisterManager;
+use Api\Service\WorkyardManager;
+use Api\Service\UserManager;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -20,7 +22,9 @@ class RegisterControllerFactory implements FactoryInterface
         return new RegisterController(
             $container->get(AuthPlugin::class),
             $container->get(AjaxPlugin::class),
-            $container->get(RegisterManager::class)
+            $container->get(RegisterManager::class),
+            $container->get(WorkyardManager::class),
+            $container->get(UserManager::class)
             );
     }
 }

@@ -12,10 +12,10 @@ return [
     'router' => [
         'routes' => [
             //以下路由只有在规定的域名下才会匹配
-            "guard.jjhycom.cn" => [
+            "guard.tanhansi.com" => [
                 'type' => Hostname::class,
                 'options' => [
-                    'route' => ':subdomain.jjhycom.cn',
+                    'route' => ':subdomain.tanhansi.com',
                     'constraints' => [
                         'subdomain' => 'guard'
                     ],
