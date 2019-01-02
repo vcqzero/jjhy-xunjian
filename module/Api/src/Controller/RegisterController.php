@@ -46,6 +46,10 @@ class RegisterController extends AbstractActionController
         $values = $this->RegisterManager->FormFilter->getFilterValues($values);
         //save
         $res = $this->RegisterManager->MyOrm->insert($values);
+        if($res) {
+            $id = $this->RegisterManager->MyOrm->getLastInsertId();
+            $this->RegisterManager->sentMsgToAdmin($id);
+        }
         $this->ajax()->success($res);
     }
     

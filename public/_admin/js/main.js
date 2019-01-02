@@ -39,6 +39,7 @@ requirejs.config({
 		
 		//account
 		AccountChangePasswordPage : 'pages/Account/AccountChangePasswordPage',
+		AccountWorkyardEditPage : 'pages/Account/AccountWorkyardEditPage',
 		
 		//Users
 		UserListPage : 'pages/User/UserListPage',

@@ -76,6 +76,11 @@ class NavbarHelper extends AbstractHelper
                             'url' => '/',
                             'allow' => [UserManager::ROLE_SUPER_ADMIN, UserManager::ROLE_WORKYARD_ADMIN],
                         ],
+                        2=>[
+                            'title'=> '管理工地',
+                            'url' => '/account/editWorkyard',
+                            'allow' => [UserManager::ROLE_WORKYARD_ADMIN],
+                        ],
                     ]
                 ],
             ],

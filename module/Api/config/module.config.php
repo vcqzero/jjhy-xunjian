@@ -212,6 +212,7 @@ return [
         Controller\WorkyardController::class => [
             'allow'=> [
                 UserManager::ROLE_SUPER_ADMIN,
+				UserManager::ROLE_WORKYARD_ADMIN,
             ],
         ],
         Controller\ShiftTypeController::class => [

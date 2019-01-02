@@ -36,13 +36,13 @@ $paginator = $this->Register()->getPaginator($page, $where);
     <thead>
         <tr>
           <th class="">id</th>
-          <th >工地名称</th>
-          <th >具体地址</th>
-          <th >联系人</th>
-          <th >联系人电话</th>
+          <th >项目名称</th>
+          <th >项目地址</th>
+          <th >管理员姓名</th>
+          <th >管理员电话</th>
           <th >申请时间</th>
-          <th >管理员</th>
-          <th >管理员密码</th>
+          <th >登录-账户</th>
+          <th >登录-密码</th>
     	</tr>
     </thead>
       <tbody>
@@ -76,7 +76,7 @@ $paginator = $this->Register()->getPaginator($page, $where);
 
 <?=$this->partial('partial/admin/page/page/table-page.phtml', [
     'pageName'      => 'RegisterListPage',
-    'pageTitle'     => '工地注册-注册成功',
+    'pageTitle'     => '项目注册-注册成功',
     'paginator'     => $paginator,
     'search'        => $where,
     'buttonGroup'   => '列表',

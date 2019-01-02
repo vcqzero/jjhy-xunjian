@@ -12,7 +12,7 @@ $openid = $this->openid;
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
-    <?=$this->headTitle("工地注册-$title") ?>
+    <?=$this->headTitle("项目注册-$title") ?>
 
     <?=$this->partial('layout/weixin/css/css.phtml')?>
 </head>
@@ -20,7 +20,7 @@ $openid = $this->openid;
 	<div class="container"> 
 		<div class="page" data-name="RegisterPage">
     	<header class='demos-header'>
-    		<h2 class="demos-title">工地注册</h2>
+    		<h2 class="demos-title">项目注册</h2>
     	</header>
     	<form 
     	action="/api/register?token=<?=$token?>" 
@@ -28,28 +28,28 @@ $openid = $this->openid;
     	id="form-register"
     	method="post"
     	>
-    		<div class="weui-cells__title">工地信息</div>
+    		<div class="weui-cells__title">项目信息</div>
         	<div class="weui-cells ">
         		<?=$this->partial('partial/weixin/form/input/input.phtml', [
                     'name'=>'workyard_name',
-                    'placeholder'=>'工地名称',
+                    'placeholder'=>'项目名称',
                   ]);?>
                   
         		<?=$this->partial('partial/weixin/form/input/input.phtml', [
                     'name'=>'workayrd_address',
-                    'placeholder'=>'工地地址',
+                    'placeholder'=>'项目地址',
                   ]);?>
         	</div>
     		<div class="weui-cells__title">工地联系人</div>
         	<div class="weui-cells ">
         		<?=$this->partial('partial/weixin/form/input/input.phtml', [
                     'name'=>'admin_realname',
-                    'placeholder'=>'联系人姓名',
+                    'placeholder'=>'管理员姓名',
                   ]);?>
                   
         		<?=$this->partial('partial/weixin/form/input/input.phtml', [
                     'name'=>'admin_tel',
-                    'placeholder'=>'联系人电话',
+                    'placeholder'=>'管理员电话',
                   ]);?>
         	</div>
         	<input type="hidden" name="admin_openid" value="<?=$openid?>">

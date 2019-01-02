@@ -29,4 +29,9 @@ class AccountController extends AbstractActionController
         ]);
     }
     
+    public function editWorkyardAction()
+    {
+        return new ViewModel([
+        ]);
+    }
 }

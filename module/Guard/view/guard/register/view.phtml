@@ -35,7 +35,7 @@ switch ($status)
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
-    <?=$this->headTitle("工地注册-$title") ?>
+    <?=$this->headTitle("项目注册-$title") ?>
 
     <?=$this->partial('layout/weixin/css/css.phtml')?>
 </head>
@@ -43,7 +43,7 @@ switch ($status)
 	<div class="container">
 		<div class="page" data-name="RegisterPage">
 			<header class='demos-header'>
-				<h2 class="demos-title">工地注册</h2>
+				<h2 class="demos-title">项目注册</h2>
 			</header>
 			<div class="weui-form-preview">
 				<div class="weui-form-preview__hd">
@@ -52,19 +52,19 @@ switch ($status)
 				</div>
 				<div class="weui-form-preview__bd">
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">工地名称</label> <span
+						<label class="weui-form-preview__label">项目名称</label> <span
 							class="weui-form-preview__value"><?=$workyard_name?></span>
 					</div>
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">工地地址</label> <span
+						<label class="weui-form-preview__label">项目地址</label> <span
 							class="weui-form-preview__value"><?=$workyard_address?></span>
 					</div>
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">申请人</label> <span
+						<label class="weui-form-preview__label">管理员姓名</label> <span
 							class="weui-form-preview__value"><?=$admin_realname?></span>
 					</div>
 					<div class="weui-form-preview__item">
-						<label class="weui-form-preview__label">申请人电话</label> <span
+						<label class="weui-form-preview__label">管理员电话</label> <span
 							class="weui-form-preview__value"><?=$admin_tel?></span>
 					</div>
 					<div class="weui-form-preview__item">
@@ -75,12 +75,12 @@ switch ($status)
 				<?php if($status == RegisterManager::STATUS_REFUSED):?>
 				<div class="weui-form-preview__ft">
 					<a class="weui-form-preview__btn weui-form-preview__btn_primary"
-						href="/register?openid=<?=$openid?>">重新申请</a>
+						href="/register/register?openid=<?=$openid?>">重新申请</a>
 				</div>
 				<?php endif;?>
 			</div>
 			<?php if($status == RegisterManager::STATUS_SUCCESS):?>
-				<div class="weui-cells__title">请登录一下地址，根据用户名和密码进行登录</div>
+				<div class="weui-cells__title">登录以下地址，访问工地巡逻安保管理系统</div>
 				<div class="weui-form-preview">
     				<div class="weui-form-preview__bd">
     					<div class="weui-form-preview__item">
